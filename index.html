@@ -4605,6 +4605,37 @@ body.scroll-climber-entered .moving-climber{
 }
 </style>
 
+
+<style id="smooth-climber-handoff-v2">
+/* Übergang vom Plattform-Kletterer zum Scroll-Kletterer:
+   kurze Überblendung statt abruptem Austausch */
+.hero-walker{
+  will-change:transform,opacity;
+}
+body.scroll-climber-entered .moving-climber{
+  visibility:visible!important;
+  transition:opacity .26s ease, transform .26s ease!important;
+}
+body.scroll-climber-handoff .moving-climber{
+  opacity:0!important;
+  transform:translateX(3px) scale(.97)!important;
+}
+body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
+  opacity:1!important;
+  transform:translateX(0) scale(1)!important;
+}
+.hero-walker.handoff-fade{
+  opacity:0!important;
+  transition:opacity .28s ease, transform .28s ease!important;
+  transform:translateX(calc(min(325px,35vw) - 43px)) translateY(10px) rotate(7deg) scale(.96)!important;
+}
+@media(max-width:700px){
+  .hero-walker.handoff-fade{
+    transform:translateX(137px) translateY(8px) rotate(7deg) scale(.96)!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -5992,21 +6023,30 @@ document.addEventListener('DOMContentLoaded', function(){
             const walkerRect = walker.getBoundingClientRect();
             const trackRect = track.getBoundingClientRect();
 
-            /* .moving-climber nutzt top als Mittelpunkt.
-               Deshalb übernehmen wir exakt die Mitte der Einstiegsfigur. */
             const handoffTop =
               (walkerRect.top + walkerRect.height / 2) - trackRect.top;
 
             window.setScrollClimberHandoff(handoffTop);
           }
 
+          /* Scroll-Kletterer zuerst unsichtbar exakt an die gleiche Stelle setzen */
           document.body.classList.add('scroll-climber-entered');
+          document.body.classList.add('scroll-climber-handoff');
 
+          /* dann beide Figuren für einen kurzen Moment überlagern */
           requestAnimationFrame(() => {
-            walker.style.display = 'none';
-            scene.style.display = 'none';
+            requestAnimationFrame(() => {
+              walker.classList.add('handoff-fade');
+              document.body.classList.remove('scroll-climber-handoff');
+
+              /* Plattformfigur erst nach der Überblendung entfernen */
+              setTimeout(() => {
+                walker.style.display = 'none';
+                scene.style.display = 'none';
+              }, 300);
+            });
           });
-        }, 600);
+        }, 540);
       }, 2300);
     }, 3700);
   }
