@@ -4794,6 +4794,43 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
   }
 }
 </style>
+
+<style id="intro-platform-above-text-v2">
+/* Plattform im Intro klar ÜBER der Schrift platzieren */
+#siteIntro .intro-landing-platform{
+  top:170px !important;
+}
+
+/* Kletterer passend auf die höher gesetzte Plattform */
+#siteIntro .intro-climber{
+  top:50px !important;
+}
+
+/* Intro-Schrift bleibt darunter */
+#siteIntro .intro-title,
+#siteIntro .intro-sub,
+#siteIntro .intro-line{
+  position:relative;
+  z-index:3 !important;
+}
+
+#siteIntro .intro-landing-platform{
+  z-index:6 !important;
+}
+#siteIntro .intro-climber{
+  z-index:7 !important;
+}
+
+@media(max-width:600px){
+  #siteIntro .intro-landing-platform{
+    top:155px !important;
+  }
+  #siteIntro .intro-climber{
+    top:42px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 
