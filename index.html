@@ -6343,6 +6343,52 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
 }
 </style>
 
+
+<style id="hero-title-smaller-top-left-v1">
+/* Titelbild: Schrift kompakter und weiter nach links/oben */
+#home .hero-content{
+  align-items:flex-start !important;
+  text-align:left !important;
+  padding-left:clamp(18px,3vw,48px) !important;
+  padding-right:80px !important;
+  padding-top:clamp(72px,10vh,110px) !important;
+}
+
+#home .hero-content > div,
+#home .hero-copy,
+#home .hero-inner{
+  margin-left:0 !important;
+  margin-right:auto !important;
+}
+
+#home h1,
+#home .hero-title{
+  font-size:clamp(48px,7.2vw,96px) !important;
+  line-height:.86 !important;
+  letter-spacing:-.055em !important;
+  margin-left:0 !important;
+}
+
+#home .hero-white,
+#home .hero-orange{
+  display:inline-block;
+}
+
+@media(max-width:700px){
+  #home .hero-content{
+    padding-left:16px !important;
+    padding-right:45px !important;
+    padding-top:70px !important;
+  }
+
+  #home h1,
+  #home .hero-title{
+    font-size:clamp(42px,14vw,66px) !important;
+    line-height:.88 !important;
+  }
+}
+</style>
+
 </head>
 <body>
 
