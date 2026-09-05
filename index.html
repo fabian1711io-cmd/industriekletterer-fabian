@@ -4420,6 +4420,44 @@ body.scroll-climber-entered .moving-climber{
 }
 </style>
 
+
+<style id="true-single-rope-fix">
+/* WICHTIG: Nur EIN sichtbarer Strich für den bewegten unteren Seilteil */
+.rope-lower-wave .rope-wave-shadow,
+.rope-lower-wave .rope-wave-highlight{
+  display:none !important;
+}
+.rope-lower-wave .rope-wave-main{
+  display:block !important;
+  fill:none !important;
+  stroke:#f3790c !important;
+  stroke-width:7px !important;
+  stroke-linecap:round !important;
+  stroke-linejoin:round !important;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.65))
+         drop-shadow(0 0 3px rgba(255,113,0,.18)) !important;
+}
+
+/* Keine zweite gerade Linie hinter dem gewellten Bereich */
+.rope-vector-line{
+  bottom:auto !important;
+}
+
+/* Fortschrittsleuchten darf nicht wie ein zweites Seil aussehen */
+.rope-progress-fill{
+  width:2px !important;
+  opacity:.28 !important;
+  filter:blur(2px) !important;
+  pointer-events:none !important;
+}
+
+@media(max-width:900px){
+  .rope-lower-wave .rope-wave-main{
+    stroke-width:5.5px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -4476,9 +4514,7 @@ body.scroll-climber-entered .moving-climber{
   <div class="rope-vector-line"></div>
   <div class="rope-progress-fill" aria-hidden="true"></div>
   <svg class="rope-lower-wave" viewBox="0 0 60 100" preserveAspectRatio="none" aria-hidden="true">
-    <path class="rope-wave-shadow" d="M30 0 L30 100"></path>
     <path class="rope-wave-main" d="M30 0 L30 100"></path>
-    <path class="rope-wave-highlight" d="M28.5 0 L28.5 100"></path>
   </svg>
   <div class="moving-climber">
     <svg viewBox="0 0 42 70">
@@ -5785,9 +5821,7 @@ document.addEventListener('DOMContentLoaded', function(){
   if (!climber || !track || !wave || !straightRope) return;
 
   const main = wave.querySelector('.rope-wave-main');
-  const shadow = wave.querySelector('.rope-wave-shadow');
-  const highlight = wave.querySelector('.rope-wave-highlight');
-  if (!main || !shadow || !highlight) return;
+  if (!main) return;
 
   let lastTop = parseFloat(getComputedStyle(climber).top) || 72;
   let strength = 0;
@@ -5814,12 +5848,7 @@ document.addEventListener('DOMContentLoaded', function(){
     phase += 0.085 + Math.min(.12, Math.abs(velocity) * .03);
 
     const dMain = pathFor(strength, phase, 0);
-    const dShadow = pathFor(strength, phase, 0);
-    const dHi = pathFor(strength * .92, phase + .08, -1.5);
-
     main.setAttribute('d', dMain);
-    shadow.setAttribute('d', dShadow);
-    highlight.setAttribute('d', dHi);
 
     /* Wellen beginnen knapp unter dem Kletterer */
     const mobile = innerWidth <= 900;
