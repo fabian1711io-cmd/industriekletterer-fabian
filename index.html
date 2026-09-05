@@ -5939,6 +5939,48 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
 }
 </style>
 
+
+<style id="climb-game-swing-rope-v1">
+.climb-game-rope{
+  display:none !important;
+}
+
+.climb-game-rope-swing{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:5;
+  pointer-events:none;
+  overflow:visible;
+}
+
+.climb-game-rope-swing path{
+  fill:none;
+  stroke:#ff7a00;
+  stroke-width:5;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  filter:drop-shadow(0 0 7px rgba(255,122,0,.38));
+}
+
+.climb-game-stage::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:50%;
+  width:18px;
+  height:18px;
+  transform:translate(-50%,-3px);
+  border-radius:50%;
+  background:#141414;
+  border:3px solid #ff7a00;
+  box-shadow:0 0 14px rgba(255,122,0,.35);
+  z-index:9;
+  pointer-events:none;
+}
+</style>
+
 </head>
 <body>
 
@@ -6467,7 +6509,9 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
 
       <div class="climb-game-stage" id="climbGameStage" tabindex="0" aria-label="Industriekletter Minigame">
         <div class="climb-game-city" aria-hidden="true"></div>
-        <div class="climb-game-rope" aria-hidden="true"></div>
+        <svg class="climb-game-rope-swing" id="climbGameRopeSvg" aria-hidden="true">
+          <path id="climbGameRopePath" d=""></path>
+        </svg>
 
         <div class="climb-game-player" id="climbGamePlayer" aria-hidden="true">
           <svg viewBox="0 0 42 70">
@@ -7851,6 +7895,8 @@ document.addEventListener('DOMContentLoaded', function(){
   const timeEl = document.getElementById('gameTime');
   const leftBtn = document.getElementById('gameLeft');
   const rightBtn = document.getElementById('gameRight');
+  const ropeSvg = document.getElementById('climbGameRopeSvg');
+  const ropePath = document.getElementById('climbGameRopePath');
   if(!stage || !player || !overlay || !startBtn) return;
 
   let running = false;
@@ -7868,6 +7914,36 @@ document.addEventListener('DOMContentLoaded', function(){
   const tools = ['🔧','🔩','🛠️','🪝'];
   const hazards = ['⚠️','🧱','⚡'];
 
+
+  function updateGameRope(){
+    if(!ropeSvg || !ropePath || !stage) return;
+
+    const w = stage.clientWidth;
+    const h = stage.clientHeight;
+
+    // Anschlagpunkt bleibt oben exakt in der Mitte.
+    const anchorX = w * .5;
+    const anchorY = 0;
+
+    // Unteres Seilende folgt dem Kletterer.
+    const endX = playerX * w;
+    const endY = h - 88;
+
+    // Nur der untere Bereich schwingt sichtbar mit.
+    // Der obere Teil bleibt fast senkrecht unter dem Anschlagpunkt.
+    const diff = endX - anchorX;
+    const c1x = anchorX;
+    const c1y = h * .30;
+    const c2x = anchorX + diff * .30;
+    const c2y = h * .63;
+
+    ropeSvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    ropePath.setAttribute(
+      'd',
+      `M ${anchorX} ${anchorY} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${endX} ${endY}`
+    );
+  }
+
   function reset(){
     objects.forEach(o => o.el.remove());
     objects = [];
@@ -7880,6 +7956,7 @@ document.addEventListener('DOMContentLoaded', function(){
     livesEl.textContent = lives;
     timeEl.textContent = timeLeft;
     player.style.left = '50%';
+    updateGameRope();
   }
 
   function spawn(){
@@ -7942,6 +8019,7 @@ document.addEventListener('DOMContentLoaded', function(){
     playerX += moveDir * dt * .72;
     playerX = Math.max(.06,Math.min(.94,playerX));
     player.style.left = (playerX*100) + '%';
+    updateGameRope();
 
     spawnTimer += dt;
     timerAcc += dt;
@@ -7999,6 +8077,9 @@ document.addEventListener('DOMContentLoaded', function(){
   function setMove(dir){
     if(running) moveDir = dir;
   }
+
+  addEventListener('resize', updateGameRope, {passive:true});
+  updateGameRope();
 
   startBtn.addEventListener('click',start);
 
