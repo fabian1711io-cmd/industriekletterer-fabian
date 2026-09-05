@@ -483,8 +483,125 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
 }
 </style>
 
+
+<style>
+/* Animierter Seil-Effekt */
+.rope-track{
+  position:fixed;
+  right:18px;
+  top:88px;
+  bottom:28px;
+  width:22px;
+  z-index:9998;
+  pointer-events:none;
+  opacity:.72;
+}
+.rope-line{
+  position:absolute;
+  left:50%;
+  top:0;
+  bottom:0;
+  width:8px;
+  transform:translateX(-50%);
+  border-radius:999px;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      #d96f00 0 6px,
+      #ff9a2f 6px 12px,
+      #a94f00 12px 18px
+    );
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.08),
+    0 0 14px rgba(255,122,0,.22);
+  animation:ropeTexture 1.15s linear infinite;
+}
+.rope-line::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:linear-gradient(
+    90deg,
+    rgba(255,255,255,.12),
+    transparent 45%,
+    rgba(0,0,0,.20)
+  );
+}
+.rope-progress{
+  position:absolute;
+  left:50%;
+  top:0;
+  width:14px;
+  height:14px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:#ff7a00;
+  border:3px solid #111;
+  box-shadow:
+    0 0 0 2px rgba(255,122,0,.35),
+    0 0 18px rgba(255,122,0,.55);
+  transition:top .08s linear;
+}
+.rope-progress::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:6px;
+  height:6px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:#fff3e6;
+}
+.rope-knot{
+  position:absolute;
+  left:50%;
+  width:18px;
+  height:8px;
+  transform:translateX(-50%) rotate(-18deg);
+  border-radius:999px;
+  background:#ff8a14;
+  box-shadow:0 0 8px rgba(255,122,0,.25);
+}
+.rope-knot.k1{top:23%}
+.rope-knot.k2{top:49%;transform:translateX(-50%) rotate(18deg)}
+.rope-knot.k3{top:74%}
+@keyframes ropeTexture{
+  from{background-position:0 0}
+  to{background-position:0 24px}
+}
+@media(max-width:900px){
+  .rope-track{
+    right:8px;
+    top:78px;
+    bottom:76px;
+    width:16px;
+    opacity:.5;
+  }
+  .rope-line{width:5px}
+  .rope-progress{width:11px;height:11px;border-width:2px}
+  .rope-knot{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .rope-line{animation:none}
+  .rope-progress{transition:none}
+}
+</style>
+
 </head>
 <body>
+
+<!-- ROPE-EFFECT-START -->
+<div class="rope-track" aria-hidden="true">
+  <div class="rope-line"></div>
+  <span class="rope-knot k1"></span>
+  <span class="rope-knot k2"></span>
+  <span class="rope-knot k3"></span>
+  <span class="rope-progress"></span>
+</div>
+<!-- ROPE-EFFECT-END -->
+
 <div class="progress" id="progress"></div>
 
 <header class="topbar">
@@ -788,6 +905,27 @@ document.addEventListener('DOMContentLoaded', function(){
   }, {threshold:.2});
   observer.observe(photo);
 });
+</script>
+
+
+<script>
+(function(){
+  const dot = document.querySelector('.rope-progress');
+  const track = document.querySelector('.rope-track');
+  if(!dot || !track) return;
+
+  function updateRope(){
+    const doc = document.documentElement;
+    const maxScroll = Math.max(1, doc.scrollHeight - window.innerHeight);
+    const progress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+    const usable = Math.max(0, track.clientHeight);
+    dot.style.top = (progress * usable) + 'px';
+  }
+
+  updateRope();
+  window.addEventListener('scroll', updateRope, {passive:true});
+  window.addEventListener('resize', updateRope);
+})();
 </script>
 
 </body>
