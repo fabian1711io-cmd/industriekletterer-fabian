@@ -4140,179 +4140,118 @@ main .container{
 }
 </style>
 
-
-<style id="intro-platform-walk">
-/* Zusätzliche Startszene: Kletterer läuft von Plattform zum Seil */
-#siteIntro .intro-stage{
+<style id="hero-platform-animation">
+.hero{overflow:hidden}
+.hero-platform-scene{
   position:absolute;
-  left:50%;
-  top:50%;
-  width:min(420px,86vw);
-  height:210px;
-  transform:translate(-50%,-50%);
+  right:0;
+  top:0;
+  width:min(430px,44vw);
+  height:100%;
+  z-index:4;
   pointer-events:none;
 }
-#siteIntro .intro-platform{
+.hero-platform{
   position:absolute;
-  left:3%;
-  right:34%;
-  bottom:28px;
-  height:14px;
-  border-radius:4px 4px 2px 2px;
-  background:linear-gradient(180deg,#343434,#171717 72%,#0a0a0a);
-  box-shadow:0 5px 16px rgba(0,0,0,.72), inset 0 1px 0 rgba(255,255,255,.08);
-}
-#siteIntro .intro-platform::before{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  top:-5px;
-  height:4px;
-  background:repeating-linear-gradient(90deg,#555 0 12px,#2a2a2a 12px 24px);
-  opacity:.45;
-}
-#siteIntro .intro-platform-edge{
-  position:absolute;
-  right:31%;
-  bottom:22px;
-  width:8px;
-  height:42px;
-  background:linear-gradient(90deg,#161616,#3a3a3a,#141414);
+  right:74px;
+  top:25%;
+  width:245px;
+  height:13px;
   border-radius:3px;
+  background:linear-gradient(180deg,#3d3d3d,#171717 72%,#080808);
+  box-shadow:0 5px 18px rgba(0,0,0,.7),inset 0 1px rgba(255,255,255,.08);
 }
-#siteIntro .intro-walk-rope{
+.hero-platform::before{
+  content:"";
+  position:absolute;inset:-4px 0 auto;
+  height:4px;
+  background:repeating-linear-gradient(90deg,#666 0 11px,#292929 11px 22px);
+  opacity:.5;
+}
+.hero-scene-rope{
   position:absolute;
-  right:29.3%;
-  top:4px;
+  right:25px;
+  top:10%;
   width:7px;
-  height:178px;
+  height:72%;
   border-radius:8px;
   background:
-    repeating-linear-gradient(-38deg,rgba(255,207,145,.28) 0 1px,transparent 1px 5px),
-    linear-gradient(90deg,#6a2800,#ff7a00 30%,#ffa13c 48%,#b84800 72%,#4d1c00);
-  box-shadow:inset 1px 0 1px rgba(255,225,180,.28),0 0 9px rgba(255,122,0,.22);
+    repeating-linear-gradient(-38deg,rgba(255,210,150,.28) 0 1px,transparent 1px 5px),
+    linear-gradient(90deg,#632500,#ff7600 30%,#ffa13a 48%,#b64800 72%,#491900);
+  box-shadow:inset 1px 0 1px rgba(255,225,180,.3),0 0 8px rgba(255,122,0,.18);
 }
-#siteIntro .intro-walker{
+.hero-walker{
   position:absolute;
-  left:10%;
-  bottom:39px;
-  width:46px;
-  height:78px;
+  right:260px;
+  top:calc(25% - 70px);
+  width:43px;
+  height:74px;
+  opacity:0;
   transform-origin:50% 100%;
-  opacity:0;
-  animation:introWalkToRope 1.85s cubic-bezier(.2,.82,.22,1) .18s forwards;
 }
-#siteIntro .intro-walker svg{width:100%;height:100%;overflow:visible}
-#siteIntro .intro-walker .helmet{fill:#ff7a00}
-#siteIntro .intro-walker .body,
-#siteIntro .intro-walker .limb{
-  fill:none;
-  stroke:#efefef;
-  stroke-width:4;
-  stroke-linecap:round;
-  stroke-linejoin:round;
+.hero-walker.run{
+  animation:heroWalkToRope 2.15s cubic-bezier(.2,.8,.2,1) forwards;
 }
-#siteIntro .intro-walker .harness{
-  fill:none;
-  stroke:#ff7a00;
-  stroke-width:3;
-  stroke-linecap:round;
+.hero-walker.enter{
+  animation:heroEnterRope .72s cubic-bezier(.2,.9,.2,1) forwards !important;
 }
-#siteIntro .intro-walker .arm-front{
-  animation:introArmSwing .42s ease-in-out .25s 4 alternate;
-  transform-origin:22px 26px;
-}
-#siteIntro .intro-walker .leg-front{
-  animation:introLegSwing .42s ease-in-out .25s 4 alternate;
-  transform-origin:21px 43px;
-}
-#siteIntro .intro-walker .arm-back{
-  animation:introArmSwingBack .42s ease-in-out .25s 4 alternate;
-  transform-origin:21px 26px;
-}
-#siteIntro .intro-walker .leg-back{
-  animation:introLegSwingBack .42s ease-in-out .25s 4 alternate;
-  transform-origin:21px 43px;
-}
-#siteIntro .intro-walker.entering{
-  animation:introStepIntoRope .62s cubic-bezier(.2,.9,.2,1) forwards !important;
-}
-#siteIntro .intro-rope-pulse{
+.hero-walker svg{width:100%;height:100%;overflow:visible}
+.hw-helmet{fill:#ff7a00}
+.hw-body,.hw-limb{fill:none;stroke:#f2f2f2;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.hw-harness{fill:none;stroke:#ff7a00;stroke-width:3;stroke-linecap:round}
+.hero-walker.run .hw-arm-front{animation:hwFront .42s ease-in-out 5 alternate;transform-origin:22px 26px}
+.hero-walker.run .hw-arm-back{animation:hwBack .42s ease-in-out 5 alternate;transform-origin:21px 26px}
+.hero-walker.run .hw-leg-front{animation:hwBack .42s ease-in-out 5 alternate;transform-origin:21px 43px}
+.hero-walker.run .hw-leg-back{animation:hwFront .42s ease-in-out 5 alternate;transform-origin:21px 43px}
+.hero-rope-contact{
   position:absolute;
-  right:calc(29.3% - 6px);
-  top:18px;
-  width:19px;
-  height:155px;
-  border-radius:20px;
-  background:linear-gradient(180deg,transparent,rgba(255,122,0,.4),transparent);
-  filter:blur(5px);
+  right:17px;
+  top:15%;
+  width:23px;
+  height:55%;
   opacity:0;
+  border-radius:20px;
+  background:linear-gradient(180deg,transparent,rgba(255,122,0,.42),transparent);
+  filter:blur(6px);
 }
-#siteIntro .intro-rope-pulse.on{
-  animation:introRopeContact .58s ease forwards;
-}
+.hero-rope-contact.on{animation:heroRopeContact .65s ease forwards}
 
-@keyframes introWalkToRope{
-  0%{opacity:0;transform:translateX(0) translateY(0) rotate(0)}
+@keyframes heroWalkToRope{
+  0%{opacity:0;transform:translateX(0)}
   8%{opacity:1}
-  20%{transform:translateX(26px) translateY(-1px) rotate(-1deg)}
-  40%{transform:translateX(58px) translateY(0) rotate(1deg)}
-  60%{transform:translateX(91px) translateY(-1px) rotate(-1deg)}
-  80%{transform:translateX(122px) translateY(0) rotate(.7deg)}
-  100%{opacity:1;transform:translateX(151px) translateY(0) rotate(0)}
+  25%{transform:translateX(45px) translateY(-1px)}
+  50%{transform:translateX(92px)}
+  75%{transform:translateX(140px) translateY(-1px)}
+  100%{opacity:1;transform:translateX(181px)}
 }
-@keyframes introStepIntoRope{
-  0%{opacity:1;transform:translateX(151px) translateY(0) scale(1)}
-  55%{opacity:1;transform:translateX(163px) translateY(-7px) scale(.98) rotate(4deg)}
-  100%{opacity:0;transform:translateX(171px) translateY(12px) scale(.9) rotate(7deg)}
+@keyframes heroEnterRope{
+  0%{opacity:1;transform:translateX(181px)}
+  45%{opacity:1;transform:translateX(202px) translateY(-8px) rotate(5deg)}
+  100%{opacity:0;transform:translateX(218px) translateY(26px) rotate(8deg) scale(.92)}
 }
-@keyframes introArmSwing{
-  from{transform:rotate(20deg)}
-  to{transform:rotate(-22deg)}
-}
-@keyframes introArmSwingBack{
-  from{transform:rotate(-18deg)}
-  to{transform:rotate(20deg)}
-}
-@keyframes introLegSwing{
-  from{transform:rotate(-16deg)}
-  to{transform:rotate(18deg)}
-}
-@keyframes introLegSwingBack{
-  from{transform:rotate(16deg)}
-  to{transform:rotate(-18deg)}
-}
-@keyframes introRopeContact{
-  0%{opacity:0;transform:scaleY(.45)}
-  35%{opacity:.9;transform:scaleY(1)}
-  100%{opacity:0;transform:scaleY(1.15)}
-}
-
-/* Die bisherige Intro-Seil/Kletterer-Sequenz startet etwas später,
-   damit erst die Plattform-Szene sichtbar ist. */
-#siteIntro .intro-rope{
-  animation-delay:2.15s !important;
-}
-#siteIntro .intro-climber{
-  animation:
-    introClimberAttach .38s cubic-bezier(.2,.9,.2,1) 2.80s forwards,
-    introClimberLower .72s cubic-bezier(.22,.75,.2,1) 3.10s forwards,
-    introClimberLiveSway 1.55s ease-in-out 3.82s infinite alternate !important;
-}
-#siteIntro .intro-title{
-  animation:introTitleReveal .64s cubic-bezier(.2,.82,.2,1) 3.28s forwards !important;
-}
-#siteIntro .intro-sub{
-  animation:introSubReveal .48s ease 3.58s forwards !important;
-}
-#siteIntro .intro-line{
-  animation:introLineReveal .62s cubic-bezier(.2,.85,.2,1) 3.68s forwards !important;
+@keyframes hwFront{from{transform:rotate(20deg)}to{transform:rotate(-22deg)}}
+@keyframes hwBack{from{transform:rotate(-18deg)}to{transform:rotate(20deg)}}
+@keyframes heroRopeContact{
+  0%{opacity:0;transform:scaleY(.5)}
+  35%{opacity:.8;transform:scaleY(1)}
+  100%{opacity:0;transform:scaleY(1.12)}
 }
 
 @media(max-width:700px){
-  #siteIntro .intro-stage{width:92vw;height:190px}
-  #siteIntro .intro-walker{width:40px;height:70px}
+  .hero-platform-scene{width:48%;opacity:.9}
+  .hero-platform{right:42px;width:125px;top:22%}
+  .hero-scene-rope{right:9px}
+  .hero-walker{right:132px;top:calc(22% - 62px);width:36px;height:65px}
+  @keyframes heroWalkToRope{
+    0%{opacity:0;transform:translateX(0)}
+    8%{opacity:1}
+    100%{opacity:1;transform:translateX(88px)}
+  }
+  @keyframes heroEnterRope{
+    0%{opacity:1;transform:translateX(88px)}
+    50%{opacity:1;transform:translateX(103px) translateY(-6px) rotate(5deg)}
+    100%{opacity:0;transform:translateX(111px) translateY(22px) rotate(8deg) scale(.9)}
+  }
 }
 </style>
 
@@ -4322,26 +4261,7 @@ main .container{
 <!-- INTRO-START -->
 <div class="site-intro" id="siteIntro" aria-hidden="true">
   <div class="intro-inner">
-
-<div class="intro-stage" aria-hidden="true">
-  <div class="intro-platform"></div>
-  <div class="intro-platform-edge"></div>
-  <div class="intro-walk-rope"></div>
-  <div class="intro-rope-pulse"></div>
-  <div class="intro-walker" id="introWalker">
-    <svg viewBox="0 0 46 78">
-      <circle cx="23" cy="9" r="7" class="helmet"/>
-      <path d="M22 17 L21 43" class="body"/>
-      <path d="M21 24 L10 34" class="limb arm-back"/>
-      <path d="M22 24 L34 31" class="limb arm-front"/>
-      <path d="M21 43 L11 64" class="limb leg-back"/>
-      <path d="M21 43 L32 64" class="limb leg-front"/>
-      <path d="M14 38 Q21 48 29 38 M15 41 L11 48 M28 41 L33 48" class="harness"/>
-    </svg>
-  </div>
-</div>
-
-    <div class="intro-anchor" aria-hidden="true">
+<div class="intro-anchor" aria-hidden="true">
       <span class="intro-anchor-ring"></span>
     </div>
     <div class="intro-rope"></div>
@@ -4465,6 +4385,23 @@ main .container{
 
 <main>
 <section class="hero" id="home">
+<div class="hero-platform-scene" id="heroPlatformScene" aria-hidden="true">
+  <div class="hero-platform"></div>
+  <div class="hero-scene-rope"></div>
+  <div class="hero-walker" id="heroWalker">
+    <svg viewBox="0 0 46 78">
+      <circle cx="23" cy="9" r="7" class="hw-helmet"/>
+      <path d="M22 17 L21 43" class="hw-body"/>
+      <path d="M21 24 L10 34" class="hw-limb hw-arm-back"/>
+      <path d="M22 24 L34 31" class="hw-limb hw-arm-front"/>
+      <path d="M21 43 L11 64" class="hw-limb hw-leg-back"/>
+      <path d="M21 43 L32 64" class="hw-limb hw-leg-front"/>
+      <path d="M14 38 Q21 48 29 38 M15 41 L11 48 M28 41 L33 48" class="hw-harness"/>
+    </svg>
+  </div>
+  <div class="hero-rope-contact"></div>
+</div>
+
   <div class="hero-bg" id="heroBg"></div>
   <div class="wrap hero-content">
     <div class="eyebrow">Höhenarbeit mit Leidenschaft</div>
@@ -5133,7 +5070,7 @@ document.addEventListener('DOMContentLoaded', function(){
   if(!intro) return;
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const delay = reduce ? 250 : 5050;
+  const delay = reduce ? 250 : 3550;
 
   document.body.style.overflow = 'hidden';
 
@@ -5710,39 +5647,31 @@ document.addEventListener('DOMContentLoaded', function(){
 })();
 </script>
 
-
-<script id="intro-platform-walk-js">
+<script id="hero-platform-animation-js">
 (() => {
-  function startPlatformSequence(){
-    const intro = document.getElementById('siteIntro');
-    const walker = document.getElementById('introWalker');
-    const pulse = intro?.querySelector('.intro-rope-pulse');
-    if (!intro || !walker) return;
+  function playHeroScene(){
+    const scene = document.getElementById('heroPlatformScene');
+    const walker = document.getElementById('heroWalker');
+    const contact = scene?.querySelector('.hero-rope-contact');
+    if(!scene || !walker) return;
 
+    /* Start erst nachdem das vorhandene Intro verschwunden ist */
     setTimeout(() => {
-      walker.classList.add('entering');
-      if (pulse) pulse.classList.add('on');
-    }, 2050);
+      walker.classList.add('run');
+      setTimeout(() => {
+        walker.classList.remove('run');
+        walker.classList.add('enter');
+        contact?.classList.add('on');
+      }, 2200);
+    }, 3700);
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', startPlatformSequence, {once:true});
-  } else {
-    startPlatformSequence();
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', playHeroScene, {once:true});
+  }else{
+    playHeroScene();
   }
 })();
-</script>
-
-
-<script id="intro-safety-fallback">
-setTimeout(() => {
-  const intro = document.getElementById('siteIntro');
-  if (intro) {
-    intro.classList.add('intro-hide');
-    document.body.style.overflow = '';
-    setTimeout(() => intro.remove(), 700);
-  }
-}, 6200);
 </script>
 
 </body>
