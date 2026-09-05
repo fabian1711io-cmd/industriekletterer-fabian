@@ -3983,6 +3983,163 @@ main .container{
 }
 </style>
 
+
+<style id="rope-realistic-v3">
+/* Realistischere Seiloptik – reine CSS/SVG-Lösung */
+.rope-vector-line{
+  width:8px !important;
+  background:
+    linear-gradient(90deg,
+      rgba(62,24,0,.95) 0%,
+      #a94800 12%,
+      #f36e00 28%,
+      #ff9a27 46%,
+      #d85b00 63%,
+      #7d3000 82%,
+      rgba(53,19,0,.98) 100%) !important;
+  box-shadow:
+    inset 1px 0 1px rgba(255,214,160,.32),
+    inset -2px 0 2px rgba(39,12,0,.7),
+    0 0 0 1px rgba(0,0,0,.28),
+    0 2px 7px rgba(0,0,0,.52),
+    0 0 8px rgba(255,112,0,.18) !important;
+  overflow:hidden;
+}
+.rope-vector-line::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:
+    repeating-linear-gradient(
+      -36deg,
+      rgba(255,210,150,.28) 0 1.3px,
+      rgba(255,255,255,0) 1.3px 4px,
+      rgba(61,20,0,.24) 4px 5.3px,
+      rgba(255,255,255,0) 5.3px 8px
+    );
+  mix-blend-mode:screen;
+  opacity:.72;
+  animation:ropeFibresMove 1.35s linear infinite;
+}
+.rope-vector-line::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:
+    repeating-linear-gradient(
+      38deg,
+      rgba(70,22,0,.48) 0 1px,
+      transparent 1px 3.8px
+    );
+  opacity:.58;
+}
+
+@keyframes ropeFibresMove{
+  from{background-position:0 0}
+  to{background-position:0 18px}
+}
+
+/* Verbesserter Achterknoten */
+.rope-eight{
+  width:52px !important;
+  height:70px !important;
+  top:-3px !important;
+  filter:drop-shadow(0 6px 7px rgba(0,0,0,.72)) !important;
+}
+.rope-eight .knot-shadow{
+  fill:none;
+  stroke:#351100;
+  stroke-width:12;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  opacity:.9;
+}
+.rope-eight .knot-main{
+  fill:none;
+  stroke:url(#knotRopeGrad);
+  stroke-width:9;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.rope-eight .knot-cross{
+  fill:none;
+  stroke:#ff8613;
+  stroke-width:8;
+  stroke-linecap:round;
+  opacity:.96;
+  filter:drop-shadow(0 2px 2px rgba(0,0,0,.55));
+}
+.rope-eight .knot-highlight{
+  fill:none;
+  stroke:rgba(255,215,165,.62);
+  stroke-width:2;
+  stroke-linecap:round;
+}
+
+/* Unterer Seilteil – wird per JS leicht gewellt */
+.rope-lower-wave{
+  position:absolute;
+  left:50%;
+  top:72px;
+  bottom:0;
+  width:38px;
+  height:calc(100% - 72px);
+  transform:translateX(-50%);
+  overflow:visible;
+  z-index:1;
+  pointer-events:none;
+}
+.rope-lower-wave path{
+  fill:none;
+  vector-effect:non-scaling-stroke;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.rope-wave-shadow{
+  stroke:#371200;
+  stroke-width:11px;
+  opacity:.82;
+}
+.rope-wave-main{
+  stroke:#f3790c;
+  stroke-width:7px;
+  filter:drop-shadow(0 0 4px rgba(255,113,0,.22));
+}
+.rope-wave-highlight{
+  stroke:rgba(255,207,148,.48);
+  stroke-width:1.5px;
+}
+
+/* Der gerade Originalstrang bleibt sichtbar, aber etwas zurückhaltender,
+   damit die Welle darunter optisch dominiert. */
+.rope-vector-line{
+  opacity:.88;
+}
+
+@media(max-width:900px){
+  .rope-vector-line{width:6px !important}
+  .rope-eight{
+    width:40px !important;
+    height:55px !important;
+    top:-2px !important;
+  }
+  .rope-lower-wave{
+    top:58px;
+    height:calc(100% - 58px);
+    width:30px;
+  }
+  .rope-wave-shadow{stroke-width:8px}
+  .rope-wave-main{stroke-width:5.5px}
+  .rope-wave-highlight{stroke-width:1.1px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .rope-vector-line::before{animation:none !important}
+}
+</style>
+
 </head>
 <body>
 
@@ -4020,12 +4177,29 @@ main .container{
 <!-- ROPE-EFFECT-START -->
 <div class="rope-track rope-vector-track" aria-hidden="true">
   <div class="rope-eight">
-    <svg viewBox="0 0 48 64">
-      <path d="M24 4 C8 10,8 27,24 33 C40 39,40 54,24 60 C8 54,8 39,24 33 C40 27,40 10,24 4"/>
+    <svg viewBox="0 0 64 82" aria-hidden="true">
+      <defs>
+        <linearGradient id="knotRopeGrad" x1="0" x2="1">
+          <stop offset="0" stop-color="#8f3c00"/>
+          <stop offset=".22" stop-color="#ff7a00"/>
+          <stop offset=".52" stop-color="#ff9b28"/>
+          <stop offset=".78" stop-color="#c65100"/>
+          <stop offset="1" stop-color="#6f2d00"/>
+        </linearGradient>
+      </defs>
+      <path class="knot-shadow" d="M31 5 C12 9 8 28 24 38 C37 46 49 48 49 61 C49 75 31 79 20 69 C10 59 15 46 28 39 C43 31 50 19 43 10 C39 5 35 4 31 5"/>
+      <path class="knot-main" d="M31 5 C12 9 8 28 24 38 C37 46 49 48 49 61 C49 75 31 79 20 69 C10 59 15 46 28 39 C43 31 50 19 43 10 C39 5 35 4 31 5"/>
+      <path class="knot-cross" d="M18 25 C26 30 35 34 43 40"/>
+      <path class="knot-highlight" d="M27 8 C18 12 15 22 20 29"/>
     </svg>
   </div>
   <div class="rope-vector-line"></div>
   <div class="rope-progress-fill" aria-hidden="true"></div>
+  <svg class="rope-lower-wave" viewBox="0 0 60 100" preserveAspectRatio="none" aria-hidden="true">
+    <path class="rope-wave-shadow" d="M30 0 L30 100"></path>
+    <path class="rope-wave-main" d="M30 0 L30 100"></path>
+    <path class="rope-wave-highlight" d="M28.5 0 L28.5 100"></path>
+  </svg>
   <div class="moving-climber">
     <svg viewBox="0 0 42 70">
       <circle cx="22" cy="9" r="6" class="helmet"/>
@@ -5281,5 +5455,65 @@ document.addEventListener('DOMContentLoaded', function(){
   addEventListener('load', checkHaptic);
 })();
 </script>
+
+<script id="rope-lower-wave-js">
+(() => {
+  const climber = document.querySelector('.moving-climber');
+  const track = document.querySelector('.rope-vector-track');
+  const wave = document.querySelector('.rope-lower-wave');
+  if (!climber || !track || !wave) return;
+
+  const main = wave.querySelector('.rope-wave-main');
+  const shadow = wave.querySelector('.rope-wave-shadow');
+  const highlight = wave.querySelector('.rope-wave-highlight');
+  if (!main || !shadow || !highlight) return;
+
+  let lastTop = parseFloat(getComputedStyle(climber).top) || 72;
+  let strength = 0;
+  let phase = 0;
+
+  function pathFor(amplitude, phaseShift, xOffset=0){
+    const x = 30 + xOffset;
+    const a = amplitude;
+    return [
+      `M ${x} 0`,
+      `C ${x + a*Math.sin(phaseShift)} 17, ${x + a*Math.sin(phaseShift+1.1)} 30, ${x} 43`,
+      `C ${x + a*Math.sin(phaseShift+2.0)} 57, ${x + a*Math.sin(phaseShift+3.1)} 72, ${x} 100`
+    ].join(' ');
+  }
+
+  function animate(){
+    const top = parseFloat(climber.style.top || getComputedStyle(climber).top) || lastTop;
+    const velocity = top - lastTop;
+
+    /* Nur beim Abwärtsfahren deutlich wellen.
+       Beim Stillstand klingt die Bewegung weich aus. */
+    const target = velocity > 0.03 ? Math.min(4.2, 1.1 + velocity * 2.2) : 0;
+    strength += (target - strength) * 0.16;
+    phase += 0.065 + Math.min(.08, Math.abs(velocity) * .02);
+
+    const dMain = pathFor(strength, phase, 0);
+    const dShadow = pathFor(strength, phase, 0);
+    const dHi = pathFor(strength * .92, phase + .08, -1.5);
+
+    main.setAttribute('d', dMain);
+    shadow.setAttribute('d', dShadow);
+    highlight.setAttribute('d', dHi);
+
+    /* Wellen beginnen knapp unter dem Kletterer */
+    const mobile = innerWidth <= 900;
+    const base = mobile ? 58 : 72;
+    const start = Math.max(base, top + (mobile ? 16 : 20));
+    wave.style.top = start.toFixed(1) + 'px';
+    wave.style.height = Math.max(0, track.clientHeight - start) + 'px';
+
+    lastTop = top;
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+})();
+</script>
+
 </body>
 </html>
