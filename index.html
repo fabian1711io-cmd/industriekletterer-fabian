@@ -4831,6 +4831,14 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
 }
 </style>
 
+
+<style id="remove-rope-points-v1">
+.rope-section-points,
+[data-rope-target]{
+  display:none !important;
+}
+</style>
+
 </head>
 <body>
 
@@ -6350,176 +6358,29 @@ document.addEventListener('DOMContentLoaded', function(){
   requestAnimationFrame(updateUpperRope);
 })();
 </script>
-<script id="rope-entry-clearly-above-first-point-js">
+
+<script id="climber-scroll-without-points-v1">
 (() => {
-  const firstPoint = document.querySelector('[data-rope-target]');
-  if(!firstPoint) return;
-
-  function install(){
-    if(typeof window.setScrollClimberHandoff !== 'function'){
-      requestAnimationFrame(install);
-      return;
-    }
-    if(window.__clearEntryAboveFirstPoint) return;
-    window.__clearEntryAboveFirstPoint = true;
-
-    const original = window.setScrollClimberHandoff;
-
-    window.setScrollClimberHandoff = function(){
-      const firstY = parseFloat(firstPoint.style.top) || firstPoint.offsetTop || 150;
-
-      /* Deutlich oberhalb des ersten Punktes:
-         Desktop 85px, Mobil 65px Abstand. */
-      const gap = innerWidth <= 900 ? 65 : 85;
-      const minimum = innerWidth <= 900 ? 48 : 56;
-      const entryY = Math.max(minimum, firstY - gap);
-
-      original(entryY);
-    };
-  }
-
-  install();
-})();
-</script>
-
-
-<script id="rope-master-sync-js">
-(() => {
-  const track = document.querySelector('.rope-vector-track');
   const climber = document.querySelector('.moving-climber');
-  const pointEls = [...document.querySelectorAll('.rope-section-points [data-rope-target]')];
-  if(!track || !climber || !pointEls.length) return;
+  const track = document.querySelector('.rope-vector-track');
+  if(!climber || !track) return;
 
-  let currentTop = parseFloat(climber.style.top) || (innerWidth <= 900 ? 58 : 72);
-  let activeId = null;
-  let entries = [];
-
-  function rebuild(){
-    entries = pointEls.map(point => {
-      const id = point.dataset.ropeTarget;
-      const section = document.getElementById(id);
-      if(!section) return null;
-
-      const buttons = [...document.querySelectorAll(`.section-jumpbar a[href="#${CSS.escape(id)}"]`)];
-      return {id, point, section, buttons, y:0, scrollAt:0, sectionTop:0};
-    }).filter(Boolean);
-
-    /* Ganz wichtig: nach der ECHTEN Position der Karte/des Bereichs sortieren */
-    entries.sort((a,b) => {
-      const ay = a.section.getBoundingClientRect().top + scrollY;
-      const by = b.section.getBoundingClientRect().top + scrollY;
-      return ay - by;
-    });
-  }
-
-  function metrics(){
-    rebuild();
-
-    const mobile = innerWidth <= 900;
-    const start = mobile ? 58 : 72;
-    const end = Math.max(start + 1, track.clientHeight - 28);
-    const maxScroll = Math.max(1, document.documentElement.scrollHeight - innerHeight);
-    const focusOffset = innerHeight * 0.46;
-
-    entries.forEach(e => {
-      e.sectionTop = e.section.getBoundingClientRect().top + scrollY;
-
-      /* Der Punkt gehört genau zu dem Moment, an dem seine Karte im Fokus steht */
-      e.scrollAt = Math.max(0, Math.min(maxScroll, e.sectionTop - focusOffset));
-      e.y = start + (e.scrollAt / maxScroll) * (end - start);
-      e.point.style.top = e.y.toFixed(1) + 'px';
-    });
-
-    return {start,end,maxScroll};
-  }
-
-  function targetForScroll(){
-    metrics();
-    if(!entries.length) return currentTop;
-
-    if(scrollY <= entries[0].scrollAt) return entries[0].y;
-    if(scrollY >= entries[entries.length - 1].scrollAt) return entries[entries.length - 1].y;
-
-    for(let i=0; i<entries.length-1; i++){
-      const a = entries[i];
-      const b = entries[i+1];
-
-      if(scrollY >= a.scrollAt && scrollY <= b.scrollAt){
-        const range = Math.max(1, b.scrollAt - a.scrollAt);
-        const t = Math.max(0, Math.min(1, (scrollY - a.scrollAt) / range));
-        return a.y + (b.y - a.y) * t;
-      }
-    }
-    return entries[0].y;
-  }
-
-  function nearestActive(){
-    if(!entries.length) return null;
-    const focusY = scrollY + innerHeight * 0.46;
-
-    let best = entries[0];
-    let bestDist = Infinity;
-
-    for(const e of entries){
-      /* Mitte der sichtbaren Karte/Bereichs verwenden, nicht nur deren oberen Rand */
-      const rect = e.section.getBoundingClientRect();
-      const center = scrollY + rect.top + Math.min(rect.height * 0.38, innerHeight * 0.28);
-      const d = Math.abs(center - focusY);
-
-      if(d < bestDist){
-        bestDist = d;
-        best = e;
-      }
-    }
-    return best;
-  }
-
-  function setActive(entry){
-    const id = entry?.id || null;
-    if(id === activeId) return;
-    activeId = id;
-
-    entries.forEach(e => {
-      const on = e.id === id;
-      e.point.classList.toggle('master-active', on);
-      e.point.classList.toggle('active', on);
-      e.buttons.forEach(btn => {
-        btn.classList.toggle('master-active', on);
-        btn.classList.toggle('active', on);
-      });
-    });
-  }
+  let current = innerWidth <= 900 ? 58 : 72;
 
   function loop(){
-    const target = targetForScroll();
-
     if(document.body.classList.contains('scroll-climber-entered')){
-      currentTop += (target - currentTop) * 0.34;
-      climber.style.top = currentTop.toFixed(2) + 'px';
-    }
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+      const progress = Math.max(0, Math.min(1, scrollY / maxScroll));
+      const start = innerWidth <= 900 ? 58 : 72;
+      const end = Math.max(start, track.clientHeight - 28);
+      const target = start + progress * (end - start);
 
-    setActive(nearestActive());
+      current += (target - current) * 0.30;
+      climber.style.top = current.toFixed(2) + 'px';
+    }
     requestAnimationFrame(loop);
   }
 
-  /* Jeder Hero-Button springt exakt zu SEINER Karte und damit auch zu SEINEM Punkt */
-  document.addEventListener('click', ev => {
-    const link = ev.target.closest('.section-jumpbar a[href^="#"], .rope-section-points a[href^="#"]');
-    if(!link) return;
-
-    const id = decodeURIComponent(link.getAttribute('href').slice(1));
-    metrics();
-    const entry = entries.find(e => e.id === id);
-    if(!entry) return;
-
-    ev.preventDefault();
-    window.scrollTo({top:entry.scrollAt, behavior:'smooth'});
-  });
-
-  addEventListener('resize', metrics, {passive:true});
-  addEventListener('load', metrics, {once:true});
-
-  metrics();
   requestAnimationFrame(loop);
 })();
 </script>
