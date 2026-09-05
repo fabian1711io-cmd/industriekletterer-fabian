@@ -5981,6 +5981,332 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
 }
 </style>
 
+
+<style id="minigame-hub-pack-v1">
+.game-hub{
+  max-width:880px;
+  margin:0 auto 36px;
+}
+.game-hub-head{
+  text-align:center;
+  margin-bottom:24px;
+}
+.game-hub-head h3{
+  margin:0;
+  color:#fff;
+  font-size:clamp(30px,5vw,48px);
+}
+.game-hub-head p{
+  color:rgba(255,255,255,.55);
+}
+.game-choice-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+.game-choice-card{
+  min-height:220px;
+  padding:24px;
+  text-align:left;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.09);
+  background:linear-gradient(155deg,#171717,#0c0c0c);
+  color:#fff;
+  cursor:pointer;
+  transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;
+}
+.game-choice-card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(255,122,0,.45);
+  box-shadow:0 22px 50px rgba(0,0,0,.35);
+}
+.game-choice-icon{
+  font-size:38px;
+  margin-bottom:18px;
+}
+.game-choice-card span{
+  display:block;
+  color:#ff7a00;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.16em;
+}
+.game-choice-card strong{
+  display:block;
+  margin-top:7px;
+  font-size:22px;
+}
+.game-choice-card p{
+  color:rgba(255,255,255,.55);
+  line-height:1.55;
+}
+.game-choice-card b{
+  display:inline-block;
+  margin-top:8px;
+  color:#ff7a00;
+  font-size:11px;
+  letter-spacing:.12em;
+}
+.game-panel{
+  display:none !important;
+}
+.game-panel.is-active{
+  display:block !important;
+}
+.game-back-btn{
+  margin:0 0 12px;
+  padding:10px 14px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.1);
+  background:#101010;
+  color:#fff;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.10em;
+  cursor:pointer;
+}
+.pack-game-panel{
+  max-width:900px;
+  margin:0 auto;
+}
+.pack-game-card{
+  padding:22px;
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,.09);
+  background:#0f0f0f;
+}
+.pack-game-top{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:flex-start;
+}
+.pack-game-top h3{
+  margin:0 0 8px;
+  color:#fff;
+  font-size:34px;
+}
+.pack-game-top p{
+  color:rgba(255,255,255,.55);
+  max-width:540px;
+}
+.pack-game-stats{
+  display:grid;
+  grid-template-columns:repeat(3,82px);
+  gap:8px;
+}
+.pack-game-stats div{
+  text-align:center;
+  padding:10px;
+  border-radius:12px;
+  background:#151515;
+  border:1px solid rgba(255,255,255,.07);
+}
+.pack-game-stats span{
+  display:block;
+  font-size:8px;
+  font-weight:900;
+  color:rgba(255,255,255,.4);
+  letter-spacing:.12em;
+}
+.pack-game-stats strong{
+  display:block;
+  margin-top:3px;
+  color:#ff7a00;
+  font-size:20px;
+}
+.pack-game-area{
+  position:relative;
+  min-height:510px;
+  margin-top:18px;
+  padding:28px;
+  border-radius:18px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 28% 35%,rgba(255,122,0,.08),transparent 22%),
+    linear-gradient(180deg,#141414,#090909);
+}
+.pack-game-bag{
+  position:absolute;
+  left:8%;
+  top:50%;
+  width:190px;
+  height:250px;
+  transform:translateY(-50%);
+  border-radius:42px 42px 30px 30px;
+  background:linear-gradient(160deg,#242424,#101010);
+  border:2px solid rgba(255,122,0,.28);
+  box-shadow:0 30px 55px rgba(0,0,0,.45);
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.pack-game-bag.is-catching{
+  transform:translateY(-50%) scale(1.05);
+  box-shadow:0 0 35px rgba(255,122,0,.18);
+}
+.pack-game-bag-handle{
+  position:absolute;
+  left:50%;
+  top:-26px;
+  width:76px;
+  height:40px;
+  transform:translateX(-50%);
+  border:8px solid #202020;
+  border-bottom:0;
+  border-radius:30px 30px 0 0;
+}
+.pack-game-bag-logo{
+  position:absolute;
+  left:50%;
+  top:72px;
+  transform:translateX(-50%);
+  color:#ff7a00;
+  font-size:46px;
+  font-weight:1000;
+}
+.pack-game-bag-pocket{
+  position:absolute;
+  left:18px;
+  right:18px;
+  bottom:22px;
+  height:72px;
+  border-radius:18px;
+  background:#171717;
+  border:1px solid rgba(255,255,255,.08);
+}
+.pack-game-items{
+  margin-left:270px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+.pack-game-items button{
+  min-height:82px;
+  padding:12px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border-radius:13px;
+  border:1px solid rgba(255,255,255,.08);
+  background:#151515;
+  color:#fff;
+  cursor:pointer;
+  transition:transform .2s ease,opacity .2s ease,border-color .2s ease;
+}
+.pack-game-items button:hover{
+  transform:translateY(-2px);
+  border-color:rgba(255,122,0,.35);
+}
+.pack-game-items button span{
+  font-size:28px;
+}
+.pack-game-items button b{
+  font-size:13px;
+}
+.pack-game-items button.is-packed{
+  opacity:0;
+  transform:scale(.78);
+  pointer-events:none;
+}
+.pack-game-items button.is-wrong{
+  animation:packWrong .32s ease;
+}
+.pack-game-flyer{
+  position:fixed;
+  z-index:40000;
+  width:46px;
+  height:46px;
+  margin:-23px 0 0 -23px;
+  display:grid;
+  place-items:center;
+  font-size:30px;
+  pointer-events:none;
+  transition:transform .65s cubic-bezier(.2,.8,.2,1),opacity .55s ease .08s;
+}
+.pack-game-overlay{
+  position:absolute;
+  inset:0;
+  z-index:20;
+  display:grid;
+  place-items:center;
+  padding:20px;
+  text-align:center;
+  background:rgba(0,0,0,.66);
+  backdrop-filter:blur(6px);
+}
+.pack-game-overlay.hidden{
+  display:none;
+}
+.pack-game-overlay > div{
+  max-width:390px;
+  padding:28px;
+  border-radius:18px;
+  background:#111;
+  border:1px solid rgba(255,122,0,.28);
+}
+.pack-game-overlay h3{
+  margin:8px 0 10px;
+  color:#fff;
+  font-size:28px;
+}
+.pack-game-overlay p{
+  color:rgba(255,255,255,.6);
+  line-height:1.6;
+}
+.pack-game-overlay button{
+  margin-top:8px;
+  padding:13px 18px;
+  border:0;
+  border-radius:10px;
+  background:#ff7a00;
+  color:#111;
+  font-weight:950;
+  cursor:pointer;
+}
+@keyframes packWrong{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-8px)}
+  75%{transform:translateX(8px)}
+}
+@media(max-width:760px){
+  .game-choice-grid{grid-template-columns:1fr}
+  .pack-game-top{display:block}
+  .pack-game-stats{
+    grid-template-columns:repeat(3,1fr);
+    margin-top:14px;
+  }
+  .pack-game-area{
+    padding:20px 14px;
+    min-height:690px;
+  }
+  .pack-game-bag{
+    left:50%;
+    top:28px;
+    width:145px;
+    height:185px;
+    transform:translateX(-50%);
+  }
+  .pack-game-bag.is-catching{
+    transform:translateX(-50%) scale(1.05);
+  }
+  .pack-game-bag-logo{
+    top:48px;
+    font-size:38px;
+  }
+  .pack-game-bag-pocket{
+    height:54px;
+  }
+  .pack-game-items{
+    margin-left:0;
+    padding-top:245px;
+    grid-template-columns:repeat(2,1fr);
+  }
+  .pack-game-items button{
+    min-height:72px;
+    padding:9px;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -6500,7 +6826,40 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
       </p>
     </div>
 
-    <div class="climb-game-shell reveal">
+    
+<div class="game-hub" id="gameHub">
+  <div class="game-hub-head">
+    <div class="climb-game-kicker">MINIGAMES</div>
+    <h3>Wähle dein Spiel</h3>
+    <p>Such dir aus, welche Challenge du spielen möchtest.</p>
+  </div>
+
+  <div class="game-choice-grid">
+    <button type="button" class="game-choice-card" data-game-open="climber">
+      <div class="game-choice-icon">🧗</div>
+      <div>
+        <span>SPIEL 01</span>
+        <strong>Industriekletter-Challenge</strong>
+        <p>Werkzeuge sammeln, Hindernissen ausweichen und am Seil schwingen.</p>
+      </div>
+      <b>SPIELEN →</b>
+    </button>
+
+    <button type="button" class="game-choice-card" data-game-open="backpack">
+      <div class="game-choice-icon">🎒</div>
+      <div>
+        <span>SPIEL 02</span>
+        <strong>Pack den Kletterrucksack</strong>
+        <p>Tippe nur die richtige Ausrüstung an und packe den Rucksack so schnell wie möglich.</p>
+      </div>
+      <b>SPIELEN →</b>
+    </button>
+  </div>
+</div>
+
+
+<div class="climb-game-shell reveal game-panel" id="climberGamePanel">
+      <button type="button" class="game-back-btn" id="backToGameHubClimber">← SPIELAUSWAHL</button>
       <div class="climb-game-hud">
         <div><span>PUNKTE</span><strong id="gameScore">0</strong></div>
         <div><span>LEBEN</span><strong id="gameLives">3</strong></div>
@@ -6546,6 +6905,59 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
     </div>
   </div>
 </section>
+
+
+<div class="pack-game-panel game-panel" id="packGamePanel">
+  <button type="button" class="game-back-btn" id="backToGameHubPack">← SPIELAUSWAHL</button>
+
+  <div class="pack-game-card">
+    <div class="pack-game-top">
+      <div>
+        <div class="climb-game-kicker">PACK DEN KLETTERRUCKSACK</div>
+        <h3>Was gehört wirklich mit?</h3>
+        <p>Tippe die richtige Industriekletter-Ausrüstung an. Falsche Gegenstände kosten ein Leben.</p>
+      </div>
+
+      <div class="pack-game-stats">
+        <div><span>PUNKTE</span><strong id="packScore">0</strong></div>
+        <div><span>LEBEN</span><strong id="packLives">3</strong></div>
+        <div><span>ZEIT</span><strong id="packTime">30</strong></div>
+      </div>
+    </div>
+
+    <div class="pack-game-area">
+      <div class="pack-game-bag" id="packGameBag">
+        <div class="pack-game-bag-handle"></div>
+        <div class="pack-game-bag-logo">F</div>
+        <div class="pack-game-bag-pocket"></div>
+      </div>
+
+      <div class="pack-game-items" id="packGameItems">
+        <button data-correct="1" data-icon="⛑️"><span>⛑️</span><b>Helm</b></button>
+        <button data-correct="1" data-icon="🧗"><span>🧗</span><b>Klettergurt</b></button>
+        <button data-correct="1" data-icon="🪢"><span>🪢</span><b>Seil</b></button>
+        <button data-correct="1" data-icon="🪝"><span>🪝</span><b>Karabiner</b></button>
+        <button data-correct="1" data-icon="🧤"><span>🧤</span><b>Handschuhe</b></button>
+        <button data-correct="1" data-icon="🛠️"><span>🛠️</span><b>Werkzeug</b></button>
+
+        <button data-correct="0" data-icon="🎮"><span>🎮</span><b>Gamepad</b></button>
+        <button data-correct="0" data-icon="🍕"><span>🍕</span><b>Pizza</b></button>
+        <button data-correct="0" data-icon="🛹"><span>🛹</span><b>Skateboard</b></button>
+        <button data-correct="0" data-icon="🎧"><span>🎧</span><b>Kopfhörer</b></button>
+      </div>
+
+      <div class="pack-game-overlay" id="packGameOverlay">
+        <div>
+          <div class="climb-game-overlay-label">BEREIT?</div>
+          <h3>Pack den Kletterrucksack</h3>
+          <p>Richtige Ausrüstung = +10 Punkte<br>Falscher Gegenstand = 1 Leben weg</p>
+          <button type="button" id="packGameStart">SPIEL STARTEN</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <section id="arbeitstag" class="day-section">
   <div class="day-wrap">
@@ -8109,6 +8521,139 @@ document.addEventListener('DOMContentLoaded', function(){
 
   bindHold(leftBtn,-1);
   bindHold(rightBtn,1);
+})();
+</script>
+
+
+<script id="minigame-hub-pack-js-v1">
+(() => {
+  const hub = document.getElementById('gameHub');
+  const climberPanel = document.getElementById('climberGamePanel');
+  const packPanel = document.getElementById('packGamePanel');
+
+  function showHub(){
+    hub?.removeAttribute('hidden');
+    climberPanel?.classList.remove('is-active');
+    packPanel?.classList.remove('is-active');
+  }
+
+  function openGame(name){
+    hub?.setAttribute('hidden','');
+    climberPanel?.classList.toggle('is-active',name==='climber');
+    packPanel?.classList.toggle('is-active',name==='backpack');
+  }
+
+  document.querySelectorAll('[data-game-open]').forEach(btn=>{
+    btn.addEventListener('click',()=>openGame(btn.dataset.gameOpen));
+  });
+
+  document.getElementById('backToGameHubClimber')?.addEventListener('click',showHub);
+  document.getElementById('backToGameHubPack')?.addEventListener('click',showHub);
+
+  // Falls über "#minigame" gesprungen wird: immer Auswahl zeigen
+  document.querySelectorAll('a[href="#minigame"]').forEach(a=>{
+    a.addEventListener('click',()=>setTimeout(showHub,20));
+  });
+
+  showHub();
+
+  // ---- Pack den Kletterrucksack ----
+  const area = document.querySelector('.pack-game-area');
+  const bag = document.getElementById('packGameBag');
+  const overlay = document.getElementById('packGameOverlay');
+  const start = document.getElementById('packGameStart');
+  const scoreEl = document.getElementById('packScore');
+  const livesEl = document.getElementById('packLives');
+  const timeEl = document.getElementById('packTime');
+  const itemButtons = [...document.querySelectorAll('#packGameItems button')];
+
+  if(!area || !bag || !overlay || !start) return;
+
+  let running=false, score=0, lives=3, time=30, timer=null;
+
+  function resetPack(){
+    score=0; lives=3; time=30;
+    scoreEl.textContent=score;
+    livesEl.textContent=lives;
+    timeEl.textContent=time;
+    itemButtons.forEach(b=>b.classList.remove('is-packed','is-wrong'));
+  }
+
+  function endPack(){
+    running=false;
+    clearInterval(timer);
+    overlay.classList.remove('hidden');
+    overlay.innerHTML=`
+      <div>
+        <div class="climb-game-overlay-label">RUCKSACK GEPACKT</div>
+        <h3>${score} Punkte</h3>
+        <p>${lives>0 ? 'Starker Einsatz.' : 'Keine Leben mehr.'}<br>Willst du nochmal packen?</p>
+        <button type="button" id="packGameRestart">NOCHMAL SPIELEN</button>
+      </div>`;
+    overlay.querySelector('#packGameRestart')?.addEventListener('click',beginPack);
+  }
+
+  function beginPack(){
+    resetPack();
+    running=true;
+    overlay.classList.add('hidden');
+    timer=setInterval(()=>{
+      time--;
+      timeEl.textContent=time;
+      if(time<=0) endPack();
+    },1000);
+  }
+
+  function flyToBag(btn){
+    const icon=btn.dataset.icon || btn.querySelector('span')?.textContent || '•';
+    const s=btn.getBoundingClientRect();
+    const t=bag.getBoundingClientRect();
+    const flyer=document.createElement('div');
+    flyer.className='pack-game-flyer';
+    flyer.textContent=icon;
+    const sx=s.left+s.width/2, sy=s.top+s.height/2;
+    const ex=t.left+t.width/2, ey=t.top+t.height*.52;
+    flyer.style.left=sx+'px';
+    flyer.style.top=sy+'px';
+    document.body.appendChild(flyer);
+    requestAnimationFrame(()=>{
+      flyer.style.transform=`translate(${ex-sx}px,${ey-sy}px) scale(.2) rotate(16deg)`;
+      flyer.style.opacity='0';
+    });
+    bag.classList.add('is-catching');
+    setTimeout(()=>{
+      flyer.remove();
+      bag.classList.remove('is-catching');
+      btn.classList.add('is-packed');
+    },650);
+  }
+
+  itemButtons.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      if(!running || btn.classList.contains('is-packed')) return;
+
+      if(btn.dataset.correct==='1'){
+        score+=10;
+        scoreEl.textContent=score;
+        flyToBag(btn);
+
+        const remaining=itemButtons.filter(b=>b.dataset.correct==='1' && !b.classList.contains('is-packed') && b!==btn);
+        if(remaining.length===0){
+          setTimeout(endPack,700);
+        }
+      }else{
+        lives--;
+        livesEl.textContent=lives;
+        btn.classList.remove('is-wrong');
+        void btn.offsetWidth;
+        btn.classList.add('is-wrong');
+        if(navigator.vibrate) navigator.vibrate(70);
+        if(lives<=0) endPack();
+      }
+    });
+  });
+
+  start.addEventListener('click',beginPack);
 })();
 </script>
 
