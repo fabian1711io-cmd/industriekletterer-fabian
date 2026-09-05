@@ -1290,6 +1290,125 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
 }
 </style>
 
+
+<style>
+/* Mehr Animationen – dezent und mobil optimiert */
+@keyframes softGlow{
+  0%,100%{box-shadow:0 0 0 rgba(255,122,0,0)}
+  50%{box-shadow:0 0 28px rgba(255,122,0,.16)}
+}
+@keyframes socialFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-7px)}
+}
+@keyframes accentSweep{
+  0%{transform:translateX(-140%)}
+  55%,100%{transform:translateX(240%)}
+}
+@keyframes pinPulse{
+  0%,100%{filter:drop-shadow(0 0 2px rgba(255,122,0,.3))}
+  50%{filter:drop-shadow(0 0 12px rgba(255,122,0,.9))}
+}
+@keyframes buttonPulse{
+  0%,100%{box-shadow:0 8px 28px rgba(255,122,0,.18)}
+  50%{box-shadow:0 8px 38px rgba(255,122,0,.38)}
+}
+
+/* Social Karten schweben minimal versetzt */
+.social-card:nth-child(1){animation:socialFloat 5s ease-in-out infinite}
+.social-card:nth-child(2){animation:socialFloat 5s 1.1s ease-in-out infinite}
+
+/* Glanz fährt über wichtige Karten */
+.social-card,.employer-card,.map-detail,.pro-card{
+  isolation:isolate;
+}
+.social-card::before,.employer-card::before,.pro-card::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  top:0;bottom:0;
+  width:34%;
+  left:-45%;
+  pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.055),transparent);
+  transform:skewX(-18deg);
+}
+.social-card:hover::before,.employer-card:hover::before,.pro-card:hover::before{
+  animation:accentSweep 1.15s ease;
+}
+.social-card > *,.employer-card > *,.pro-card > *{position:relative;z-index:1}
+
+/* Karten kommen beim Scrollen leicht herein */
+.motion-reveal{
+  opacity:0;
+  transform:translateY(28px) scale(.985);
+  transition:opacity .75s ease,transform .75s cubic-bezier(.2,.7,.2,1);
+}
+.motion-reveal.motion-show{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+
+/* Karten nacheinander */
+.motion-reveal:nth-child(2){transition-delay:.08s}
+.motion-reveal:nth-child(3){transition-delay:.16s}
+.motion-reveal:nth-child(4){transition-delay:.24s}
+
+/* Karte / Punkte lebendiger */
+.map-point .pulse{animation-duration:1.7s!important}
+.map-point .dot{animation:pinPulse 2.2s ease-in-out infinite}
+.map-route{stroke-dasharray:10 8!important}
+
+/* Kooperation CTA dezent pulsierend */
+.floating-coop{
+  animation:buttonPulse 2.8s ease-in-out infinite;
+}
+
+/* Überschriften bekommen beim Einblenden eine orange Linie */
+.section-head h2,.section-title{
+  position:relative;
+}
+.section-head h2::after,.section-title::after{
+  content:"";
+  display:block;
+  width:0;
+  height:3px;
+  margin-top:13px;
+  border-radius:99px;
+  background:#ff7a00;
+  transition:width .85s .15s ease;
+}
+.motion-heading.motion-show::after{width:72px}
+
+/* Arbeitgeberfoto etwas lebendiger */
+.employer-mini-photo img{
+  transform:scale(1.02);
+}
+.employer-mini-photo.show img{
+  animation:employerDrift 9s ease-in-out infinite alternate;
+}
+@keyframes employerDrift{
+  from{transform:scale(1.02) translateX(0)}
+  to{transform:scale(1.08) translateX(-5px)}
+}
+
+@media(max-width:700px){
+  .social-card:nth-child(1),.social-card:nth-child(2){
+    animation-duration:6.5s;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .social-card,.map-point .dot,.floating-coop,.employer-mini-photo.show img{
+    animation:none!important;
+  }
+  .motion-reveal{
+    opacity:1!important;
+    transform:none!important;
+    transition:none!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -1911,6 +2030,37 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 
   activate('aachen');
+})();
+</script>
+
+
+<script>
+(function(){
+  const targets = document.querySelectorAll(
+    '.social-card,.pro-card,.map-city-card,.coop-tag,.region-chip,.project-card,.service-card'
+  );
+  targets.forEach(el => el.classList.add('motion-reveal'));
+
+  const headings = document.querySelectorAll('.section-head h2,.section-title');
+  headings.forEach(el => el.classList.add('motion-heading'));
+
+  if(!('IntersectionObserver' in window)){
+    targets.forEach(el => el.classList.add('motion-show'));
+    headings.forEach(el => el.classList.add('motion-show'));
+    return;
+  }
+
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('motion-show');
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:.12,rootMargin:'0px 0px -35px 0px'});
+
+  targets.forEach(el=>observer.observe(el));
+  headings.forEach(el=>observer.observe(el));
 })();
 </script>
 
