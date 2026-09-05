@@ -3883,6 +3883,81 @@ section.rope-section-active::before{
   animation:introLineReveal .62s cubic-bezier(.2,.85,.2,1) 2.28s forwards !important;
 }
 </style>
+
+<style id="rope-safe-spacing">
+/* Sicherheitsabstand zum animierten Seil:
+   3 mm ≈ 11.34 CSS-Pixel. Wir geben etwas Reserve. */
+:root{
+  --rope-safe-gap: 12px;
+}
+
+/* Rechte Inhaltskante generell vom Seil fernhalten */
+section:not(.hero) .container,
+section:not(.hero) .section-inner,
+section:not(.hero) .content,
+section:not(.hero) .wrap,
+main .container{
+  padding-right: max(var(--rope-safe-gap), 12px);
+}
+
+/* Karten / Panels dürfen nicht bis unter das Seil laufen */
+.social-card,
+.employer-card,
+.work-detail-card,
+.project-gallery-item,
+.coop-premium-card,
+.coop-form-card,
+.qual-card,
+.service-card,
+.value-card,
+.project-card,
+.card,
+.panel{
+  max-width: calc(100% - var(--rope-safe-gap));
+}
+
+/* Mobile: etwas mehr Reserve, weil das Seil sehr nah am Rand sitzt */
+@media(max-width:900px){
+  :root{
+    --rope-safe-gap: 14px;
+  }
+
+  section:not(.hero){
+    padding-right: var(--rope-safe-gap);
+  }
+
+  section:not(.hero) .container,
+  section:not(.hero) .section-inner,
+  section:not(.hero) .content,
+  section:not(.hero) .wrap,
+  main .container{
+    padding-right: var(--rope-safe-gap) !important;
+  }
+
+  .social-card,
+  .employer-card,
+  .work-detail-card,
+  .project-gallery-item,
+  .coop-premium-card,
+  .coop-form-card,
+  .qual-card,
+  .service-card,
+  .value-card,
+  .project-card,
+  .card,
+  .panel{
+    max-width: calc(100% - var(--rope-safe-gap)) !important;
+  }
+}
+
+/* Sehr kleine Handys: sichere Zone leicht vergrößern */
+@media(max-width:430px){
+  :root{
+    --rope-safe-gap: 16px;
+  }
+}
+</style>
+
 </head>
 <body>
 
