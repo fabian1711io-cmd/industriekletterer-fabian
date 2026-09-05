@@ -5341,6 +5341,244 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
 }
 </style>
 
+
+<style id="gear-pack-v1">
+.gear-pack-section{
+  position:relative;
+  padding:110px 20px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 84% 18%,rgba(255,122,0,.09),transparent 26%),
+    linear-gradient(180deg,#0b0b0b,#070707);
+}
+.gear-pack-wrap{
+  width:min(1120px,100%);
+  margin:0 auto;
+  position:relative;
+  z-index:2;
+}
+.gear-pack-head{
+  max-width:760px;
+  margin:0 auto 58px;
+  text-align:center;
+}
+.gear-pack-kicker{
+  color:#ff7a00;
+  font-weight:900;
+  font-size:12px;
+  letter-spacing:.24em;
+  margin-bottom:14px;
+}
+.gear-pack-head h2{
+  margin:0;
+  color:#fff;
+  font-size:clamp(38px,6vw,70px);
+  line-height:.95;
+  letter-spacing:-.045em;
+}
+.gear-pack-head p{
+  max-width:660px;
+  margin:20px auto 0;
+  color:rgba(255,255,255,.62);
+  line-height:1.7;
+}
+.gear-pack-layout{
+  display:grid;
+  grid-template-columns:330px 1fr;
+  gap:46px;
+  align-items:center;
+}
+.gear-pack-bag{
+  position:relative;
+  height:480px;
+  display:grid;
+  place-items:center;
+}
+.gear-pack-bag-body{
+  position:relative;
+  width:230px;
+  height:330px;
+  border-radius:42px 42px 34px 34px;
+  background:
+    linear-gradient(160deg,#242424 0%,#121212 54%,#090909 100%);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.025),
+    0 28px 65px rgba(0,0,0,.55),
+    0 0 35px rgba(255,122,0,.06);
+}
+.gear-pack-bag-top{
+  position:absolute;
+  top:53px;
+  width:165px;
+  height:52px;
+  border:10px solid #1b1b1b;
+  border-bottom:0;
+  border-radius:34px 34px 0 0;
+  opacity:.95;
+}
+.gear-pack-logo{
+  position:absolute;
+  top:38px;
+  left:50%;
+  transform:translateX(-50%);
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#ff7a00;
+  color:#111;
+  font-weight:1000;
+  font-size:25px;
+  box-shadow:0 0 24px rgba(255,122,0,.30);
+}
+.gear-pack-pocket{
+  position:absolute;
+  left:24px;
+  right:24px;
+  bottom:34px;
+  height:92px;
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,.10);
+  background:linear-gradient(180deg,#181818,#0c0c0c);
+}
+.gear-pack-pocket::before{
+  content:"";
+  position:absolute;
+  left:14px;
+  right:14px;
+  top:16px;
+  height:3px;
+  border-radius:999px;
+  background:#ff7a00;
+  box-shadow:0 0 10px rgba(255,122,0,.35);
+}
+.gear-pack-strap{
+  position:absolute;
+  top:92px;
+  width:18px;
+  height:180px;
+  border:4px solid #282828;
+  border-radius:999px;
+}
+.gear-pack-strap-left{left:-22px;transform:rotate(5deg)}
+.gear-pack-strap-right{right:-22px;transform:rotate(-5deg)}
+.gear-pack-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+.gear-item{
+  appearance:none;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:18px;
+  padding:22px 20px;
+  background:linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.018));
+  color:#fff;
+  text-align:left;
+  cursor:pointer;
+  transition:.28s ease;
+}
+.gear-item:hover,
+.gear-item:focus-visible{
+  transform:translateY(-4px);
+  border-color:rgba(255,122,0,.46);
+  box-shadow:0 18px 40px rgba(0,0,0,.28),0 0 22px rgba(255,122,0,.07);
+  outline:none;
+}
+.gear-icon{
+  display:block;
+  font-size:29px;
+  margin-bottom:12px;
+}
+.gear-name{
+  display:block;
+  font-size:18px;
+  font-weight:850;
+}
+.gear-more{
+  display:block;
+  margin-top:10px;
+  color:#ff7a00;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.16em;
+}
+.gear-modal{
+  position:fixed;
+  inset:0;
+  z-index:22000;
+  display:none;
+  place-items:center;
+  padding:20px;
+}
+.gear-modal.is-open{display:grid}
+.gear-modal-backdrop{
+  position:absolute;
+  inset:0;
+  border:0;
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(8px);
+}
+.gear-modal-card{
+  position:relative;
+  z-index:2;
+  width:min(520px,100%);
+  padding:34px;
+  border-radius:22px;
+  background:linear-gradient(155deg,#161616,#0b0b0b);
+  border:1px solid rgba(255,122,0,.32);
+  box-shadow:0 30px 80px rgba(0,0,0,.62),0 0 34px rgba(255,122,0,.10);
+  animation:gearModalIn .24s ease both;
+}
+.gear-modal-label{
+  color:#ff7a00;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.2em;
+}
+.gear-modal-card h3{
+  margin:10px 0 12px;
+  color:#fff;
+  font-size:34px;
+}
+.gear-modal-card p{
+  margin:0;
+  color:rgba(255,255,255,.66);
+  line-height:1.7;
+}
+.gear-modal-close{
+  position:absolute;
+  top:14px;
+  right:16px;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.10);
+  background:#111;
+  color:#fff;
+  font-size:24px;
+  cursor:pointer;
+}
+@keyframes gearModalIn{
+  from{opacity:0;transform:translateY(12px) scale(.97)}
+  to{opacity:1;transform:none}
+}
+@media(max-width:820px){
+  .gear-pack-section{padding:82px 18px}
+  .gear-pack-layout{grid-template-columns:1fr;gap:18px}
+  .gear-pack-bag{height:360px}
+  .gear-pack-bag-body{width:190px;height:280px}
+  .gear-pack-bag-top{top:35px;width:140px}
+  .gear-pack-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:520px){
+  .gear-pack-grid{grid-template-columns:1fr}
+  .gear-pack-bag{height:330px}
+}
+</style>
+
 </head>
 <body>
 
@@ -5523,6 +5761,7 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
   <a href="#arbeitgeber"><span>●</span>Arbeitgeber</a>
   <a href="#einsatzkarte"><span>●</span>Deutschlandkarte</a>
   <a href="#projects"><span>●</span>Projekte</a>
+  <a href="#kletterrucksack"><span>●</span>Kletterrucksack</a>
   <a href="#arbeitstag"><span>●</span>Arbeitstag</a>
   <a href="#was-ich-mache"><span>●</span>Arbeitsalltag</a>
   <a href="#qualifikationen"><span>●</span>Qualifikationen</a>
@@ -5743,6 +5982,108 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
 <!-- EXTRA-PRO-BLOCK-START -->
 
 <!-- WAS-ICH-MACHE-START -->
+
+
+<section id="kletterrucksack" class="gear-pack-section">
+  <div class="gear-pack-wrap">
+    <div class="gear-pack-head reveal">
+      <div class="gear-pack-kicker">MEIN KLETTERRUCKSACK</div>
+      <h2>Was ist eigentlich alles dabei?</h2>
+      <p>
+        Ein Blick in die Ausrüstung, die bei meinen Einsätzen eine wichtige Rolle spielt.
+        Tippe auf einen Gegenstand und erfahre kurz, wofür er genutzt wird.
+      </p>
+    </div>
+
+    <div class="gear-pack-layout">
+      <div class="gear-pack-bag reveal" aria-hidden="true">
+        <div class="gear-pack-bag-top"></div>
+        <div class="gear-pack-bag-body">
+          <span class="gear-pack-logo">F</span>
+          <span class="gear-pack-strap gear-pack-strap-left"></span>
+          <span class="gear-pack-strap gear-pack-strap-right"></span>
+          <span class="gear-pack-pocket"></span>
+        </div>
+      </div>
+
+      <div class="gear-pack-grid">
+        <button class="gear-item reveal" type="button"
+          data-title="Helm"
+          data-text="Schützt den Kopf bei Arbeiten in der Höhe und gehört zur persönlichen Schutzausrüstung.">
+          <span class="gear-icon">⛑️</span>
+          <span class="gear-name">Helm</span>
+          <span class="gear-more">ANSEHEN +</span>
+        </button>
+
+        <button class="gear-item reveal" type="button"
+          data-title="Klettergurt"
+          data-text="Der Gurt verbindet mich sicher mit dem Seilsystem und ist die Basis für den Seilzugang.">
+          <span class="gear-icon">🧗</span>
+          <span class="gear-name">Klettergurt</span>
+          <span class="gear-more">ANSEHEN +</span>
+        </button>
+
+        <button class="gear-item reveal" type="button"
+          data-title="Abseilgerät"
+          data-text="Damit werden kontrollierte Auf- und Abwärtsbewegungen im Seilsystem ermöglicht.">
+          <span class="gear-icon">⚙️</span>
+          <span class="gear-name">Abseilgerät</span>
+          <span class="gear-more">ANSEHEN +</span>
+        </button>
+
+        <button class="gear-item reveal" type="button"
+          data-title="Karabiner"
+          data-text="Karabiner verbinden einzelne Komponenten sicher miteinander und gehören in verschiedenen Varianten zur Standardausrüstung.">
+          <span class="gear-icon">🪝</span>
+          <span class="gear-name">Karabiner</span>
+          <span class="gear-more">ANSEHEN +</span>
+        </button>
+
+        <button class="gear-item reveal" type="button"
+          data-title="Seile"
+          data-text="Arbeits- und Sicherungsseile bilden die Grundlage für sicheren Zugang zu schwer erreichbaren Arbeitsbereichen.">
+          <span class="gear-icon">🪢</span>
+          <span class="gear-name">Seile</span>
+          <span class="gear-more">ANSEHEN +</span>
+        </button>
+
+        <button class="gear-item reveal" type="button"
+          data-title="Verbindungsmittel"
+          data-text="Verbindungsmittel ergänzen das persönliche Sicherungssystem und werden je nach Aufgabe unterschiedlich eingesetzt.">
+          <span class="gear-icon">🔗</span>
+          <span class="gear-name">Verbindungsmittel</span>
+          <span class="gear-more">ANSEHEN +</span>
+        </button>
+
+        <button class="gear-item reveal" type="button"
+          data-title="Handschuhe"
+          data-text="Für besseren Griff und zusätzlichen Schutz der Hände bei Arbeiten mit Seilen, Material und Werkzeug.">
+          <span class="gear-icon">🧤</span>
+          <span class="gear-name">Handschuhe</span>
+          <span class="gear-more">ANSEHEN +</span>
+        </button>
+
+        <button class="gear-item reveal" type="button"
+          data-title="Werkzeug"
+          data-text="Je nach Auftrag kommt zusätzlich Werkzeug für Montage, Wartung oder spezielle Arbeiten in der Höhe mit.">
+          <span class="gear-icon">🛠️</span>
+          <span class="gear-name">Werkzeug</span>
+          <span class="gear-more">ANSEHEN +</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="gear-modal" id="gearModal" aria-hidden="true">
+    <button class="gear-modal-backdrop" type="button" aria-label="Schließen"></button>
+    <div class="gear-modal-card" role="dialog" aria-modal="true" aria-labelledby="gearModalTitle">
+      <button class="gear-modal-close" type="button" aria-label="Schließen">×</button>
+      <div class="gear-modal-label">AUSRÜSTUNG</div>
+      <h3 id="gearModalTitle"></h3>
+      <p id="gearModalText"></p>
+    </div>
+  </div>
+</section>
 
 <section id="arbeitstag" class="day-section">
   <div class="day-wrap">
@@ -6982,6 +7323,46 @@ document.addEventListener('DOMContentLoaded', function(){
   addEventListener('scroll',update,{passive:true});
   addEventListener('resize',update,{passive:true});
   update();
+})();
+</script>
+
+
+<script id="gear-pack-js-v1">
+(() => {
+  const section = document.getElementById('kletterrucksack');
+  if(!section) return;
+
+  const modal = document.getElementById('gearModal');
+  const title = document.getElementById('gearModalTitle');
+  const text = document.getElementById('gearModalText');
+  const close = modal?.querySelector('.gear-modal-close');
+  const backdrop = modal?.querySelector('.gear-modal-backdrop');
+
+  function openModal(item){
+    if(!modal) return;
+    title.textContent = item.dataset.title || '';
+    text.textContent = item.dataset.text || '';
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+  }
+
+  function closeModal(){
+    if(!modal) return;
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+  }
+
+  section.querySelectorAll('.gear-item').forEach(item => {
+    item.addEventListener('click',() => openModal(item));
+  });
+
+  close?.addEventListener('click',closeModal);
+  backdrop?.addEventListener('click',closeModal);
+  addEventListener('keydown',e => {
+    if(e.key === 'Escape' && modal?.classList.contains('is-open')) closeModal();
+  });
 })();
 </script>
 
