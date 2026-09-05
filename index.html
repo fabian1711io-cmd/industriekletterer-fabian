@@ -4636,6 +4636,133 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
 }
 </style>
 
+
+<style id="intro-platform-continuity-v1">
+/* Intro endet auf einer Plattform, damit die Figur danach wie dieselbe
+   Figur auf der Hero-Plattform weiterläuft. */
+#siteIntro .intro-inner{
+  overflow:visible!important;
+}
+
+#siteIntro .intro-landing-platform{
+  position:absolute;
+  left:50%;
+  top:238px;
+  width:min(360px,44vw);
+  height:14px;
+  border-radius:4px 2px 2px 4px;
+  background:linear-gradient(180deg,#414141,#1a1a1a 70%,#080808);
+  box-shadow:0 6px 18px rgba(0,0,0,.72), inset 0 1px rgba(255,255,255,.09);
+  opacity:0;
+  transform:scaleX(.08);
+  transform-origin:left center;
+  animation:introPlatformBuild .42s ease 1.78s forwards;
+  z-index:4;
+}
+#siteIntro .intro-landing-platform::before{
+  content:"";
+  position:absolute;
+  left:0;right:0;top:-5px;height:4px;
+  background:repeating-linear-gradient(90deg,#666 0 12px,#292929 12px 24px);
+  opacity:.5;
+}
+
+/* exakt dieselben Zusatzteile wie bei der späteren Figur */
+#siteIntro .intro-climber .carabiner,
+#siteIntro .intro-climber .lanyard{
+  fill:none;
+  stroke:#ff8a14;
+  stroke-width:2.5;
+}
+
+/* Neue Abfolge:
+   1. am Seil sichtbar werden
+   2. kontrolliert auf der Plattform landen
+   3. aufstehen
+   4. nach rechts laufen
+*/
+#siteIntro .intro-climber{
+  top:118px!important;
+  left:50%!important;
+  width:50px!important;
+  height:82px!important;
+  opacity:0;
+  transform-origin:50% 100%!important;
+  animation:
+    introSameAttach .34s cubic-bezier(.2,.9,.2,1) 1.22s forwards,
+    introSameLand .78s cubic-bezier(.18,.86,.2,1) 1.52s forwards,
+    introSameStand .20s ease 2.30s forwards,
+    introSameWalk 1.45s cubic-bezier(.25,.75,.2,1) 2.48s forwards!important;
+  z-index:7!important;
+}
+
+/* Arme/Beine laufen sichtbar mit */
+#siteIntro .intro-climber .person:nth-of-type(2){
+  animation:introWalkLimbA .34s ease-in-out 4 alternate;
+  animation-delay:2.48s;
+  transform-origin:19px 22px;
+}
+#siteIntro .intro-climber .person:nth-of-type(3){
+  animation:introWalkLimbB .34s ease-in-out 4 alternate;
+  animation-delay:2.48s;
+  transform-origin:18px 38px;
+}
+
+@keyframes introPlatformBuild{
+  0%{opacity:0;transform:scaleX(.08)}
+  100%{opacity:1;transform:scaleX(1)}
+}
+@keyframes introSameAttach{
+  0%{opacity:0;transform:translateX(-50%) translateY(-30px) rotate(-4deg) scale(.94)}
+  100%{opacity:1;transform:translateX(-50%) translateY(0) rotate(2deg) scale(1)}
+}
+@keyframes introSameLand{
+  0%{opacity:1;transform:translateX(-50%) translateY(0) rotate(2deg)}
+  72%{transform:translateX(-50%) translateY(39px) rotate(-2deg)}
+  88%{transform:translateX(-50%) translateY(43px) scaleY(.94)}
+  100%{opacity:1;transform:translateX(-50%) translateY(40px) rotate(0) scale(1)}
+}
+@keyframes introSameStand{
+  from{opacity:1;transform:translateX(-50%) translateY(40px) scaleY(.96)}
+  to{opacity:1;transform:translateX(-50%) translateY(40px) scaleY(1)}
+}
+@keyframes introSameWalk{
+  0%{opacity:1;transform:translateX(-50%) translateY(40px)}
+  20%{transform:translateX(calc(-50% + 45px)) translateY(39px)}
+  45%{transform:translateX(calc(-50% + 105px)) translateY(40px)}
+  70%{transform:translateX(calc(-50% + 170px)) translateY(39px)}
+  100%{opacity:1;transform:translateX(calc(-50% + min(300px,36vw))) translateY(40px)}
+}
+@keyframes introWalkLimbA{from{transform:rotate(14deg)}to{transform:rotate(-14deg)}}
+@keyframes introWalkLimbB{from{transform:rotate(-12deg)}to{transform:rotate(12deg)}}
+
+@media(max-width:600px){
+  #siteIntro .intro-landing-platform{
+    top:218px;
+    width:46vw;
+  }
+  #siteIntro .intro-climber{
+    top:108px!important;
+    width:46px!important;
+    height:76px!important;
+  }
+  @keyframes introSameLand{
+    0%{opacity:1;transform:translateX(-50%) translateY(0) rotate(2deg)}
+    72%{transform:translateX(-50%) translateY(34px) rotate(-2deg)}
+    88%{transform:translateX(-50%) translateY(37px) scaleY(.94)}
+    100%{opacity:1;transform:translateX(-50%) translateY(35px) rotate(0) scale(1)}
+  }
+  @keyframes introSameStand{
+    from{opacity:1;transform:translateX(-50%) translateY(35px) scaleY(.96)}
+    to{opacity:1;transform:translateX(-50%) translateY(35px) scaleY(1)}
+  }
+  @keyframes introSameWalk{
+    0%{opacity:1;transform:translateX(-50%) translateY(35px)}
+    100%{opacity:1;transform:translateX(calc(-50% + 39vw)) translateY(35px)}
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -4649,6 +4776,8 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
     <div class="intro-knot" aria-hidden="true"></div>
     <div class="intro-rope-glow" aria-hidden="true"></div>
 
+    <div class="intro-landing-platform" aria-hidden="true"></div>
+
     <div class="intro-climber">
       <svg viewBox="0 0 42 70">
         <circle cx="22" cy="9" r="6" class="helmet"/>
@@ -4656,6 +4785,8 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
         <path d="M19 21 L8 30 M19 22 L30 16" class="person"/>
         <path d="M18 38 L9 55 M18 38 L29 55" class="person"/>
         <path d="M12 34 Q18 42 25 34 M13 37 L10 44 M24 37 L29 44" class="harness"/>
+        <ellipse cx="32" cy="22" rx="3.5" ry="6" class="carabiner" transform="rotate(25 32 22)"/>
+        <path d="M7 29 Q4 38 8 47" class="lanyard"/>
       </svg>
     </div>
 
@@ -5479,7 +5610,7 @@ document.addEventListener('DOMContentLoaded', function(){
   if(!intro) return;
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const delay = reduce ? 250 : 3550;
+  const delay = reduce ? 250 : 4250;
 
   document.body.style.overflow = 'hidden';
 
@@ -6048,7 +6179,7 @@ document.addEventListener('DOMContentLoaded', function(){
           });
         }, 540);
       }, 2300);
-    }, 3700);
+    }, 4320);
   }
 
   if(document.readyState === 'loading'){
