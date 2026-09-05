@@ -3369,6 +3369,155 @@ a[href="#contact"],
 }
 </style>
 
+
+<style id="mobile-hero-cleanup">
+/* Mobile Hero aufgeräumt */
+@media (max-width: 700px){
+  .hero{
+    min-height: 100svh;
+    padding-top: 86px;
+    padding-bottom: 34px;
+  }
+
+  .hero-content,
+  .hero-inner,
+  .hero .wrap{
+    position: relative;
+    z-index: 3;
+  }
+
+  .hero h1{
+    font-size: clamp(2.7rem, 14vw, 4.6rem) !important;
+    line-height: .9 !important;
+    letter-spacing: -.045em;
+    margin-bottom: 18px;
+  }
+
+  .hero p,
+  .hero .hero-text{
+    max-width: 31rem;
+    font-size: .98rem;
+    line-height: 1.55;
+  }
+
+  .hero-tags{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    flex-wrap:nowrap !important;
+    padding-bottom:4px;
+    margin-right:34px;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .hero-tags::-webkit-scrollbar{
+    display:none;
+  }
+
+  .hero-tags > *{
+    flex:0 0 auto;
+    white-space:nowrap;
+  }
+
+  .hero-actions,
+  .hero-buttons,
+  .hero-cta{
+    display:grid !important;
+    grid-template-columns:1fr 1fr;
+    gap:9px !important;
+    width:100%;
+    max-width:none;
+  }
+
+  .hero-actions .btn,
+  .hero-buttons .btn,
+  .hero-cta .btn{
+    min-width:0 !important;
+    width:100%;
+    min-height:46px;
+    padding:12px 10px !important;
+    font-size:.77rem !important;
+    letter-spacing:.025em;
+    text-align:center;
+    justify-content:center;
+  }
+
+  .section-jumpbar{
+    width:calc(100% + 16px);
+    margin-left:-8px;
+    padding:4px 8px 8px !important;
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    gap:8px !important;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x proximity;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+    mask-image:linear-gradient(to right,transparent 0,#000 18px,#000 calc(100% - 28px),transparent 100%);
+    -webkit-mask-image:linear-gradient(to right,transparent 0,#000 18px,#000 calc(100% - 28px),transparent 100%);
+  }
+
+  .section-jumpbar::-webkit-scrollbar{
+    display:none;
+  }
+
+  .section-jumpbar a{
+    flex:0 0 auto;
+    min-height:39px;
+    padding:9px 12px !important;
+    border-radius:999px !important;
+    white-space:nowrap;
+    font-size:.72rem !important;
+    scroll-snap-align:start;
+  }
+
+  .section-jumpbar a span{
+    font-size:.62rem;
+  }
+
+  /* Rechte Seite frei halten für das animierte Seil */
+  .hero .section-jumpbar,
+  .hero-tags{
+    max-width:calc(100vw - 34px);
+  }
+
+  /* Hintergrund etwas ruhiger, Text bleibt besser lesbar */
+  .hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(180deg,rgba(5,5,5,.16) 0%,rgba(5,5,5,.22) 42%,rgba(5,5,5,.72) 100%);
+    pointer-events:none;
+    z-index:1;
+  }
+}
+
+@media (max-width: 430px){
+  .hero{
+    padding-top:80px;
+  }
+
+  .hero h1{
+    font-size:clamp(2.45rem,13.5vw,3.65rem)!important;
+  }
+
+  .hero-actions,
+  .hero-buttons,
+  .hero-cta{
+    grid-template-columns:1fr !important;
+  }
+
+  .hero-actions .btn,
+  .hero-buttons .btn,
+  .hero-cta .btn{
+    min-height:44px;
+  }
+}
+</style>
+
 </head>
 <body>
 
