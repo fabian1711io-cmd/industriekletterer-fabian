@@ -4795,6 +4795,14 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
 }
 </style>
 
+
+<style id="rope-entry-above-first-point-v1">
+/* Beim Seileinstieg sitzt der Kletterer bewusst ÜBER dem ersten Navigationspunkt. */
+body.scroll-climber-entered .moving-climber{
+  z-index:7 !important;
+}
+</style>
+
 </head>
 <body>
 
@@ -6434,6 +6442,44 @@ document.addEventListener('DOMContentLoaded', function(){
   addEventListener('resize', metrics, {passive:true});
   metrics();
   requestAnimationFrame(loop);
+})();
+</script>
+
+
+<script id="rope-entry-above-first-point-js">
+(() => {
+  const climber = document.querySelector('.moving-climber');
+  const firstPoint = document.querySelector('[data-rope-target]');
+  const track = document.querySelector('.rope-vector-track');
+  if(!climber || !firstPoint || !track) return;
+
+  /* Abstand zwischen Einstiegsposition und erstem Punkt */
+  const gap = () => innerWidth <= 900 ? 34 : 42;
+
+  function entryTop(){
+    const pointTop = parseFloat(firstPoint.style.top) || firstPoint.offsetTop || 100;
+    return Math.max(innerWidth <= 900 ? 48 : 56, pointTop - gap());
+  }
+
+  /* Bestehende Handoff-Funktion umleiten:
+     Der Plattform-Kletterer steigt oberhalb des ersten Punktes ins Seil ein. */
+  const install = () => {
+    if(typeof window.setScrollClimberHandoff !== 'function') {
+      requestAnimationFrame(install);
+      return;
+    }
+
+    if(window.__entryAbovePointInstalled) return;
+    window.__entryAbovePointInstalled = true;
+
+    const original = window.setScrollClimberHandoff;
+
+    window.setScrollClimberHandoff = function(){
+      original(entryTop());
+    };
+  };
+
+  install();
 })();
 </script>
 
