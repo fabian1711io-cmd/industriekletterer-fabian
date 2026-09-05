@@ -3577,138 +3577,286 @@ section.rope-section-active::before{
 }
 </style>
 
-
-<style id="intro-upgrade-v2">
-/* Verbesserte Startanimation */
-.start-intro{
-  overflow:hidden;
+<style id="intro-premium-v3">
+/* Premium Startanimation */
+.site-intro{
+  background:
+    radial-gradient(circle at 50% 30%,rgba(255,122,0,.10),transparent 24%),
+    radial-gradient(circle at 50% 72%,rgba(255,122,0,.035),transparent 35%),
+    #050505 !important;
+  transition:opacity .72s ease, visibility .72s ease !important;
 }
-.start-intro::before{
+.site-intro::before{
   content:"";
   position:absolute;
-  inset:0;
+  inset:-20%;
   background:
-    radial-gradient(circle at 50% 34%,rgba(255,122,0,.09),transparent 30%),
-    linear-gradient(180deg,rgba(255,255,255,.015),transparent 28%);
+    repeating-linear-gradient(115deg,
+      transparent 0 42px,
+      rgba(255,255,255,.012) 43px 44px,
+      transparent 45px 88px);
   opacity:0;
-  animation:introAmbient 2.5s ease .2s both;
+  animation:introTextureIn .8s ease .15s forwards;
   pointer-events:none;
 }
-.start-intro .intro-rope{
-  transform-origin:top center;
-  animation:
-    introRopeDrop .78s cubic-bezier(.22,.75,.15,1) .08s both,
-    introRopeSettle .58s ease .82s both;
-}
-.start-intro .intro-knot,
-.start-intro .rope-knot,
-.start-intro .intro-eight{
-  transform-origin:center;
-  animation:introKnotTighten .58s cubic-bezier(.2,.9,.25,1) .74s both;
-}
-.start-intro .intro-climber{
-  animation:
-    introClimberDrop .82s cubic-bezier(.2,.78,.18,1) 1.02s both,
-    introClimberHang 1.15s ease-in-out 1.86s infinite alternate;
-  will-change:transform,opacity;
-}
-.start-intro .intro-title{
-  opacity:0;
-  animation:introTitleIn .62s cubic-bezier(.2,.8,.2,1) 1.32s both;
-}
-.start-intro .intro-subtitle{
-  opacity:0;
-  animation:introTextIn .52s ease 1.55s both;
-}
-.start-intro .intro-line{
-  transform-origin:left center;
-  animation:introLineDraw .7s cubic-bezier(.2,.8,.2,1) 1.62s both;
-}
-.start-intro .intro-flash{
+.site-intro::after{
+  content:"";
   position:absolute;
   left:50%;
-  top:16%;
-  width:2px;
-  height:62%;
-  transform:translateX(-50%);
-  background:linear-gradient(180deg,transparent,rgba(255,138,20,.85),transparent);
-  filter:blur(.2px);
+  top:0;
+  width:1px;
+  height:100%;
+  background:linear-gradient(180deg,
+    transparent 0%,
+    rgba(255,122,0,.08) 30%,
+    rgba(255,122,0,.26) 52%,
+    rgba(255,122,0,.04) 77%,
+    transparent 100%);
   opacity:0;
-  animation:introRopeGlow .72s ease 1.05s both;
+  transform:translateX(-50%);
+  animation:introCenterGlow 2.3s ease .45s forwards;
   pointer-events:none;
 }
 
-@keyframes introRopeDrop{
-  0%{transform:translateY(-115%);opacity:0}
-  20%{opacity:1}
-  78%{transform:translateY(2.5%)}
-  100%{transform:translateY(0)}
-}
-@keyframes introRopeSettle{
-  0%{transform:translateY(0) scaleY(1)}
-  45%{transform:translateY(0) scaleY(1.025)}
-  100%{transform:translateY(0) scaleY(1)}
-}
-@keyframes introKnotTighten{
-  0%{transform:scale(.78) rotate(-8deg);opacity:.25}
-  60%{transform:scale(1.08) rotate(2deg);opacity:1}
-  100%{transform:scale(1) rotate(0)}
-}
-@keyframes introClimberDrop{
-  0%{transform:translate(-50%,-85px) rotate(-5deg);opacity:0}
-  15%{opacity:1}
-  72%{transform:translate(-50%,8px) rotate(2deg)}
-  100%{transform:translate(-50%,0) rotate(0)}
-}
-@keyframes introClimberHang{
-  from{transform:translate(-50%,0) rotate(-1.2deg)}
-  to{transform:translate(-50%,4px) rotate(1.2deg)}
-}
-@keyframes introTitleIn{
-  0%{opacity:0;transform:translateY(18px) scale(.985);filter:blur(5px)}
-  100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
-}
-@keyframes introTextIn{
-  0%{opacity:0;transform:translateY(10px)}
-  100%{opacity:1;transform:translateY(0)}
-}
-@keyframes introLineDraw{
-  0%{transform:scaleX(0);opacity:0}
-  100%{transform:scaleX(1);opacity:1}
-}
-@keyframes introRopeGlow{
-  0%{opacity:0;transform:translateX(-50%) scaleY(.25)}
-  40%{opacity:.95}
-  100%{opacity:0;transform:translateX(-50%) scaleY(1)}
-}
-@keyframes introAmbient{
-  from{opacity:0}
-  to{opacity:1}
+.intro-inner{
+  z-index:2;
+  height:460px !important;
 }
 
-@media(max-width:700px){
-  .start-intro .intro-climber{
-    animation:
-      introClimberDropMobile .78s cubic-bezier(.2,.78,.18,1) 1.02s both,
-      introClimberHangMobile 1.1s ease-in-out 1.82s infinite alternate;
-  }
+/* Anschlagpunkt oben */
+.intro-anchor{
+  position:absolute;
+  top:-9px;
+  left:50%;
+  width:52px;
+  height:28px;
+  transform:translateX(-50%) translateY(-42px) scale(.8);
+  opacity:0;
+  animation:introAnchorIn .48s cubic-bezier(.2,.8,.2,1) .10s forwards;
+  z-index:5;
 }
-@keyframes introClimberDropMobile{
-  0%{transform:translate(-50%,-66px) rotate(-4deg);opacity:0}
+.intro-anchor::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:0;
+  width:44px;
+  height:8px;
+  transform:translateX(-50%);
+  border-radius:3px;
+  background:linear-gradient(180deg,#333,#101010);
+  border:1px solid #4a4a4a;
+  box-shadow:0 5px 18px rgba(0,0,0,.6);
+}
+.intro-anchor-ring{
+  position:absolute;
+  left:50%;
+  top:7px;
+  width:20px;
+  height:20px;
+  transform:translateX(-50%);
+  border:4px solid #ff7a00;
+  border-top-color:#9f4800;
+  border-radius:50%;
+  box-shadow:0 0 14px rgba(255,122,0,.42);
+}
+
+/* Seil fällt sauber vom Anschlagpunkt ein */
+.intro-rope{
+  top:17px !important;
+  height:200px !important;
+  transform:translateX(-50%) scaleY(0) !important;
+  transform-origin:top center !important;
+  opacity:1 !important;
+  animation:introRopeDeploy .72s cubic-bezier(.18,.82,.2,1) .48s forwards !important;
+  box-shadow:
+    0 0 12px rgba(255,122,0,.26),
+    0 0 28px rgba(255,122,0,.08) !important;
+}
+
+/* kleiner Achtknoten / Verbindungspunkt */
+.intro-knot{
+  position:absolute;
+  left:50%;
+  top:194px;
+  width:18px;
+  height:26px;
+  border:6px solid #ff7a00;
+  border-radius:52% 48% 55% 45%;
+  transform:translateX(-50%) scale(.35) rotate(-22deg);
+  opacity:0;
+  z-index:4;
+  box-shadow:0 0 12px rgba(255,122,0,.32);
+  animation:introKnotLock .46s cubic-bezier(.2,.9,.2,1) 1.05s forwards;
+}
+.intro-knot::after{
+  content:"";
+  position:absolute;
+  left:2px;
+  top:6px;
+  width:8px;
+  height:8px;
+  border:3px solid #a94b00;
+  border-radius:50%;
+}
+
+/* Lichtimpuls fährt nach dem Einhängen am Seil entlang */
+.intro-rope-glow{
+  position:absolute;
+  left:50%;
+  top:24px;
+  width:4px;
+  height:0;
+  transform:translateX(-50%);
+  border-radius:99px;
+  background:linear-gradient(180deg,#fff2dc,#ff9a2f,#ff6a00,transparent);
+  filter:drop-shadow(0 0 7px rgba(255,122,0,.9));
+  opacity:0;
+  z-index:3;
+  animation:introRopePulse .48s ease 1.19s forwards;
+}
+
+/* Kletterer: erst einhängen, dann kontrolliert ablassen */
+.intro-climber{
+  top:118px !important;
+  width:50px !important;
+  height:82px !important;
+  opacity:0 !important;
+  transform:translateX(-50%) translateY(-34px) rotate(-4deg) scale(.92) !important;
+  transform-origin:50% 10% !important;
+  animation:
+    introClimberAttach .38s cubic-bezier(.2,.9,.2,1) 1.25s forwards,
+    introClimberLower .72s cubic-bezier(.22,.75,.2,1) 1.58s forwards,
+    introClimberLiveSway 1.55s ease-in-out 2.30s infinite alternate !important;
+  z-index:6;
+}
+
+/* Titel wirkt wie aufgeschnitten / eingeblendet */
+.intro-title{
+  margin-top:170px !important;
+  opacity:0 !important;
+  transform:translateY(20px) scale(.985) !important;
+  filter:blur(5px);
+  clip-path:inset(100% 0 0 0);
+  animation:introTitleReveal .64s cubic-bezier(.2,.82,.2,1) 1.88s forwards !important;
+  text-shadow:0 8px 35px rgba(0,0,0,.8);
+}
+.intro-title span{
+  text-shadow:0 0 22px rgba(255,122,0,.16);
+}
+.intro-sub{
+  opacity:0 !important;
+  transform:translateY(10px);
+  animation:introSubReveal .48s ease 2.18s forwards !important;
+}
+.intro-line{
+  width:180px !important;
+  transform:scaleX(0);
+  transform-origin:center;
+  opacity:0;
+  animation:introLineReveal .62s cubic-bezier(.2,.85,.2,1) 2.28s forwards !important;
+}
+
+/* Finaler kurzer Energieimpuls vor dem Übergang zur Seite */
+.intro-line::after{
+  content:"";
+  display:block;
+  width:26px;
+  height:2px;
+  background:#fff2df;
+  box-shadow:0 0 10px #ff7a00;
+  transform:translateX(-24px);
+  opacity:0;
+  animation:introLineSpark .65s ease 2.62s forwards;
+}
+
+.site-intro.intro-hide{
+  transform:scale(1.012);
+}
+
+@keyframes introTextureIn{
+  to{opacity:1}
+}
+@keyframes introCenterGlow{
+  0%{opacity:0}
+  35%{opacity:1}
+  100%{opacity:.42}
+}
+@keyframes introAnchorIn{
+  0%{opacity:0;transform:translateX(-50%) translateY(-42px) scale(.8)}
+  70%{opacity:1;transform:translateX(-50%) translateY(3px) scale(1.04)}
+  100%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
+}
+@keyframes introRopeDeploy{
+  0%{transform:translateX(-50%) scaleY(0)}
+  82%{transform:translateX(-50%) scaleY(1.035)}
+  100%{transform:translateX(-50%) scaleY(1)}
+}
+@keyframes introKnotLock{
+  0%{opacity:0;transform:translateX(-50%) scale(.35) rotate(-22deg)}
+  72%{opacity:1;transform:translateX(-50%) scale(1.14) rotate(5deg)}
+  100%{opacity:1;transform:translateX(-50%) scale(1) rotate(0)}
+}
+@keyframes introRopePulse{
+  0%{height:0;opacity:0}
+  25%{opacity:1}
+  75%{height:174px;opacity:.95}
+  100%{height:194px;opacity:0}
+}
+@keyframes introClimberAttach{
+  0%{opacity:0;transform:translateX(-50%) translateY(-34px) rotate(-4deg) scale(.92)}
+  100%{opacity:1;transform:translateX(-50%) translateY(0) rotate(2deg) scale(1)}
+}
+@keyframes introClimberLower{
+  0%{opacity:1;transform:translateX(-50%) translateY(0) rotate(2deg)}
+  70%{transform:translateX(-50%) translateY(39px) rotate(-1.5deg)}
+  100%{opacity:1;transform:translateX(-50%) translateY(34px) rotate(0)}
+}
+@keyframes introClimberLiveSway{
+  from{opacity:1;transform:translateX(-50%) translateY(34px) rotate(-1.4deg)}
+  to{opacity:1;transform:translateX(-50%) translateY(38px) rotate(1.4deg)}
+}
+@keyframes introTitleReveal{
+  0%{opacity:0;transform:translateY(20px) scale(.985);filter:blur(5px);clip-path:inset(100% 0 0 0)}
+  100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0);clip-path:inset(0 0 0 0)}
+}
+@keyframes introSubReveal{
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes introLineReveal{
+  0%{opacity:0;transform:scaleX(0)}
+  100%{opacity:1;transform:scaleX(1)}
+}
+@keyframes introLineSpark{
+  0%{opacity:0;transform:translateX(-24px)}
   18%{opacity:1}
-  100%{transform:translate(-50%,0) rotate(0)}
+  100%{opacity:0;transform:translateX(178px)}
 }
-@keyframes introClimberHangMobile{
-  from{transform:translate(-50%,0) rotate(-1deg)}
-  to{transform:translate(-50%,3px) rotate(1deg)}
+
+@media(max-width:600px){
+  .intro-inner{height:400px !important}
+  .intro-anchor{top:1px}
+  .intro-rope{top:27px !important;height:178px !important}
+  .intro-knot{top:185px}
+  .intro-rope-glow{top:34px}
+  .intro-climber{top:108px !important;width:46px !important;height:76px !important}
+  .intro-title{
+    margin-top:155px !important;
+    font-size:clamp(39px,13vw,62px) !important;
+  }
+  .intro-sub{
+    letter-spacing:.19em !important;
+    padding:0 16px;
+  }
 }
 
 @media(prefers-reduced-motion:reduce){
-  .start-intro *,
-  .start-intro::before{
-    animation-duration:.18s!important;
-    animation-iteration-count:1!important;
-    animation-delay:0s!important;
+  .site-intro *,
+  .site-intro::before,
+  .site-intro::after{
+    animation-duration:.12s !important;
+    animation-delay:0s !important;
+    animation-iteration-count:1 !important;
   }
 }
 </style>
@@ -3719,7 +3867,12 @@ section.rope-section-active::before{
 <!-- INTRO-START -->
 <div class="site-intro" id="siteIntro" aria-hidden="true">
   <div class="intro-inner">
+    <div class="intro-anchor" aria-hidden="true">
+      <span class="intro-anchor-ring"></span>
+    </div>
     <div class="intro-rope"></div>
+    <div class="intro-knot" aria-hidden="true"></div>
+    <div class="intro-rope-glow" aria-hidden="true"></div>
 
     <div class="intro-climber">
       <svg viewBox="0 0 42 70">
@@ -4489,7 +4642,7 @@ document.addEventListener('DOMContentLoaded', function(){
   if(!intro) return;
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const delay = reduce ? 250 : 3150;
+  const delay = reduce ? 250 : 3550;
 
   document.body.style.overflow = 'hidden';
 
