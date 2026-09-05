@@ -2160,6 +2160,79 @@ section:not(.hero)::after{
 }
 </style>
 
+
+<style>
+/* Animierte Deutschlandkarte */
+#einsatzkarte .map-route{
+  stroke-dasharray:18 12!important;
+  stroke-dashoffset:180;
+  opacity:.28;
+  transition:opacity .4s ease;
+}
+#einsatzkarte.map-animate .map-route{
+  animation:mapRouteDraw 2.2s ease forwards, mapRouteFlow 2.4s linear 2.2s infinite;
+  opacity:1;
+}
+#einsatzkarte .map-point{
+  opacity:0;
+  transform:scale(.65);
+  transform-box:fill-box;
+  transform-origin:center;
+}
+#einsatzkarte.map-animate .map-point{
+  animation:mapPointPop .55s ease forwards;
+}
+#einsatzkarte.map-animate .map-point[data-city="aachen"]{animation-delay:.25s}
+#einsatzkarte.map-animate .map-point[data-city="hamburg"]{animation-delay:1.25s}
+#einsatzkarte.map-animate .map-point[data-city="berlin"]{animation-delay:1.55s}
+
+#einsatzkarte .map-point .pulse{
+  opacity:0;
+}
+#einsatzkarte.map-animate .map-point .pulse{
+  animation:mapPulse 2s ease-in-out 1.8s infinite;
+}
+
+@keyframes mapRouteDraw{
+  0%{stroke-dashoffset:180;opacity:.15}
+  100%{stroke-dashoffset:0;opacity:1}
+}
+@keyframes mapRouteFlow{
+  from{stroke-dashoffset:0}
+  to{stroke-dashoffset:-60}
+}
+@keyframes mapPointPop{
+  0%{opacity:0;transform:scale(.55)}
+  70%{opacity:1;transform:scale(1.18)}
+  100%{opacity:1;transform:scale(1)}
+}
+@keyframes mapPulse{
+  0%,100%{opacity:.18;transform:scale(1)}
+  50%{opacity:.65;transform:scale(1.55)}
+}
+
+/* reisender Punkt auf den Routen */
+#einsatzkarte .travel-dot{
+  opacity:0;
+  fill:#ff7a00;
+  filter:drop-shadow(0 0 7px rgba(255,122,0,.9));
+}
+#einsatzkarte.map-animate .travel-dot{
+  opacity:1;
+}
+@media(prefers-reduced-motion:reduce){
+  #einsatzkarte .map-route,
+  #einsatzkarte .map-point,
+  #einsatzkarte .map-point .pulse{
+    animation:none!important;
+    opacity:1!important;
+    transform:none!important;
+    stroke-dashoffset:0!important;
+  }
+  #einsatzkarte .travel-dot{display:none!important}
+}
+</style>
+
 </head>
 <body>
 
@@ -2989,6 +3062,76 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 
   dots.forEach(dot=>obs.observe(dot));
+})();
+</script>
+
+
+<script>
+(function(){
+  const section = document.getElementById('einsatzkarte');
+  if(!section) return;
+
+  const svg = section.querySelector('svg');
+  if(svg && !svg.querySelector('.travel-dot')){
+    const ns = 'http://www.w3.org/2000/svg';
+
+    const routes = [...svg.querySelectorAll('.map-route[data-route]')];
+
+    routes.forEach((route, index)=>{
+      const dot = document.createElementNS(ns,'circle');
+      dot.setAttribute('r','4.5');
+      dot.setAttribute('class','travel-dot');
+      svg.appendChild(dot);
+
+      let startTime = null;
+      const duration = index === 0 ? 2600 : 2300;
+      const delay = index === 0 ? 700 : 1050;
+
+      function animateDot(ts){
+        if(!section.classList.contains('map-animate')){
+          startTime = null;
+          requestAnimationFrame(animateDot);
+          return;
+        }
+
+        if(startTime === null) startTime = ts + delay;
+        if(ts < startTime){
+          requestAnimationFrame(animateDot);
+          return;
+        }
+
+        const elapsed = (ts - startTime) % duration;
+        const progress = elapsed / duration;
+
+        try{
+          const len = route.getTotalLength();
+          const pt = route.getPointAtLength(len * progress);
+          dot.setAttribute('cx', pt.x);
+          dot.setAttribute('cy', pt.y);
+        }catch(e){}
+
+        requestAnimationFrame(animateDot);
+      }
+
+      requestAnimationFrame(animateDot);
+    });
+  }
+
+  if(!('IntersectionObserver' in window)){
+    section.classList.add('map-animate');
+    return;
+  }
+
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        section.classList.add('map-animate');
+        obs.unobserve(section);
+      }
+    });
+  },{threshold:.28});
+
+  obs.observe(section);
 })();
 </script>
 
