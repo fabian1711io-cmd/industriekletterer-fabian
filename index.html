@@ -1747,6 +1747,104 @@ section[id]{scroll-margin-top:76px}
 }
 </style>
 
+
+<style>
+/* Direktbuttons kompakter + neu angeordnet */
+.hero .section-jumpbar{
+  width:min(90%,820px)!important;
+  grid-template-columns:repeat(4,auto)!important;
+  justify-content:center!important;
+  gap:6px!important;
+  padding:8px!important;
+  border-radius:16px!important;
+}
+.hero .section-jumpbar a{
+  min-height:0!important;
+  padding:8px 10px!important;
+  border-radius:10px!important;
+  font-size:9px!important;
+  letter-spacing:.02em!important;
+}
+.hero .section-jumpbar a span{
+  width:5px!important;
+  height:5px!important;
+  flex-basis:5px!important;
+  box-shadow:0 0 0 3px rgba(255,122,0,.10)!important;
+}
+.hero .section-jumpbar a::after{
+  font-size:9px!important;
+}
+@media(max-width:700px){
+  .hero .section-jumpbar{
+    grid-template-columns:repeat(3,auto)!important;
+    width:auto!important;
+    left:12px!important;
+    right:12px!important;
+    justify-content:center!important;
+    gap:5px!important;
+    padding:7px!important;
+  }
+  .hero .section-jumpbar a{
+    padding:7px 8px!important;
+    font-size:8px!important;
+  }
+  .hero-content{padding-bottom:180px!important}
+}
+@media(max-width:420px){
+  .hero .section-jumpbar{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .hero .section-jumpbar a{
+    justify-content:center!important;
+  }
+  .hero-content{padding-bottom:205px!important}
+}
+
+/* Punkte wirklich direkt AUF dem Seil */
+.rope-section-points{
+  right:0!important;
+  width:62px!important;
+}
+.rope-section-points a{
+  right:8px!important;
+  gap:0!important;
+}
+.rope-section-points a i{
+  width:9px!important;
+  height:9px!important;
+  flex-basis:9px!important;
+  background:#151515!important;
+  border:2px solid #ff7a00!important;
+  box-shadow:0 0 0 3px rgba(0,0,0,.42),0 0 10px rgba(255,122,0,.28)!important;
+}
+.rope-section-points a.active i,
+.rope-section-points a:hover i{
+  background:#ff7a00!important;
+  border-color:#fff!important;
+  transform:scale(1.3)!important;
+  box-shadow:0 0 0 4px rgba(255,122,0,.14),0 0 16px rgba(255,122,0,.85)!important;
+}
+/* keine Striche und keine Textboxen daneben */
+.rope-section-points a::after,
+.rope-section-points a i::after,
+.rope-section-points a span{
+  display:none!important;
+}
+@media(max-width:900px){
+  .rope-section-points{
+    width:48px!important;
+  }
+  .rope-section-points a{
+    right:5px!important;
+  }
+  .rope-section-points a i{
+    width:8px!important;
+    height:8px!important;
+    flex-basis:8px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -1854,7 +1952,6 @@ section[id]{scroll-margin-top:76px}
   <a href="#einsatzgebiete"><span>●</span>Einsatzgebiete</a>
   <a href="#projekte"><span>●</span>Projekte</a>
   <a href="#kooperation"><span>●</span>Kooperation</a>
-  <a href="#kontakt"><span>●</span>Kontakt</a>
 </nav>
 </section>
 
