@@ -1460,6 +1460,55 @@ section[id]{scroll-margin-top:76px}
 }
 </style>
 
+
+<style>
+/* Direkt-Buttons jetzt auf dem Titelbild */
+.hero .section-jumpbar{
+  position:absolute!important;
+  left:50%;
+  bottom:18px;
+  top:auto!important;
+  transform:translateX(-50%);
+  width:min(94%,1100px);
+  z-index:20;
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  overflow-x:auto;
+  padding:10px 12px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:18px;
+  background:rgba(7,7,7,.58);
+  backdrop-filter:blur(12px);
+  box-shadow:0 12px 30px rgba(0,0,0,.28);
+  scrollbar-width:none;
+}
+.hero .section-jumpbar::-webkit-scrollbar{display:none}
+.hero .section-jumpbar a{
+  padding:9px 12px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.12);
+  white-space:nowrap;
+}
+@media(max-width:700px){
+  .hero .section-jumpbar{
+    left:14px;
+    right:14px;
+    bottom:12px;
+    width:auto;
+    transform:none;
+    justify-content:flex-start;
+    border-radius:15px;
+    padding:8px;
+  }
+  .hero .section-jumpbar a{
+    padding:8px 10px;
+    font-size:10px;
+  }
+  .hero-content{padding-bottom:132px!important}
+}
+</style>
+
 </head>
 <body>
 
@@ -1485,16 +1534,7 @@ section[id]{scroll-margin-top:76px}
 </div>
 <!-- INTRO-END -->
 
-<nav class="section-jumpbar" aria-label="Direkt zu Abschnitt">
-  <a href="#social-media"><span>●</span>Social Media</a>
-  <a href="#arbeitgeber"><span>●</span>Arbeitgeber</a>
-  <a href="#einsatzkarte"><span>●</span>Deutschlandkarte</a>
-  <a href="#qualifikationen"><span>●</span>Qualifikationen</a>
-  <a href="#einsatzgebiete"><span>●</span>Einsatzgebiete</a>
-  <a href="#projekte"><span>●</span>Projekte</a>
-  <a href="#kooperation"><span>●</span>Kooperation</a>
-  <a href="#kontakt"><span>●</span>Kontakt</a>
-</nav>
+
 
 
 
@@ -1553,6 +1593,17 @@ section[id]{scroll-margin-top:76px}
 <a href="#kooperation" class="btn">Kooperation</a>
     </div>
   </div>
+
+<nav class="section-jumpbar" aria-label="Direkt zu Abschnitt">
+  <a href="#social-media"><span>●</span>Social Media</a>
+  <a href="#arbeitgeber"><span>●</span>Arbeitgeber</a>
+  <a href="#einsatzkarte"><span>●</span>Deutschlandkarte</a>
+  <a href="#qualifikationen"><span>●</span>Qualifikationen</a>
+  <a href="#einsatzgebiete"><span>●</span>Einsatzgebiete</a>
+  <a href="#projekte"><span>●</span>Projekte</a>
+  <a href="#kooperation"><span>●</span>Kooperation</a>
+  <a href="#kontakt"><span>●</span>Kontakt</a>
+</nav>
 </section>
 
 <!-- SOCIAL-BEREICH-START -->
