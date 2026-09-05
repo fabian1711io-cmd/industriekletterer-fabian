@@ -136,6 +136,58 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
 .hero-sub{max-width:610px;font-size:18px}
 @media(max-width:700px){.hero-bg{background-position:58% center}.hero-content{padding-top:125px;padding-bottom:70px}.hero h1{font-size:clamp(52px,16vw,84px);line-height:.82}.hero-slogan{letter-spacing:.18em}.hero-sub{font-size:16px;max-width:92%}}
 </style>
+
+<style>
+.coop-form{
+  max-width:760px;
+  margin-top:28px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.coop-form .full{grid-column:1/-1;}
+.coop-form input,
+.coop-form select,
+.coop-form textarea{
+  width:100%;
+  box-sizing:border-box;
+  padding:15px 16px;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:10px;
+  background:rgba(255,255,255,.06);
+  color:#fff;
+  font:inherit;
+  outline:none;
+}
+.coop-form input::placeholder,
+.coop-form textarea::placeholder{color:rgba(255,255,255,.58);}
+.coop-form input:focus,
+.coop-form select:focus,
+.coop-form textarea:focus{
+  border-color:#ff7a00;
+  box-shadow:0 0 0 3px rgba(255,122,0,.12);
+}
+.coop-form select option{color:#111;}
+.coop-form textarea{min-height:150px;resize:vertical;}
+.coop-form .privacy{
+  grid-column:1/-1;
+  font-size:.9rem;
+  opacity:.72;
+  line-height:1.5;
+}
+.coop-form button{
+  grid-column:1/-1;
+  justify-self:start;
+  cursor:pointer;
+}
+@media(max-width:700px){
+  .coop-form{grid-template-columns:1fr;}
+  .coop-form .full,
+  .coop-form .privacy,
+  .coop-form button{grid-column:1;}
+}
+</style>
+
 </head>
 <body>
 <div class="progress" id="progress"></div>
@@ -283,13 +335,45 @@ window.addEventListener('scroll', () => {
 }, {passive:true});
 </script>
 
+
 <section id="kooperation" class="section reveal">
   <div class="container">
     <p class="eyebrow">ZUSAMMENARBEIT</p>
-    <h2>KOOPERATIONEN</h2>
-    <p>Interesse an einer Zusammenarbeit? Ich bin offen für passende Kooperationen rund um Industrieklettern, Höhenarbeit, Ausrüstung und Produkte aus meinem Arbeitsalltag.</p>
-    <a class="btn" href="https://www.instagram.com/_f4qi4n_/?igsh=d2w5d2Y5cm1qMW1x" target="_blank" rel="noopener">Kooperation anfragen</a>
+    <h2>KOOPERATION ANFRAGEN</h2>
+    <p>Du möchtest mit mir zusammenarbeiten? Schick mir hier direkt deine Anfrage. Ich erhalte die Angaben anschließend per E-Mail.</p>
+
+    <form class="coop-form"
+          action="https://formsubmit.co/Fabian1711.io@gmail.com"
+          method="POST">
+      <input type="hidden" name="_subject" value="Neue Kooperationsanfrage über die Website">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+
+      <input type="text" name="Name" placeholder="Name / Ansprechpartner" required>
+      <input type="text" name="Firma" placeholder="Firma / Marke">
+
+      <input type="email" name="E-Mail" placeholder="E-Mail-Adresse" required>
+      <input type="tel" name="Telefon" placeholder="Telefon (optional)">
+
+      <select name="Art der Kooperation" class="full" required>
+        <option value="" selected disabled>Art der Kooperation auswählen</option>
+        <option>Produktkooperation</option>
+        <option>Produkttest</option>
+        <option>Social-Media-Kooperation</option>
+        <option>Werbung / Content</option>
+        <option>Sonstiges</option>
+      </select>
+
+      <textarea name="Nachricht" class="full" placeholder="Beschreibe kurz die geplante Kooperation …" required></textarea>
+
+      <div class="privacy">
+        Mit dem Absenden werden die eingegebenen Daten zur Bearbeitung der Kooperationsanfrage übermittelt.
+      </div>
+
+      <button type="submit" class="btn">Kooperationsanfrage senden</button>
+    </form>
   </div>
 </section>
+
 </body>
 </html>
