@@ -4763,29 +4763,35 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
 }
 </style>
 
-
-<style id="scroll-climber-point-sync-v1">
-/* Scroll-Kletterer sitzt wieder exakt MITTIG auf dem Seil */
+<style id="rope-master-sync-v2">
+/* Der Kletterer hängt mit seinem Karabiner direkt AUF der Seilachse.
+   SVG ist 42px breit, Karabiner sitzt rechts vom Mittelpunkt. */
 .moving-climber{
-  left:50% !important;
+  left:calc(50% - 10px) !important;
   margin-left:0 !important;
-  transform:translate(-50%,-50%) !important;
-  z-index:6 !important;
+  transform:translateY(-50%) !important;
+  z-index:7 !important;
 }
 
-/* Punkte liegen ebenfalls exakt auf derselben Seilachse */
-.rope-nav-point,
-.rope-point,
-[data-rope-target]{
-  --rope-point-center:50%;
-}
-
-/* aktiver Punkt reagiert sichtbar, wenn der Kletterer ihn erreicht */
-[data-rope-target].climber-reached i{
+/* Rope-Punkte und Buttons nutzen denselben aktiven Zustand */
+[data-rope-target].master-active i{
   transform:scale(1.55) !important;
   box-shadow:
     0 0 0 5px rgba(255,122,0,.14),
-    0 0 12px rgba(255,122,0,.85) !important;
+    0 0 14px rgba(255,122,0,.95) !important;
+}
+.section-jumpbar a.master-active{
+  border-color:#ff7a00 !important;
+  box-shadow:0 0 0 1px rgba(255,122,0,.22),0 0 16px rgba(255,122,0,.14) !important;
+}
+.section-jumpbar a.master-active span{
+  color:#ff7a00 !important;
+}
+
+@media(max-width:900px){
+  .moving-climber{
+    left:calc(50% - 7px) !important;
+  }
 }
 </style>
 
@@ -6309,77 +6315,125 @@ document.addEventListener('DOMContentLoaded', function(){
 })();
 </script>
 
-
-<script id="scroll-climber-point-sync-js">
+<script id="rope-master-sync-js">
 (() => {
   const track = document.querySelector('.rope-vector-track');
   const climber = document.querySelector('.moving-climber');
   const points = [...document.querySelectorAll('[data-rope-target]')];
   if(!track || !climber || !points.length) return;
 
-  let current = null;
+  const entries = points.map(point => {
+    const id = point.getAttribute('data-rope-target');
+    const section = document.getElementById(id);
+    const buttons = [...document.querySelectorAll(`a[href="#${CSS.escape(id)}"]`)];
+    return {id, point, section, buttons, y:0, scrollAt:0};
+  }).filter(x => x.section);
 
-  function sync(){
-    const trackRect = track.getBoundingClientRect();
-    const maxTop = Math.max(1, track.clientHeight - 28);
+  let currentTop = parseFloat(climber.style.top) || 72;
+  let activeId = null;
 
-    /* Punkte werden anhand ihrer echten Ziel-Sektion auf dem Seil positioniert */
-    const docMax = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+  function metrics(){
+    const mobile = innerWidth <= 900;
+    const start = mobile ? 58 : 72;
+    const end = Math.max(start + 1, track.clientHeight - 28);
+    const maxScroll = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+    const focus = innerHeight * 0.46;
 
-    points.forEach(point => {
-      const id = point.getAttribute('data-rope-target');
-      const section = document.getElementById(id);
-      if(!section) return;
-
-      const sectionY = section.getBoundingClientRect().top + scrollY;
-      const progress = Math.max(0, Math.min(1, sectionY / Math.max(1, document.documentElement.scrollHeight)));
-      const y = 58 + progress * Math.max(0, track.clientHeight - 86);
-
-      point.style.top = y.toFixed(1) + 'px';
+    entries.forEach(e => {
+      const sectionTop = e.section.getBoundingClientRect().top + scrollY;
+      const desiredScroll = Math.max(0, Math.min(maxScroll, sectionTop - focus));
+      e.scrollAt = desiredScroll;
+      e.y = start + (desiredScroll / maxScroll) * (end - start);
+      e.point.style.top = e.y.toFixed(1) + 'px';
     });
 
-    /* Kletterer folgt dem Seitenfortschritt auf exakt derselben Skala */
-    const scrollProgress = Math.max(0, Math.min(1, scrollY / docMax));
-    const start = innerWidth <= 900 ? 58 : 72;
-    const end = Math.max(start, track.clientHeight - 28);
-    const desired = start + scrollProgress * (end - start);
-
-    /* bestehende weiche Scroll-Engine erhält das Ziel */
-    if(document.body.classList.contains('scroll-climber-entered')){
-      const oldTop = parseFloat(climber.style.top) || desired;
-      const smooth = oldTop + (desired - oldTop) * 0.22;
-      climber.style.top = smooth.toFixed(2) + 'px';
-    }
-
-    /* Nächstgelegenen Punkt erkennen */
-    const climberY = parseFloat(climber.style.top) || desired;
-    let nearest = null;
-    let nearestDist = Infinity;
-
-    points.forEach(point => {
-      const py = parseFloat(point.style.top);
-      if(!Number.isFinite(py)) return;
-      const d = Math.abs(py - climberY);
-      if(d < nearestDist){
-        nearestDist = d;
-        nearest = point;
-      }
-    });
-
-    if(nearest !== current){
-      points.forEach(p => p.classList.remove('climber-reached'));
-      if(nearest && nearestDist < 28){
-        nearest.classList.add('climber-reached');
-        current = nearest;
-      }else{
-        current = null;
-      }
-    }
-
-    requestAnimationFrame(sync);
+    return {start,end,maxScroll};
   }
 
-  requestAnimationFrame(sync);
+  function setActive(id){
+    if(id === activeId) return;
+    activeId = id;
+
+    entries.forEach(e => {
+      const on = e.id === id;
+      e.point.classList.toggle('master-active', on);
+      e.buttons.forEach(btn => btn.classList.toggle('master-active', on));
+    });
+  }
+
+  function climberTarget(){
+    metrics();
+
+    /* Zwischen zwei Abschnittspunkten wird linear interpoliert.
+       Dadurch trifft der Kletterer jeden Punkt exakt dann,
+       wenn der zugehörige Bereich im Fokus ist. */
+    if(scrollY <= entries[0].scrollAt) return entries[0].y;
+    if(scrollY >= entries[entries.length-1].scrollAt) return entries[entries.length-1].y;
+
+    for(let i=0;i<entries.length-1;i++){
+      const a = entries[i];
+      const b = entries[i+1];
+      if(scrollY >= a.scrollAt && scrollY <= b.scrollAt){
+        const span = Math.max(1, b.scrollAt - a.scrollAt);
+        const t = (scrollY - a.scrollAt) / span;
+        return a.y + (b.y - a.y) * t;
+      }
+    }
+    return entries[0].y;
+  }
+
+  function activeSection(){
+    const focusY = scrollY + innerHeight * 0.46;
+    let nearest = entries[0];
+    let dist = Infinity;
+
+    entries.forEach(e => {
+      const top = e.section.getBoundingClientRect().top + scrollY;
+      const d = Math.abs(top - focusY);
+      if(d < dist){
+        dist = d;
+        nearest = e;
+      }
+    });
+    return nearest;
+  }
+
+  function loop(){
+    const target = climberTarget();
+
+    if(document.body.classList.contains('scroll-climber-entered')){
+      currentTop += (target - currentTop) * 0.30;
+      climber.style.top = currentTop.toFixed(2) + 'px';
+    }
+
+    const active = activeSection();
+    if(active) setActive(active.id);
+
+    requestAnimationFrame(loop);
+  }
+
+  /* Alle Direktbuttons springen so, dass Abschnitt, Punkt und Kletterer
+     wirklich auf derselben Position landen. */
+  document.addEventListener('click', ev => {
+    const link = ev.target.closest('a[href^="#"]');
+    if(!link) return;
+
+    const id = decodeURIComponent(link.getAttribute('href').slice(1));
+    const entry = entries.find(e => e.id === id);
+    if(!entry) return;
+
+    ev.preventDefault();
+    metrics();
+
+    window.scrollTo({
+      top: entry.scrollAt,
+      behavior: 'smooth'
+    });
+  });
+
+  addEventListener('resize', metrics, {passive:true});
+  metrics();
+  requestAnimationFrame(loop);
 })();
 </script>
 
