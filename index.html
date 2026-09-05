@@ -4501,6 +4501,44 @@ body.scroll-climber-entered .moving-climber{
 }
 </style>
 
+
+<style id="strong-single-rope-wave">
+.rope-lower-wave-strong{
+  position:absolute;
+  left:50%;
+  width:56px;
+  transform:translateX(-50%);
+  overflow:visible;
+  pointer-events:none;
+  z-index:1;
+}
+.rope-lower-wave-path{
+  fill:none;
+  stroke:#f3790c;
+  stroke-width:7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.65))
+         drop-shadow(0 0 3px rgba(255,122,0,.18));
+}
+
+/* Das gerade Seil endet exakt am Kletterer */
+.rope-vector-line{
+  bottom:auto !important;
+  animation:none !important;
+}
+
+/* Keine zweite optische Seillinie */
+.rope-progress-fill{
+  display:none !important;
+}
+
+@media(max-width:900px){
+  .rope-lower-wave-strong{width:46px}
+  .rope-lower-wave-path{stroke-width:5.5}
+}
+</style>
+
 </head>
 <body>
 
@@ -4556,6 +4594,11 @@ body.scroll-climber-entered .moving-climber{
   </div>
   <div class="rope-vector-line"></div>
   <div class="rope-progress-fill" aria-hidden="true"></div>
+
+<svg class="rope-lower-wave-strong" viewBox="0 0 80 100" preserveAspectRatio="none" aria-hidden="true">
+  <path class="rope-lower-wave-path" d="M40 0 L40 100"></path>
+</svg>
+
 <div class="moving-climber">
     <svg viewBox="0 0 42 70">
       <circle cx="22" cy="9" r="6" class="helmet"/>
@@ -5902,6 +5945,73 @@ document.addEventListener('DOMContentLoaded', function(){
   }else{
     startSameClimberSequence();
   }
+})();
+</script>
+
+
+<script id="strong-single-rope-wave-js">
+(() => {
+  const track = document.querySelector('.rope-vector-track');
+  const climber = document.querySelector('.moving-climber');
+  const straightRope = document.querySelector('.rope-vector-line');
+  const wave = document.querySelector('.rope-lower-wave-strong');
+  const path = wave?.querySelector('.rope-lower-wave-path');
+
+  if(!track || !climber || !straightRope || !wave || !path) return;
+
+  let lastTop = 0;
+  let strength = 0;
+  let phase = 0;
+
+  function update(){
+    const mobile = window.innerWidth <= 900;
+    const ropeTop = mobile ? 44 : 52;
+
+    const top = parseFloat(climber.style.top) || climber.offsetTop || ropeTop;
+    const velocity = top - lastTop;
+
+    /* Startpunkt der Welle knapp unter dem Kletterer */
+    const start = Math.max(ropeTop, top + (mobile ? 12 : 16));
+    const height = Math.max(0, track.clientHeight - start);
+
+    wave.style.top = start.toFixed(1) + 'px';
+    wave.style.height = height.toFixed(1) + 'px';
+
+    /* Gerade Linie nur bis zum Kletterer */
+    straightRope.style.height = Math.max(0, start - ropeTop + 1).toFixed(1) + 'px';
+
+    /* Stark sichtbare Wellen, besonders beim Abwärts-Scrollen */
+    const target = velocity > 0.02
+      ? Math.min(18, 6 + velocity * 7.5)
+      : Math.max(2.8, Math.min(7, Math.abs(velocity) * 3.2));
+
+    strength += (target - strength) * 0.18;
+    phase += 0.11 + Math.min(0.18, Math.abs(velocity) * 0.035);
+
+    const h = 100;
+    const a = strength;
+
+    /* Ein einziger zusammenhängender Seilpfad mit deutlichen S-Wellen */
+    const x0 = 40;
+    const x1 = x0 + Math.sin(phase) * a;
+    const x2 = x0 - Math.sin(phase + 0.8) * a * 0.95;
+    const x3 = x0 + Math.sin(phase + 1.6) * a * 0.85;
+    const x4 = x0 - Math.sin(phase + 2.4) * a * 0.72;
+
+    const d = [
+      `M ${x0} 0`,
+      `C ${x1} 12, ${x2} 24, ${x0} 36`,
+      `C ${x3} 48, ${x4} 60, ${x0} 72`,
+      `C ${x1} 82, ${x2} 92, ${x0} 100`
+    ].join(' ');
+
+    path.setAttribute('d', d);
+
+    lastTop = top;
+    requestAnimationFrame(update);
+  }
+
+  requestAnimationFrame(update);
 })();
 </script>
 
