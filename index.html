@@ -4810,5 +4810,66 @@ document.addEventListener('DOMContentLoaded', function(){
 })();
 </script>
 
+
+<script id="rope-haptic-feedback">
+(() => {
+  if (!('vibrate' in navigator)) return;
+
+  let lastSection = null;
+  let ready = false;
+  let lastVibration = 0;
+
+  function getActiveRopeSection(){
+    const focusY = window.innerHeight * 0.46;
+    const points = document.querySelectorAll('.rope-section-points [data-rope-target]');
+
+    for (const point of points) {
+      const id = point.getAttribute('data-rope-target');
+      const section = document.getElementById(id);
+      if (!section) continue;
+
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= focusY && rect.bottom >= focusY) return id;
+    }
+    return null;
+  }
+
+  function checkHaptic(){
+    const active = getActiveRopeSection();
+
+    /* Beim Laden nicht direkt vibrieren. */
+    if (!ready) {
+      lastSection = active;
+      ready = true;
+      return;
+    }
+
+    if (active && active !== lastSection) {
+      const now = Date.now();
+
+      /* Schutz gegen mehrfaches Vibrieren bei schnellem Scrollen. */
+      if (now - lastVibration > 350) {
+        navigator.vibrate(25);
+        lastVibration = now;
+      }
+
+      lastSection = active;
+    }
+  }
+
+  let ticking = false;
+  addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      checkHaptic();
+      ticking = false;
+    });
+  }, {passive:true});
+
+  addEventListener('load', checkHaptic);
+})();
+</script>
+
 </body>
 </html>
