@@ -252,6 +252,100 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
 }
 </style>
 
+
+<style>
+.pro-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:28px;
+}
+.pro-card{
+  padding:24px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:16px;
+  background:rgba(255,255,255,.04);
+  backdrop-filter:blur(8px);
+  transition:transform .3s ease,border-color .3s ease,background .3s ease;
+}
+.pro-card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(255,122,0,.45);
+  background:rgba(255,255,255,.06);
+}
+.pro-card .icon{
+  font-size:1.7rem;
+  margin-bottom:12px;
+}
+.pro-card h3{
+  margin:0 0 8px;
+  font-size:1.08rem;
+}
+.pro-card p{
+  margin:0;
+  opacity:.78;
+  line-height:1.6;
+}
+.region-strip{
+  margin-top:28px;
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.region-chip{
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:999px;
+  padding:10px 14px;
+  background:rgba(255,255,255,.04);
+  font-size:.95rem;
+}
+.coop-highlight{
+  margin-top:30px;
+  padding:26px;
+  border-radius:16px;
+  border:1px solid rgba(255,122,0,.25);
+  background:linear-gradient(135deg,rgba(255,122,0,.10),rgba(255,255,255,.03));
+}
+.coop-highlight h3{margin-top:0;}
+.coop-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:16px;
+}
+.coop-tag{
+  padding:9px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.09);
+  font-size:.9rem;
+}
+.floating-coop{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:9999;
+  text-decoration:none;
+  padding:13px 18px;
+  border-radius:999px;
+  background:#ff7a00;
+  color:#111;
+  font-weight:800;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+  transition:transform .2s ease,opacity .2s ease;
+}
+.floating-coop:hover{transform:translateY(-2px);}
+@media(max-width:800px){
+  .pro-grid{grid-template-columns:1fr;}
+  .floating-coop{
+    left:14px;
+    right:14px;
+    bottom:14px;
+    text-align:center;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="progress" id="progress"></div>
@@ -376,6 +470,78 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
 </section>
 </main>
 
+
+
+<!-- EXTRA-PRO-BLOCK-START -->
+<section id="qualifikationen" class="section">
+  <div class="wrap">
+    <div class="kicker">QUALIFIKATIONEN</div>
+    <h2>ERFAHRUNG, SICHERHEIT & HANDWERK</h2>
+    <div class="pro-grid">
+      <div class="pro-card">
+        <div class="icon">🧗</div>
+        <h3>FISAT Level 2</h3>
+        <p>Ausgebildet für professionelle seilunterstützte Arbeiten in der Höhe und Tiefe.</p>
+      </div>
+      <div class="pro-card">
+        <div class="icon">🏠</div>
+        <h3>Gelernter Dachdecker</h3>
+        <p>Handwerkliche Erfahrung, sicherer Umgang mit Baustellen und Arbeiten in exponierten Bereichen.</p>
+      </div>
+      <div class="pro-card">
+        <div class="icon">⛑️</div>
+        <h3>Sicherheitsfokus</h3>
+        <p>Erste-Hilfe-Ausbildung und konsequenter Fokus auf sichere Arbeitsabläufe und Redundanz.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="einsatzgebiete" class="section">
+  <div class="wrap">
+    <div class="kicker">EINSATZGEBIETE</div>
+    <h2>FLEXIBEL EINSETZBAR</h2>
+    <div class="pro-grid">
+      <div class="pro-card">
+        <div class="icon">🏭</div>
+        <h3>Industrieanlagen</h3>
+        <p>Arbeiten an schwer zugänglichen Bereichen, technischen Anlagen, Kesseln, Silos und Konstruktionen.</p>
+      </div>
+      <div class="pro-card">
+        <div class="icon">🌬️</div>
+        <h3>Windkraft & Höhe</h3>
+        <p>Arbeiten an hohen technischen Bauwerken und Bereichen, die klassische Zugänge nicht erlauben.</p>
+      </div>
+      <div class="pro-card">
+        <div class="icon">🪢</div>
+        <h3>Seilzugang & Spezialarbeiten</h3>
+        <p>Individuelle Lösungen für Montage, Kontrolle, Transport und Arbeiten unter besonderen Bedingungen.</p>
+      </div>
+    </div>
+
+    <div class="region-strip">
+      <span class="region-chip">📍 Aachen</span>
+      <span class="region-chip">📍 NRW</span>
+      <span class="region-chip">🇩🇪 Deutschlandweit</span>
+    </div>
+
+    <div class="coop-highlight">
+      <h3>Kooperationen mit Marken & Unternehmen</h3>
+      <p>Interessant sind vor allem Produkte und Lösungen, die zu meinem echten Arbeitsalltag passen und sich glaubwürdig im Einsatz zeigen lassen.</p>
+      <div class="coop-tags">
+        <span class="coop-tag">Produkttests</span>
+        <span class="coop-tag">Arbeitskleidung</span>
+        <span class="coop-tag">Kletterausrüstung</span>
+        <span class="coop-tag">Technik</span>
+        <span class="coop-tag">Werkzeug</span>
+        <span class="coop-tag">Social Media Content</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<a class="floating-coop" href="#kooperation">Kooperation anfragen</a>
+<!-- EXTRA-PRO-BLOCK-END -->
 
 <section id="kooperation">
   <div class="wrap">
