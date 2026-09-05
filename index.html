@@ -1191,6 +1191,22 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
 }
 </style>
 
+
+<style>
+/* Kletterer wieder schlicht wie vorher */
+.moving-climber{
+  width:40px!important;
+  height:66px!important;
+}
+.moving-climber .descender,
+.moving-climber .backup-device,
+.rope-device{display:none!important}
+.rope-vector-line::after{display:none!important}
+@media(max-width:900px){
+  .moving-climber{width:31px!important;height:53px!important}
+}
+</style>
+
 </head>
 <body>
 
@@ -1226,38 +1242,15 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
   </div>
   <div class="rope-vector-line"></div>
   <div class="moving-climber">
-    <svg viewBox="0 0 58 82">
-      <!-- Helm / Körper -->
-      <circle cx="28" cy="9" r="6.5" class="helmet"/>
-      <path d="M26 16 L24 43" class="person"/>
-      <path d="M25 22 L12 31 M25 23 L39 17" class="person"/>
-      <path d="M24 43 L13 63 M24 43 L38 62" class="person"/>
-
-      <!-- Sitzgurt -->
-      <path d="M16 37 Q24 47 33 37 M17 40 L13 49 M32 40 L38 49" class="harness"/>
-
-      <!-- Abseilgerät am Arbeitsseil -->
-      <g class="descender">
-        <rect x="38" y="27" width="9" height="15" rx="3"/>
-        <circle cx="42.5" cy="31" r="2.2"/>
-        <path d="M43 42 L49 48"/>
-      </g>
-
-      <!-- Verbindungskarabiner -->
-      <ellipse cx="36" cy="39" rx="4" ry="6.5" class="carabiner" transform="rotate(24 36 39)"/>
-
-      <!-- Backup / Auffanggerät -->
-      <g class="backup-device">
-        <rect x="45" y="13" width="7" height="10" rx="2"/>
-        <path d="M48.5 23 Q48 28 42 30"/>
-      </g>
-
-      <!-- Verbindungsmittel -->
-      <path d="M15 35 Q6 44 12 54" class="lanyard"/>
-      <ellipse cx="11" cy="55" rx="3" ry="5" class="carabiner" transform="rotate(-18 11 55)"/>
+    <svg viewBox="0 0 42 70">
+      <circle cx="22" cy="9" r="6" class="helmet"/>
+      <path d="M20 16 L18 38" class="person"/>
+      <path d="M19 21 L8 30 M19 22 L30 16" class="person"/>
+      <path d="M18 38 L9 55 M18 38 L29 55" class="person"/>
+      <path d="M12 34 Q18 42 25 34 M13 37 L10 44 M24 37 L29 44" class="harness"/>
+      <ellipse cx="32" cy="22" rx="3.5" ry="6" class="carabiner" transform="rotate(25 32 22)"/>
+      <path d="M7 29 Q4 38 8 47" class="lanyard"/>
     </svg>
-    <span class="rope-device rope-device-top"></span>
-    <span class="rope-device rope-device-bottom"></span>
   </div>
 </div>
 <!-- ROPE-EFFECT-END -->
