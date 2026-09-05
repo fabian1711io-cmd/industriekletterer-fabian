@@ -783,6 +783,78 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
 </section>
 <!-- SEILWORX-BLOCK-END -->
 
+<!-- EINSATZKARTE-START -->
+<section class="einsatzkarte-section reveal" id="einsatzkarte">
+  <div class="wrap">
+    <div class="kicker">DEUTSCHLANDWEIT IM EINSATZ</div>
+    <h2>Meine Einsatzkarte</h2>
+
+    <div class="einsatzkarte-box">
+      <div class="germany-map-wrap">
+        <svg class="germany-map" viewBox="0 0 500 650" role="img" aria-label="Stilisierte Deutschlandkarte mit Einsatzorten Aachen, Hamburg und Berlin">
+          <!-- bewusst stilisierte, nicht kartografisch exakte Silhouette -->
+          <path class="germany-shape" d="M226 34
+            L270 50 L290 76 L326 71 L352 103 L389 111 L394 148
+            L420 169 L397 204 L407 240 L383 268 L399 302
+            L370 332 L383 368 L357 395 L344 431 L314 445
+            L301 481 L270 500 L257 540 L229 558 L207 598
+            L178 612 L157 585 L129 570 L115 536 L87 514
+            L96 476 L72 444 L87 408 L72 374 L91 343
+            L79 309 L102 282 L95 248 L117 217 L110 184
+            L139 166 L146 133 L177 119 L186 84 Z"/>
+
+          <!-- route line -->
+          <path class="map-route" d="M132 388 Q170 220 254 108" />
+          <path class="map-route" d="M132 388 Q245 300 365 252" />
+
+          <!-- Hamburg -->
+          <g class="map-point" tabindex="0" data-city="hamburg" transform="translate(254 108)">
+            <circle class="pulse" r="22"/>
+            <circle class="dot" r="9"/>
+            <text class="map-label" x="18" y="6">Hamburg</text>
+          </g>
+
+          <!-- Berlin -->
+          <g class="map-point" tabindex="0" data-city="berlin" transform="translate(365 252)">
+            <circle class="pulse" r="22"/>
+            <circle class="dot" r="9"/>
+            <text class="map-label" x="18" y="6">Berlin</text>
+          </g>
+
+          <!-- Aachen -->
+          <g class="map-point" tabindex="0" data-city="aachen" transform="translate(132 388)">
+            <circle class="pulse" r="22"/>
+            <circle class="dot" r="9"/>
+            <text class="map-label" x="18" y="6">Aachen</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="map-info">
+        <h3>Projekte an verschiedenen Standorten</h3>
+        <p>Der Firmensitz von SEILWORX ist in Aachen. Von dort aus führen Einsätze unter anderem nach Hamburg und Berlin.</p>
+
+        <div class="map-cities">
+          <div class="map-city-card active" data-card="aachen">
+            <strong>Aachen · Firmensitz</strong>
+            <span>SEILWORX – Ausgangspunkt für Einsätze in ganz Deutschland</span>
+          </div>
+          <div class="map-city-card" data-card="hamburg">
+            <strong>Hamburg</strong>
+            <span>Montage- und Industrieeinsätze</span>
+          </div>
+          <div class="map-city-card" data-card="berlin">
+            <strong>Berlin</strong>
+            <span>Montage- und Industrieeinsätze</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- EINSATZKARTE-END -->
+
+
 
 <section class="values">
   <div class="wrap values-grid stagger">
@@ -940,78 +1012,6 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
     </div>
   </div>
 </section>
-
-<!-- EINSATZKARTE-START -->
-<section class="einsatzkarte-section reveal" id="einsatzkarte">
-  <div class="wrap">
-    <div class="kicker">DEUTSCHLANDWEIT IM EINSATZ</div>
-    <h2>Meine Einsatzkarte</h2>
-
-    <div class="einsatzkarte-box">
-      <div class="germany-map-wrap">
-        <svg class="germany-map" viewBox="0 0 500 650" role="img" aria-label="Stilisierte Deutschlandkarte mit Einsatzorten Aachen, Hamburg und Berlin">
-          <!-- bewusst stilisierte, nicht kartografisch exakte Silhouette -->
-          <path class="germany-shape" d="M226 34
-            L270 50 L290 76 L326 71 L352 103 L389 111 L394 148
-            L420 169 L397 204 L407 240 L383 268 L399 302
-            L370 332 L383 368 L357 395 L344 431 L314 445
-            L301 481 L270 500 L257 540 L229 558 L207 598
-            L178 612 L157 585 L129 570 L115 536 L87 514
-            L96 476 L72 444 L87 408 L72 374 L91 343
-            L79 309 L102 282 L95 248 L117 217 L110 184
-            L139 166 L146 133 L177 119 L186 84 Z"/>
-
-          <!-- route line -->
-          <path class="map-route" d="M132 388 Q200 190 254 108 Q336 152 365 252" />
-
-          <!-- Hamburg -->
-          <g class="map-point" tabindex="0" data-city="hamburg" transform="translate(254 108)">
-            <circle class="pulse" r="22"/>
-            <circle class="dot" r="9"/>
-            <text class="map-label" x="18" y="6">Hamburg</text>
-          </g>
-
-          <!-- Berlin -->
-          <g class="map-point" tabindex="0" data-city="berlin" transform="translate(365 252)">
-            <circle class="pulse" r="22"/>
-            <circle class="dot" r="9"/>
-            <text class="map-label" x="18" y="6">Berlin</text>
-          </g>
-
-          <!-- Aachen -->
-          <g class="map-point" tabindex="0" data-city="aachen" transform="translate(132 388)">
-            <circle class="pulse" r="22"/>
-            <circle class="dot" r="9"/>
-            <text class="map-label" x="18" y="6">Aachen</text>
-          </g>
-        </svg>
-      </div>
-
-      <div class="map-info">
-        <h3>Projekte an verschiedenen Standorten</h3>
-        <p>Meine Arbeit führt mich regelmäßig zu unterschiedlichen Einsatzorten in Deutschland. Die markierten Punkte zeigen einige Orte, an denen ich bereits im Einsatz war.</p>
-
-        <div class="map-cities">
-          <div class="map-city-card active" data-card="aachen">
-            <strong>Aachen</strong>
-            <span>Industrieklettern, Seilzugang & Höhenarbeit</span>
-          </div>
-          <div class="map-city-card" data-card="hamburg">
-            <strong>Hamburg</strong>
-            <span>Montage- und Industrieeinsätze</span>
-          </div>
-          <div class="map-city-card" data-card="berlin">
-            <strong>Berlin</strong>
-            <span>Montage- und Industrieeinsätze</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- EINSATZKARTE-END -->
-
-
 <a class="floating-coop" href="#kooperation">Kooperation anfragen</a>
 <!-- EXTRA-PRO-BLOCK-END -->
 
