@@ -4539,6 +4539,35 @@ body.scroll-climber-entered .moving-climber{
 }
 </style>
 
+
+<style id="rope-above-climber-fix">
+/* Das gerade Seil läuft wieder sichtbar vom Knoten BIS zum Kletterer.
+   Erst UNTER dem Kletterer beginnt die starke Wellenanimation. */
+.rope-vector-line{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  top:52px !important;
+  bottom:auto !important;
+  z-index:1 !important;
+  min-height:1px;
+}
+
+.rope-lower-wave-strong{
+  z-index:1 !important;
+}
+
+.moving-climber{
+  z-index:5 !important;
+}
+
+@media(max-width:900px){
+  .rope-vector-line{
+    top:44px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -5971,7 +6000,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const velocity = top - lastTop;
 
     /* Startpunkt der Welle knapp unter dem Kletterer */
-    const start = Math.max(ropeTop, top + (mobile ? 12 : 16));
+    const start = Math.max(ropeTop, top + (mobile ? 20 : 24));
     const height = Math.max(0, track.clientHeight - start);
 
     wave.style.top = start.toFixed(1) + 'px';
