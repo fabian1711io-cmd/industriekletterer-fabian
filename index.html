@@ -589,6 +589,148 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
 }
 </style>
 
+
+<style>
+/* Einsatzkarte Deutschland */
+.einsatzkarte-section{
+  padding-top:72px;
+}
+.einsatzkarte-box{
+  margin-top:28px;
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);
+  gap:34px;
+  align-items:center;
+  padding:30px;
+  border-radius:22px;
+  border:1px solid rgba(255,122,0,.20);
+  background:
+    radial-gradient(circle at 20% 10%,rgba(255,122,0,.10),transparent 34%),
+    linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.015));
+  overflow:hidden;
+}
+.germany-map-wrap{
+  position:relative;
+  min-height:520px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.germany-map{
+  width:min(100%,430px);
+  height:auto;
+  filter:drop-shadow(0 18px 34px rgba(0,0,0,.35));
+}
+.germany-shape{
+  fill:#151515;
+  stroke:rgba(255,255,255,.14);
+  stroke-width:4;
+  transition:fill .35s ease,stroke .35s ease;
+}
+.germany-map-wrap:hover .germany-shape{
+  fill:#191919;
+  stroke:rgba(255,122,0,.28);
+}
+.map-route{
+  fill:none;
+  stroke:rgba(255,122,0,.38);
+  stroke-width:4;
+  stroke-linecap:round;
+  stroke-dasharray:10 12;
+  animation:routeMove 2.2s linear infinite;
+}
+.map-point{
+  cursor:pointer;
+  outline:none;
+}
+.map-point .pulse{
+  fill:rgba(255,122,0,.16);
+  stroke:rgba(255,122,0,.26);
+  stroke-width:2;
+  transform-origin:center;
+  animation:mapPulse 2s ease-out infinite;
+}
+.map-point .dot{
+  fill:#ff7a00;
+  stroke:#fff;
+  stroke-width:3;
+  filter:drop-shadow(0 0 10px rgba(255,122,0,.75));
+  transition:transform .25s ease;
+}
+.map-point:hover .dot,
+.map-point:focus .dot{
+  transform:scale(1.35);
+}
+.map-label{
+  font-size:18px;
+  font-weight:800;
+  fill:#fff;
+  paint-order:stroke;
+  stroke:#0d0d0d;
+  stroke-width:5px;
+  stroke-linejoin:round;
+}
+.map-info{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.map-info h3{
+  margin:0 0 4px;
+  font-size:clamp(1.6rem,3vw,2.25rem);
+}
+.map-info p{
+  margin:0;
+  line-height:1.7;
+  opacity:.78;
+}
+.map-cities{
+  display:grid;
+  gap:12px;
+  margin-top:8px;
+}
+.map-city-card{
+  padding:16px 18px;
+  border-radius:15px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.025);
+  transition:transform .25s ease,border-color .25s ease,background .25s ease;
+}
+.map-city-card.active,
+.map-city-card:hover{
+  transform:translateX(6px);
+  border-color:rgba(255,122,0,.38);
+  background:rgba(255,122,0,.06);
+}
+.map-city-card strong{
+  display:block;
+  margin-bottom:4px;
+  color:#fff;
+}
+.map-city-card span{
+  opacity:.68;
+  font-size:.94rem;
+}
+@keyframes mapPulse{
+  0%{transform:scale(.65);opacity:.9}
+  75%,100%{transform:scale(1.8);opacity:0}
+}
+@keyframes routeMove{
+  to{stroke-dashoffset:-44}
+}
+@media(max-width:860px){
+  .einsatzkarte-box{grid-template-columns:1fr;padding:22px}
+  .germany-map-wrap{min-height:420px}
+}
+@media(max-width:520px){
+  .germany-map-wrap{min-height:360px}
+  .map-label{font-size:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  .map-point .pulse,.map-route{animation:none}
+}
+</style>
+
 </head>
 <body>
 
@@ -819,6 +961,77 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
   </div>
 </section>
 
+<!-- EINSATZKARTE-START -->
+<section class="einsatzkarte-section reveal" id="einsatzkarte">
+  <div class="wrap">
+    <div class="kicker">DEUTSCHLANDWEIT IM EINSATZ</div>
+    <h2>Meine Einsatzkarte</h2>
+
+    <div class="einsatzkarte-box">
+      <div class="germany-map-wrap">
+        <svg class="germany-map" viewBox="0 0 500 650" role="img" aria-label="Stilisierte Deutschlandkarte mit Einsatzorten Aachen, Hamburg und Berlin">
+          <!-- bewusst stilisierte, nicht kartografisch exakte Silhouette -->
+          <path class="germany-shape" d="M226 34
+            L270 50 L290 76 L326 71 L352 103 L389 111 L394 148
+            L420 169 L397 204 L407 240 L383 268 L399 302
+            L370 332 L383 368 L357 395 L344 431 L314 445
+            L301 481 L270 500 L257 540 L229 558 L207 598
+            L178 612 L157 585 L129 570 L115 536 L87 514
+            L96 476 L72 444 L87 408 L72 374 L91 343
+            L79 309 L102 282 L95 248 L117 217 L110 184
+            L139 166 L146 133 L177 119 L186 84 Z"/>
+
+          <!-- route line -->
+          <path class="map-route" d="M132 388 Q200 190 254 108 Q336 152 365 252" />
+
+          <!-- Hamburg -->
+          <g class="map-point" tabindex="0" data-city="hamburg" transform="translate(254 108)">
+            <circle class="pulse" r="22"/>
+            <circle class="dot" r="9"/>
+            <text class="map-label" x="18" y="6">Hamburg</text>
+          </g>
+
+          <!-- Berlin -->
+          <g class="map-point" tabindex="0" data-city="berlin" transform="translate(365 252)">
+            <circle class="pulse" r="22"/>
+            <circle class="dot" r="9"/>
+            <text class="map-label" x="18" y="6">Berlin</text>
+          </g>
+
+          <!-- Aachen -->
+          <g class="map-point" tabindex="0" data-city="aachen" transform="translate(132 388)">
+            <circle class="pulse" r="22"/>
+            <circle class="dot" r="9"/>
+            <text class="map-label" x="18" y="6">Aachen</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="map-info">
+        <h3>Projekte an verschiedenen Standorten</h3>
+        <p>Meine Arbeit führt mich regelmäßig zu unterschiedlichen Einsatzorten in Deutschland. Die markierten Punkte zeigen einige Orte, an denen ich bereits im Einsatz war.</p>
+
+        <div class="map-cities">
+          <div class="map-city-card active" data-card="aachen">
+            <strong>Aachen</strong>
+            <span>Industrieklettern, Seilzugang & Höhenarbeit</span>
+          </div>
+          <div class="map-city-card" data-card="hamburg">
+            <strong>Hamburg</strong>
+            <span>Montage- und Industrieeinsätze</span>
+          </div>
+          <div class="map-city-card" data-card="berlin">
+            <strong>Berlin</strong>
+            <span>Montage- und Industrieeinsätze</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- EINSATZKARTE-END -->
+
+
 <a class="floating-coop" href="#kooperation">Kooperation anfragen</a>
 <!-- EXTRA-PRO-BLOCK-END -->
 
@@ -926,6 +1139,30 @@ document.addEventListener('DOMContentLoaded', function(){
   window.addEventListener('scroll', updateRope, {passive:true});
   window.addEventListener('resize', updateRope);
 })();
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const points = document.querySelectorAll('.map-point');
+  const cards = document.querySelectorAll('.map-city-card');
+
+  function activate(city){
+    cards.forEach(card=>{
+      card.classList.toggle('active', card.dataset.card === city);
+    });
+  }
+
+  points.forEach(point=>{
+    point.addEventListener('mouseenter', ()=>activate(point.dataset.city));
+    point.addEventListener('focus', ()=>activate(point.dataset.city));
+    point.addEventListener('click', ()=>activate(point.dataset.city));
+  });
+
+  cards.forEach(card=>{
+    card.addEventListener('mouseenter', ()=>activate(card.dataset.card));
+  });
+});
 </script>
 
 </body>
