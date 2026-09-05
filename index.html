@@ -2550,6 +2550,24 @@ section:not(.hero)::after{
 }
 </style>
 
+
+<style>
+/* Kooperationsbutton erst nach dem Titelbild einblenden */
+.floating-coop{
+  opacity:0!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+  transform:translateY(18px)!important;
+  transition:opacity .35s ease, transform .35s ease, visibility .35s ease!important;
+}
+.floating-coop.coop-visible{
+  opacity:1!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
+  transform:translateY(0)!important;
+}
+</style>
+
 </head>
 <body>
 
@@ -3348,6 +3366,25 @@ document.addEventListener('DOMContentLoaded', function(){
   },{threshold:.18});
 
   observer.observe(mapSection);
+})();
+</script>
+
+
+<script>
+(function(){
+  const coop = document.querySelector('.floating-coop');
+  const hero = document.querySelector('.hero');
+  if(!coop || !hero) return;
+
+  function updateCoopButton(){
+    const heroBottom = hero.offsetTop + hero.offsetHeight;
+    const show = window.scrollY > heroBottom - 100;
+    coop.classList.toggle('coop-visible', show);
+  }
+
+  updateCoopButton();
+  window.addEventListener('scroll', updateCoopButton, {passive:true});
+  window.addEventListener('resize', updateCoopButton);
 })();
 </script>
 
