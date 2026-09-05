@@ -1207,6 +1207,89 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
 }
 </style>
 
+
+<style>
+/* Erweiterte Einsatzkarte */
+.einsatzkarte-box{position:relative}
+.map-city-card{
+  cursor:pointer;
+  transition:transform .25s ease,border-color .25s ease,background .25s ease;
+}
+.map-city-card:hover,
+.map-city-card.active{
+  transform:translateY(-3px);
+  border-color:rgba(255,122,0,.55)!important;
+  background:rgba(255,122,0,.08)!important;
+}
+.map-detail{
+  margin-top:18px;
+  padding:18px 20px;
+  border-radius:14px;
+  border:1px solid rgba(255,122,0,.22);
+  background:linear-gradient(135deg,rgba(255,122,0,.08),rgba(255,255,255,.025));
+}
+.map-detail .map-detail-kicker{
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#ff8612;
+  margin-bottom:6px;
+}
+.map-detail h4{
+  margin:0 0 6px;
+  font-size:1.25rem;
+}
+.map-detail p{
+  margin:0;
+  line-height:1.65;
+  color:rgba(255,255,255,.76);
+}
+.map-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:16px;
+}
+.map-stat{
+  padding:12px 10px;
+  border-radius:12px;
+  text-align:center;
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.08);
+}
+.map-stat strong{
+  display:block;
+  font-size:1.05rem;
+  color:#fff;
+}
+.map-stat span{
+  display:block;
+  margin-top:3px;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:rgba(255,255,255,.55);
+}
+.map-point{cursor:pointer}
+.map-point .dot{
+  transition:r .2s ease,filter .2s ease;
+}
+.map-point:hover .dot,
+.map-point.active .dot{
+  r:8;
+  filter:drop-shadow(0 0 8px #ff7a00);
+}
+.map-route{
+  transition:opacity .3s ease,stroke-width .3s ease;
+}
+.map-route.dimmed{opacity:.18}
+.map-route.highlighted{stroke-width:4.5}
+@media(max-width:700px){
+  .map-stats{grid-template-columns:1fr}
+}
+</style>
+
 </head>
 <body>
 
@@ -1398,12 +1481,11 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
             L139 166 L146 133 L177 119 L186 84 Z"/>
 
           <!-- route line -->
-          <path class="map-route" d="M132 388 Q170 220 254 108" />
-          <path class="map-route" d="M132 388 Q245 300 365 252" />
+          <path class="map-route" data-route="hamburg" d="M132 388 Q170 220 254 108" />
+          <path class="map-route" data-route="berlin" d="M132 388 Q245 300 365 252" />
 
           <!-- Hamburg -->
-          <g class="map-point" tabindex="0" data-city="hamburg" transform="translate(254 108)">
-            <circle class="pulse" r="22"/>
+          <g class="map-point" data-city="berlin" data-city="hamburg" data-city="aachen" tabindex="0" data-city="hamburg" transform="translate(254 108)"><circle class="pulse" r="22"/>
             <circle class="dot" r="9"/>
             <text class="map-label" x="18" y="6">Hamburg</text>
           </g>
@@ -1440,6 +1522,16 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
           <div class="map-city-card" data-card="berlin">
             <strong>Berlin</strong>
             <span>Montage- und Industrieeinsätze</span>
+          </div>
+        </div>
+        <div class="map-detail" id="mapDetail">
+          <div class="map-detail-kicker">Aktiver Standort</div>
+          <h4 id="mapDetailTitle">Aachen · Firmensitz</h4>
+          <p id="mapDetailText">SEILWORX – Ausgangspunkt für Einsätze in ganz Deutschland.</p>
+          <div class="map-stats">
+            <div class="map-stat"><strong>Aachen</strong><span>Firmensitz</span></div>
+            <div class="map-stat"><strong>Hamburg</strong><span>Einsatzort</span></div>
+            <div class="map-stat"><strong>Berlin</strong><span>Einsatzort</span></div>
           </div>
         </div>
       </div>
@@ -1764,6 +1856,62 @@ document.addEventListener('DOMContentLoaded', function(){
     if(intro && intro.parentNode) intro.parentNode.removeChild(intro);
   }, delay + 800);
 });
+</script>
+
+
+<script>
+(function(){
+  const cards = [...document.querySelectorAll('.map-city-card[data-city]')];
+  const points = [...document.querySelectorAll('.map-point[data-city]')];
+  const routes = [...document.querySelectorAll('.map-route[data-route]')];
+  const title = document.getElementById('mapDetailTitle');
+  const text = document.getElementById('mapDetailText');
+  if(!cards.length || !title || !text) return;
+
+  const details = {
+    aachen: {
+      title: 'Aachen · Firmensitz',
+      text: 'SEILWORX – Ausgangspunkt für Einsätze in ganz Deutschland.'
+    },
+    hamburg: {
+      title: 'Hamburg',
+      text: 'Einsatzort für Montage- und Industriearbeiten.'
+    },
+    berlin: {
+      title: 'Berlin',
+      text: 'Einsatzort für Montage- und Industriearbeiten.'
+    }
+  };
+
+  function activate(city){
+    cards.forEach(el => el.classList.toggle('active', el.dataset.city === city));
+    points.forEach(el => el.classList.toggle('active', el.dataset.city === city));
+
+    routes.forEach(route => {
+      const isTarget = route.dataset.route === city;
+      if(city === 'aachen'){
+        route.classList.remove('dimmed');
+        route.classList.add('highlighted');
+      }else{
+        route.classList.toggle('highlighted', isTarget);
+        route.classList.toggle('dimmed', !isTarget);
+      }
+    });
+
+    if(details[city]){
+      title.textContent = details[city].title;
+      text.textContent = details[city].text;
+    }
+  }
+
+  [...cards, ...points].forEach(el => {
+    el.addEventListener('mouseenter', ()=>activate(el.dataset.city));
+    el.addEventListener('focus', ()=>activate(el.dataset.city));
+    el.addEventListener('click', ()=>activate(el.dataset.city));
+  });
+
+  activate('aachen');
+})();
 </script>
 
 </body>
