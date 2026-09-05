@@ -3518,6 +3518,70 @@ a[href="#contact"],
 }
 </style>
 
+
+<style id="rope-page-connection">
+/* Seil stärker mit den Seitenabschnitten verbinden */
+.rope-section-points a{
+  cursor:pointer;
+}
+.rope-section-points a.active i{
+  transform:scale(1.45);
+}
+.rope-section-points a.rope-near i{
+  box-shadow:0 0 0 4px rgba(255,122,0,.12),0 0 18px rgba(255,122,0,.55)!important;
+}
+.rope-section-points a.rope-passed i{
+  opacity:.72;
+}
+
+/* Der gerade aktive Seitenabschnitt bekommt einen sehr dezenten Seil-Akzent */
+section.rope-section-active{
+  position:relative;
+}
+section.rope-section-active::before{
+  content:"";
+  position:absolute;
+  right:0;
+  top:12%;
+  width:2px;
+  height:76%;
+  pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(255,122,0,.18),rgba(255,122,0,.5),rgba(255,122,0,.18),transparent);
+  box-shadow:0 0 18px rgba(255,122,0,.22);
+  animation:ropeSectionGlow .7s ease both;
+}
+
+/* Kletterer reagiert kurz beim Erreichen eines Navigationspunktes */
+.moving-climber.rope-snap{
+  animation:ropeClimberSnap .46s cubic-bezier(.2,.8,.2,1);
+  filter:drop-shadow(0 0 7px rgba(255,122,0,.75));
+}
+
+@keyframes ropeClimberSnap{
+  0%{transform:translateX(-50%) rotate(0deg) scale(1)}
+  35%{transform:translateX(-50%) rotate(-4deg) scale(1.07)}
+  70%{transform:translateX(-50%) rotate(3deg) scale(1.04)}
+  100%{transform:translateX(-50%) rotate(0deg) scale(1)}
+}
+@keyframes ropeSectionGlow{
+  from{opacity:0;transform:scaleY(.7)}
+  to{opacity:1;transform:scaleY(1)}
+}
+
+@media(max-width:700px){
+  section.rope-section-active::before{
+    right:1px;
+    opacity:.75;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .moving-climber.rope-snap,
+  section.rope-section-active::before{
+    animation:none!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -4654,6 +4718,74 @@ document.addEventListener('DOMContentLoaded', function(){
     touchStartX=null;
     touchStartY=null;
   },{passive:true});
+})();
+</script>
+
+
+<script id="rope-page-connection-js">
+(() => {
+  const points = [...document.querySelectorAll('.rope-section-points [data-rope-target]')];
+  const climber = document.querySelector('.moving-climber');
+  if (!points.length) return;
+
+  let lastTarget = '';
+
+  function updateRopeConnection(){
+    const focusY = window.innerHeight * .46;
+    let best = null;
+    let bestDistance = Infinity;
+
+    points.forEach((point) => {
+      const id = point.getAttribute('data-rope-target');
+      const section = document.getElementById(id);
+      if (!section) return;
+
+      const r = section.getBoundingClientRect();
+      const center = Math.max(r.top, Math.min(focusY, r.bottom));
+      const distance = Math.abs(center - focusY);
+
+      point.classList.toggle('rope-passed', r.bottom < focusY);
+      point.classList.toggle('rope-near', distance < 150);
+
+      if (r.top <= focusY && r.bottom >= focusY && distance < bestDistance) {
+        best = {point, section, id};
+        bestDistance = distance;
+      }
+    });
+
+    document.querySelectorAll('section.rope-section-active')
+      .forEach(el => el.classList.remove('rope-section-active'));
+
+    if (best) {
+      points.forEach(p => p.classList.toggle('active', p === best.point));
+      best.section.classList.add('rope-section-active');
+
+      if (best.id !== lastTarget) {
+        lastTarget = best.id;
+        if (climber) {
+          climber.classList.remove('rope-snap');
+          void climber.offsetWidth;
+          climber.classList.add('rope-snap');
+          setTimeout(() => climber.classList.remove('rope-snap'), 520);
+        }
+      }
+    }
+  }
+
+  let ticking = false;
+  function requestUpdate(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      updateRopeConnection();
+      ticking = false;
+    });
+  }
+
+  addEventListener('scroll', requestUpdate, {passive:true});
+  addEventListener('resize', requestUpdate);
+  addEventListener('load', updateRopeConnection);
+  updateRopeConnection();
 })();
 </script>
 
