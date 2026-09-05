@@ -3934,6 +3934,20 @@ section.rope-section-active::before{
 }
 </style>
 
+
+<style id="rope-carabiner-side-adjustment">
+.rope-clip-carabiner{
+  width:23px !important;
+  height:37px !important;
+  border-width:3px !important;
+  opacity:0;
+  filter:brightness(.92);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.55),
+    0 0 10px rgba(255,122,0,.38) !important;
+}
+</style>
+
 </head>
 <body>
 
@@ -5313,6 +5327,53 @@ document.addEventListener('DOMContentLoaded', function(){
   }, {passive:true});
 
   addEventListener('load', check);
+})();
+</script>
+
+
+<script id="rope-carabiner-side-adjustment-js">
+(() => {
+  /* Positionierung des bestehenden Karabiners überschreiben:
+     Er sitzt jetzt links neben dem Seilpunkt statt direkt darüber. */
+  const originalGetRect = Element.prototype.getBoundingClientRect;
+
+  const observer = new MutationObserver(() => {
+    const carabiner = document.querySelector('.rope-clip-carabiner');
+    if (!carabiner || carabiner.dataset.sideAdjusted) return;
+    carabiner.dataset.sideAdjusted = '1';
+
+    const mo = new MutationObserver(() => {
+      if (!carabiner.classList.contains('clip')) return;
+
+      const points = [...document.querySelectorAll('[data-rope-target]')];
+      const focusY = innerHeight * .46;
+      let nearest = null, distance = Infinity;
+
+      points.forEach(point => {
+        if (getComputedStyle(point).display === 'none') return;
+        const id = point.getAttribute('data-rope-target');
+        const section = document.getElementById(id);
+        if (!section) return;
+        const sr = section.getBoundingClientRect();
+        if (sr.top <= focusY && sr.bottom >= focusY) {
+          const d = Math.abs(sr.top - focusY);
+          if (d < distance) { nearest = point; distance = d; }
+        }
+      });
+
+      if (nearest) {
+        const dot = nearest.querySelector('i') || nearest;
+        const r = dot.getBoundingClientRect();
+        /* Seil liegt rechts: Karabiner deutlich links daneben. */
+        carabiner.style.left = (r.left + r.width/2 - 25) + 'px';
+        carabiner.style.top = (r.top + r.height/2) + 'px';
+      }
+    });
+
+    mo.observe(carabiner, {attributes:true, attributeFilter:['class']});
+  });
+
+  observer.observe(document.documentElement, {childList:true, subtree:true});
 })();
 </script>
 
