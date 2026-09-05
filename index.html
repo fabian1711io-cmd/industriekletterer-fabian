@@ -2104,6 +2104,62 @@ section:not(.hero)::after{
 }
 </style>
 
+
+<style>
+/* Titelbild-Navigation: Sicherheitsabstand zum Seil rechts */
+.hero .section-jumpbar{
+  left:24px!important;
+  right:92px!important;
+  width:auto!important;
+  max-width:620px!important;
+  transform:none!important;
+  justify-content:flex-start!important;
+  align-content:flex-start!important;
+  gap:7px!important;
+}
+
+.hero .section-jumpbar a{
+  flex:0 0 auto!important;
+}
+
+/* Auf dem Handy bleibt rechts eine freie Zone für Seil + Punkte */
+@media(max-width:700px){
+  .hero .section-jumpbar{
+    left:14px!important;
+    right:74px!important;
+    bottom:14px!important;
+    width:auto!important;
+    max-width:none!important;
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:6px!important;
+  }
+  .hero .section-jumpbar a{
+    width:100%!important;
+    min-width:0!important;
+    padding:8px 6px!important;
+    font-size:7.5px!important;
+    white-space:normal!important;
+    text-align:center!important;
+    line-height:1.15!important;
+  }
+}
+
+@media(max-width:420px){
+  .hero .section-jumpbar{
+    right:66px!important;
+  }
+}
+
+/* Seil/Punkte bleiben garantiert über ihrer eigenen rechten Spur */
+.rope-vector-track{
+  z-index:9998!important;
+}
+.rope-section-points{
+  z-index:9999!important;
+}
+</style>
+
 </head>
 <body>
 
