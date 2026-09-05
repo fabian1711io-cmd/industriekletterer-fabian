@@ -1509,6 +1509,244 @@ section[id]{scroll-margin-top:76px}
 }
 </style>
 
+
+<style>
+/* Premium Direktnavigation auf dem Titelbild */
+.hero .section-jumpbar{
+  position:absolute!important;
+  left:50%;
+  bottom:24px;
+  top:auto!important;
+  transform:translateX(-50%);
+  width:min(94%,1120px);
+  z-index:25;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:9px;
+  padding:12px;
+  overflow:visible;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:22px;
+  background:
+    linear-gradient(180deg,rgba(17,17,17,.72),rgba(8,8,8,.58));
+  backdrop-filter:blur(16px) saturate(130%);
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.38),
+    inset 0 1px 0 rgba(255,255,255,.06);
+}
+.hero .section-jumpbar a{
+  position:relative;
+  overflow:hidden;
+  justify-content:flex-start;
+  min-width:0;
+  padding:12px 14px;
+  border-radius:15px;
+  border:1px solid rgba(255,255,255,.09);
+  background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.025));
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.035em;
+  text-transform:uppercase;
+  white-space:nowrap;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+  transition:
+    transform .25s ease,
+    border-color .25s ease,
+    background .25s ease,
+    box-shadow .25s ease;
+}
+.hero .section-jumpbar a::before{
+  content:"";
+  position:absolute;
+  inset:0 auto 0 0;
+  width:3px;
+  background:#ff7a00;
+  opacity:.48;
+  transition:width .25s ease,opacity .25s ease;
+}
+.hero .section-jumpbar a::after{
+  content:"↘";
+  margin-left:auto;
+  color:rgba(255,255,255,.45);
+  font-size:12px;
+  transition:transform .25s ease,color .25s ease;
+}
+.hero .section-jumpbar a span{
+  width:7px;
+  height:7px;
+  flex:0 0 7px;
+  border-radius:50%;
+  background:#ff7a00;
+  box-shadow:0 0 0 4px rgba(255,122,0,.10);
+  font-size:0;
+}
+.hero .section-jumpbar a:hover,
+.hero .section-jumpbar a.active{
+  transform:translateY(-2px);
+  border-color:rgba(255,122,0,.48);
+  background:linear-gradient(135deg,rgba(255,122,0,.16),rgba(255,255,255,.04));
+  box-shadow:0 8px 22px rgba(0,0,0,.22);
+}
+.hero .section-jumpbar a:hover::before,
+.hero .section-jumpbar a.active::before{
+  width:100%;
+  opacity:.07;
+}
+.hero .section-jumpbar a:hover::after,
+.hero .section-jumpbar a.active::after{
+  color:#ff7a00;
+  transform:translate(2px,2px);
+}
+@media(max-width:900px){
+  .hero .section-jumpbar{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    width:min(94%,700px);
+    bottom:16px;
+  }
+  .hero-content{padding-bottom:220px!important}
+}
+@media(max-width:560px){
+  .hero .section-jumpbar{
+    left:12px;
+    right:12px;
+    width:auto;
+    transform:none;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:7px;
+    padding:8px;
+    border-radius:17px;
+  }
+  .hero .section-jumpbar a{
+    padding:10px 10px;
+    border-radius:12px;
+    font-size:9px;
+    letter-spacing:.025em;
+  }
+  .hero-content{padding-bottom:245px!important}
+}
+</style>
+
+
+<style>
+/* Abschnittspunkte am animierten Kletterseil */
+.rope-section-points{
+  position:fixed;
+  right:0;
+  top:76px;
+  bottom:28px;
+  width:118px;
+  z-index:9997;
+  pointer-events:none;
+}
+.rope-section-points a{
+  position:absolute;
+  right:43px;
+  top:0;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#fff;
+  text-decoration:none;
+  transform:translateY(-50%);
+  pointer-events:auto;
+  transition:top .25s ease,opacity .25s ease;
+}
+.rope-section-points a i{
+  position:relative;
+  display:block;
+  width:10px;
+  height:10px;
+  flex:0 0 10px;
+  border-radius:50%;
+  background:#1b1b1b;
+  border:2px solid rgba(255,255,255,.58);
+  box-shadow:
+    0 0 0 4px rgba(0,0,0,.35),
+    0 3px 10px rgba(0,0,0,.55);
+  transition:
+    transform .22s ease,
+    background .22s ease,
+    border-color .22s ease,
+    box-shadow .22s ease;
+}
+.rope-section-points a i::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:22px;
+  height:1px;
+  background:rgba(255,255,255,.18);
+  transform:translate(-100%,-50%);
+}
+.rope-section-points a span{
+  position:absolute;
+  right:20px;
+  padding:5px 8px;
+  border-radius:8px;
+  background:rgba(9,9,9,.88);
+  border:1px solid rgba(255,255,255,.10);
+  color:rgba(255,255,255,.72);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  white-space:nowrap;
+  opacity:0;
+  transform:translateX(8px);
+  transition:opacity .2s ease,transform .2s ease,color .2s ease,border-color .2s ease;
+}
+.rope-section-points a:hover i,
+.rope-section-points a.active i{
+  transform:scale(1.28);
+  background:#ff7a00;
+  border-color:#fff;
+  box-shadow:
+    0 0 0 5px rgba(255,122,0,.16),
+    0 0 18px rgba(255,122,0,.75);
+}
+.rope-section-points a:hover span,
+.rope-section-points a.active span{
+  opacity:1;
+  transform:translateX(0);
+  color:#fff;
+  border-color:rgba(255,122,0,.35);
+}
+.rope-section-points a.active span{color:#ff8a14}
+
+/* kleine Verbindung vom Punkt zum eigentlichen Seil */
+.rope-section-points a::after{
+  content:"";
+  position:absolute;
+  left:12px;
+  width:20px;
+  height:1px;
+  background:linear-gradient(90deg,rgba(255,122,0,.7),rgba(255,122,0,.08));
+}
+@media(max-width:900px){
+  .rope-section-points{
+    right:0;
+    top:70px;
+    bottom:76px;
+    width:72px;
+  }
+  .rope-section-points a{right:31px}
+  .rope-section-points a span{display:none}
+  .rope-section-points a i{
+    width:8px;height:8px;flex-basis:8px;
+  }
+  .rope-section-points a::after{width:14px;left:10px}
+}
+@media(max-width:560px){
+  .rope-section-points{width:58px}
+  .rope-section-points a{right:25px}
+  .rope-section-points a i{
+    width:7px;height:7px;flex-basis:7px;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -1559,6 +1797,20 @@ section[id]{scroll-margin-top:76px}
   </div>
 </div>
 <!-- ROPE-EFFECT-END -->
+
+<!-- ROPE-SECTION-POINTS-START -->
+<div class="rope-section-points" aria-label="Abschnittsnavigation">
+  <a href="#social-media" data-rope-target="social-media" aria-label="Social Media"><i></i><span>Social</span></a>
+  <a href="#arbeitgeber" data-rope-target="arbeitgeber" aria-label="Arbeitgeber"><i></i><span>Arbeitgeber</span></a>
+  <a href="#einsatzkarte" data-rope-target="einsatzkarte" aria-label="Deutschlandkarte"><i></i><span>Karte</span></a>
+  <a href="#qualifikationen" data-rope-target="qualifikationen" aria-label="Qualifikationen"><i></i><span>Qualifikation</span></a>
+  <a href="#einsatzgebiete" data-rope-target="einsatzgebiete" aria-label="Einsatzgebiete"><i></i><span>Einsatz</span></a>
+  <a href="#projekte" data-rope-target="projekte" aria-label="Projekte"><i></i><span>Projekte</span></a>
+  <a href="#kooperation" data-rope-target="kooperation" aria-label="Kooperation"><i></i><span>Kooperation</span></a>
+  <a href="#kontakt" data-rope-target="kontakt" aria-label="Kontakt"><i></i><span>Kontakt</span></a>
+</div>
+<!-- ROPE-SECTION-POINTS-END -->
+
 
 <div class="progress" id="progress"></div>
 
@@ -2194,6 +2446,76 @@ document.addEventListener('DOMContentLoaded', function(){
   },{rootMargin:'-20% 0px -65% 0px',threshold:[0,.15,.4,.7]});
 
   targets.forEach(t=>observer.observe(t));
+})();
+</script>
+
+
+<script>
+(function(){
+  const rail = document.querySelector('.rope-section-points');
+  const ropeTrack = document.querySelector('.rope-vector-track');
+  const points = [...document.querySelectorAll('.rope-section-points a[data-rope-target]')];
+  if(!rail || !points.length) return;
+
+  function validItems(){
+    return points
+      .map(point => ({
+        point,
+        section: document.getElementById(point.dataset.ropeTarget)
+      }))
+      .filter(x => x.section);
+  }
+
+  function positionPoints(){
+    const items = validItems();
+    if(!items.length) return;
+
+    const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const railHeight = rail.clientHeight;
+    const topPad = window.innerWidth <= 900 ? 42 : 56;
+    const bottomPad = window.innerWidth <= 900 ? 28 : 34;
+    const usable = Math.max(1, railHeight - topPad - bottomPad);
+
+    items.forEach(({point, section}) => {
+      const center = section.offsetTop + Math.min(section.offsetHeight * .22, 180);
+      const sectionProgress = Math.min(1, Math.max(0, center / (maxScroll + window.innerHeight)));
+      point.style.top = (topPad + sectionProgress * usable) + 'px';
+    });
+  }
+
+  function updateActive(){
+    const items = validItems();
+    if(!items.length) return;
+
+    const probe = window.scrollY + window.innerHeight * .42;
+    let active = items[0];
+
+    items.forEach(item => {
+      if(item.section.offsetTop <= probe) active = item;
+    });
+
+    items.forEach(({point}) => point.classList.remove('active'));
+    active.point.classList.add('active');
+  }
+
+  points.forEach(point => {
+    point.addEventListener('click', e => {
+      const section = document.getElementById(point.dataset.ropeTarget);
+      if(!section) return;
+      e.preventDefault();
+      section.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  function refresh(){
+    positionPoints();
+    updateActive();
+  }
+
+  refresh();
+  window.addEventListener('scroll', updateActive, {passive:true});
+  window.addEventListener('resize', refresh);
+  window.addEventListener('load', refresh);
 })();
 </script>
 
