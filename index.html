@@ -5579,6 +5579,100 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
 }
 </style>
 
+
+<style id="gear-pack-fly-animation-v1">
+.gear-item{
+  position:relative;
+  overflow:hidden;
+}
+
+.gear-item.is-packing{
+  pointer-events:none;
+  transform:scale(.97);
+  opacity:.72;
+}
+
+.gear-item.is-packed{
+  pointer-events:none;
+  opacity:0;
+  transform:scale(.82) translateY(14px);
+  visibility:hidden;
+  transition:
+    opacity .28s ease,
+    transform .28s ease,
+    visibility 0s linear .28s;
+}
+
+.gear-flyer{
+  position:fixed;
+  z-index:30000;
+  width:48px;
+  height:48px;
+  margin-left:-24px;
+  margin-top:-24px;
+  display:grid;
+  place-items:center;
+  font-size:34px;
+  pointer-events:none;
+  transform:translate(0,0) scale(1) rotate(0deg);
+  opacity:1;
+  transition:
+    transform .72s cubic-bezier(.2,.78,.2,1),
+    opacity .62s ease .08s;
+  filter:drop-shadow(0 8px 14px rgba(0,0,0,.45));
+}
+
+.gear-pack-bag-body{
+  transition:
+    transform .28s ease,
+    box-shadow .28s ease,
+    filter .28s ease;
+}
+
+.gear-pack-bag-body.bag-receive{
+  transform:scale(1.03);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.04),
+    0 30px 70px rgba(0,0,0,.6),
+    0 0 40px rgba(255,122,0,.18);
+}
+
+.gear-pack-bag-body.bag-bump{
+  animation:gearBagBump .34s ease;
+}
+
+.gear-pack-pocket{
+  overflow:hidden;
+}
+
+.gear-pack-bag-body.bag-receive .gear-pack-pocket::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#ff7a00;
+  transform:translate(-50%,-50%) scale(.3);
+  box-shadow:0 0 22px rgba(255,122,0,.85);
+  animation:gearPocketFlash .5s ease both;
+}
+
+@keyframes gearBagBump{
+  0%{transform:scale(1)}
+  38%{transform:scale(1.045) translateY(3px)}
+  70%{transform:scale(.992)}
+  100%{transform:scale(1)}
+}
+
+@keyframes gearPocketFlash{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}
+  35%{opacity:1;transform:translate(-50%,-50%) scale(4)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(7)}
+}
+</style>
+
 </head>
 <body>
 
@@ -7326,42 +7420,57 @@ document.addEventListener('DOMContentLoaded', function(){
 })();
 </script>
 
-
-<script id="gear-pack-js-v1">
+<script id="gear-pack-js-v2">
 (() => {
   const section = document.getElementById('kletterrucksack');
   if(!section) return;
 
-  const modal = document.getElementById('gearModal');
-  const title = document.getElementById('gearModalTitle');
-  const text = document.getElementById('gearModalText');
-  const close = modal?.querySelector('.gear-modal-close');
-  const backdrop = modal?.querySelector('.gear-modal-backdrop');
+  const bag = section.querySelector('.gear-pack-bag-body');
+  const items = [...section.querySelectorAll('.gear-item')];
+  if(!bag || !items.length) return;
 
-  function openModal(item){
-    if(!modal) return;
-    title.textContent = item.dataset.title || '';
-    text.textContent = item.dataset.text || '';
-    modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden','false');
-    document.body.style.overflow='hidden';
+  function packItem(item){
+    if(item.classList.contains('is-packed') || item.classList.contains('is-packing')) return;
+
+    item.classList.add('is-packing');
+
+    const icon = item.querySelector('.gear-icon');
+    const source = (icon || item).getBoundingClientRect();
+    const target = bag.getBoundingClientRect();
+
+    const flyer = document.createElement('div');
+    flyer.className = 'gear-flyer';
+    flyer.textContent = icon ? icon.textContent : '•';
+
+    const startX = source.left + source.width / 2;
+    const startY = source.top + source.height / 2;
+    const endX = target.left + target.width / 2;
+    const endY = target.top + target.height * .46;
+
+    flyer.style.left = startX + 'px';
+    flyer.style.top = startY + 'px';
+    document.body.appendChild(flyer);
+
+    requestAnimationFrame(() => {
+      flyer.style.transform = `translate(${endX - startX}px, ${endY - startY}px) scale(.2) rotate(18deg)`;
+      flyer.style.opacity = '0';
+    });
+
+    bag.classList.add('bag-receive');
+
+    setTimeout(() => {
+      flyer.remove();
+      item.classList.remove('is-packing');
+      item.classList.add('is-packed');
+      bag.classList.remove('bag-receive');
+      bag.classList.add('bag-bump');
+
+      setTimeout(() => bag.classList.remove('bag-bump'), 340);
+    }, 720);
   }
 
-  function closeModal(){
-    if(!modal) return;
-    modal.classList.remove('is-open');
-    modal.setAttribute('aria-hidden','true');
-    document.body.style.overflow='';
-  }
-
-  section.querySelectorAll('.gear-item').forEach(item => {
-    item.addEventListener('click',() => openModal(item));
-  });
-
-  close?.addEventListener('click',closeModal);
-  backdrop?.addEventListener('click',closeModal);
-  addEventListener('keydown',e => {
-    if(e.key === 'Escape' && modal?.classList.contains('is-open')) closeModal();
+  items.forEach(item => {
+    item.addEventListener('click', () => packItem(item));
   });
 })();
 </script>
