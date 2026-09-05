@@ -1409,6 +1409,57 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
 }
 </style>
 
+
+<style>
+/* Abschnitts-Navigation */
+.section-jumpbar{
+  position:sticky;
+  top:0;
+  z-index:12000;
+  display:flex;
+  gap:9px;
+  overflow-x:auto;
+  padding:10px 14px;
+  background:rgba(7,7,7,.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  scrollbar-width:none;
+}
+.section-jumpbar::-webkit-scrollbar{display:none}
+.section-jumpbar a{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:9px 13px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.035);
+  color:#fff;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.04em;
+  transition:transform .22s ease,border-color .22s ease,background .22s ease;
+}
+.section-jumpbar a:hover,
+.section-jumpbar a.active{
+  transform:translateY(-1px);
+  border-color:rgba(255,122,0,.55);
+  background:rgba(255,122,0,.12);
+}
+.section-jumpbar a span{
+  color:#ff7a00;
+}
+html{scroll-behavior:smooth}
+section[id]{scroll-margin-top:76px}
+@media(max-width:700px){
+  .section-jumpbar{padding:9px 10px}
+  .section-jumpbar a{font-size:11px;padding:8px 11px}
+  section[id]{scroll-margin-top:68px}
+}
+</style>
+
 </head>
 <body>
 
@@ -1433,6 +1484,18 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
   </div>
 </div>
 <!-- INTRO-END -->
+
+<nav class="section-jumpbar" aria-label="Direkt zu Abschnitt">
+  <a href="#social-media"><span>●</span>Social Media</a>
+  <a href="#arbeitgeber"><span>●</span>Arbeitgeber</a>
+  <a href="#einsatzkarte"><span>●</span>Deutschlandkarte</a>
+  <a href="#qualifikationen"><span>●</span>Qualifikationen</a>
+  <a href="#einsatzgebiete"><span>●</span>Einsatzgebiete</a>
+  <a href="#projekte"><span>●</span>Projekte</a>
+  <a href="#kooperation"><span>●</span>Kooperation</a>
+  <a href="#kontakt"><span>●</span>Kontakt</a>
+</nav>
+
 
 
 <!-- ROPE-EFFECT-START -->
@@ -1493,7 +1556,7 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
 </section>
 
 <!-- SOCIAL-BEREICH-START -->
-<section class="social-section" id="social-media">
+<section class="social-section" id="social-media" id="social-media">
   <div class="wrap">
     <div class="section-head">
       <div class="kicker">SOCIAL MEDIA</div>
@@ -1556,7 +1619,7 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
 <!-- SOCIAL-BEREICH-END -->
 
 <!-- SEILWORX-BLOCK-START -->
-<section id="arbeitgeber" class="section">
+<section id="arbeitgeber" id="arbeitgeber" class="section"
   <div class="wrap">
     <div class="kicker">MEIN ARBEITGEBER</div>
     <h2>SEILWORX</h2>
@@ -1580,7 +1643,7 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
 <!-- SEILWORX-BLOCK-END -->
 
 <!-- EINSATZKARTE-START -->
-<section class="einsatzkarte-section reveal" id="einsatzkarte">
+<section id="einsatzkarte" class="einsatzkarte-section reveal" id="einsatzkarte"
   <div class="wrap">
     <div class="kicker">DEUTSCHLANDWEIT IM EINSATZ</div>
     <h2>Meine Einsatzkarte</h2>
@@ -2061,6 +2124,25 @@ document.addEventListener('DOMContentLoaded', function(){
 
   targets.forEach(el=>observer.observe(el));
   headings.forEach(el=>observer.observe(el));
+})();
+</script>
+
+
+<script>
+(function(){
+  const links=[...document.querySelectorAll('.section-jumpbar a[href^="#"]')];
+  const targets=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  if(!links.length || !targets.length || !('IntersectionObserver' in window)) return;
+
+  const observer=new IntersectionObserver(entries=>{
+    const visible=entries
+      .filter(e=>e.isIntersecting)
+      .sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+    if(!visible) return;
+    links.forEach(a=>a.classList.toggle('active', a.getAttribute('href')==='#'+visible.target.id));
+  },{rootMargin:'-20% 0px -65% 0px',threshold:[0,.15,.4,.7]});
+
+  targets.forEach(t=>observer.observe(t));
 })();
 </script>
 
