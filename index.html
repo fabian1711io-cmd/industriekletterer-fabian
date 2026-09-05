@@ -2233,6 +2233,208 @@ section:not(.hero)::after{
 }
 </style>
 
+
+<style>
+/* Deutschlandkarte 2.0 – animiert mit Bezeichnungen */
+#einsatzkarte .map-intro{
+  max-width:760px;
+  margin:12px 0 24px;
+  color:rgba(255,255,255,.72);
+  line-height:1.7;
+}
+#einsatzkarte .einsatzkarte-box.map-clean{
+  display:block!important;
+  padding:22px!important;
+}
+#einsatzkarte .germany-map-wrap{
+  position:relative;
+  width:min(100%,760px);
+  margin:0 auto;
+}
+#einsatzkarte .germany-map{
+  width:100%;
+  height:auto;
+  display:block;
+}
+#einsatzkarte .germany-shape{
+  fill:rgba(255,255,255,.018);
+  stroke:rgba(255,255,255,.16);
+  stroke-width:2;
+  transition:fill .8s ease,stroke .8s ease;
+}
+#einsatzkarte.map-animate .germany-shape{
+  fill:rgba(255,122,0,.025);
+  stroke:rgba(255,255,255,.28);
+}
+
+#einsatzkarte .map-route{
+  fill:none;
+  stroke:#ff7a00;
+  stroke-width:3.4;
+  stroke-linecap:round;
+  stroke-dasharray:none!important;
+  stroke-dashoffset:0!important;
+  opacity:0!important;
+  filter:drop-shadow(0 0 5px rgba(255,122,0,.28));
+}
+#einsatzkarte.map-animate .route-hamburg{
+  opacity:1!important;
+  animation:routeDrawHamburg 1.8s .55s ease both;
+}
+#einsatzkarte.map-animate .route-berlin{
+  opacity:1!important;
+  animation:routeDrawBerlin 1.65s 1.05s ease both;
+}
+
+@keyframes routeDrawHamburg{
+  from{stroke-dasharray:0 1000}
+  to{stroke-dasharray:1000 0}
+}
+@keyframes routeDrawBerlin{
+  from{stroke-dasharray:0 1000}
+  to{stroke-dasharray:1000 0}
+}
+
+#einsatzkarte .map-point{
+  opacity:0!important;
+  transform-box:fill-box;
+  transform-origin:center;
+}
+#einsatzkarte .map-point .dot{
+  fill:#ff7a00;
+  stroke:#fff;
+  stroke-width:2.2;
+}
+#einsatzkarte .map-point .pulse{
+  fill:rgba(255,122,0,.12);
+  stroke:rgba(255,122,0,.22);
+  stroke-width:1.5;
+}
+#einsatzkarte.map-animate .city-aachen{
+  animation:cityPop .55s .18s cubic-bezier(.2,.9,.3,1.25) forwards;
+}
+#einsatzkarte.map-animate .city-hamburg{
+  animation:cityPop .55s 1.65s cubic-bezier(.2,.9,.3,1.25) forwards;
+}
+#einsatzkarte.map-animate .city-berlin{
+  animation:cityPop .55s 2.05s cubic-bezier(.2,.9,.3,1.25) forwards;
+}
+@keyframes cityPop{
+  0%{opacity:0;transform:scale(.45)}
+  72%{opacity:1;transform:scale(1.22)}
+  100%{opacity:1;transform:scale(1)}
+}
+#einsatzkarte.map-animate .map-point .pulse{
+  animation:cityPulse 2.1s ease-in-out 2.5s infinite!important;
+}
+@keyframes cityPulse{
+  0%,100%{transform:scale(1);opacity:.22}
+  50%{transform:scale(1.45);opacity:.58}
+}
+
+/* Bezeichnungen direkt auf der Karte */
+#einsatzkarte .map-callout{
+  opacity:0;
+  transform-box:fill-box;
+  transform-origin:center;
+  pointer-events:none;
+}
+#einsatzkarte .map-callout rect{
+  fill:rgba(10,10,10,.90);
+  stroke:rgba(255,122,0,.38);
+  stroke-width:1.2;
+  filter:drop-shadow(0 10px 18px rgba(0,0,0,.28));
+}
+#einsatzkarte .callout-title{
+  fill:#fff;
+  font-size:15px;
+  font-weight:900;
+  letter-spacing:.04em;
+}
+#einsatzkarte .callout-sub{
+  fill:#ff8a14;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.13em;
+}
+#einsatzkarte.map-animate .callout-aachen{
+  animation:calloutIn .55s .48s ease forwards;
+}
+#einsatzkarte.map-animate .callout-hamburg{
+  animation:calloutIn .55s 1.92s ease forwards;
+}
+#einsatzkarte.map-animate .callout-berlin{
+  animation:calloutIn .55s 2.32s ease forwards;
+}
+@keyframes calloutIn{
+  from{opacity:0;transform:translateY(10px) scale(.96)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+/* fahrende Leuchtpunkte */
+#einsatzkarte .travel-dot{
+  opacity:0;
+  fill:#fff;
+  stroke:#ff7a00;
+  stroke-width:3;
+  filter:url(#mapGlow);
+}
+#einsatzkarte.map-animate .travel-dot{
+  opacity:1;
+}
+
+/* Legende */
+#einsatzkarte .map-legend{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
+  margin-top:8px;
+  color:rgba(255,255,255,.62);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+#einsatzkarte .map-legend span{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+#einsatzkarte .legend-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#ff7a00;
+  box-shadow:0 0 10px rgba(255,122,0,.45);
+}
+#einsatzkarte .legend-dot.headquarters{
+  outline:2px solid rgba(255,255,255,.85);
+  outline-offset:2px;
+}
+
+@media(max-width:700px){
+  #einsatzkarte .einsatzkarte-box.map-clean{padding:12px!important}
+  #einsatzkarte .callout-title{font-size:13px}
+  #einsatzkarte .callout-sub{font-size:8px}
+  #einsatzkarte .map-callout rect{stroke-width:1}
+}
+
+@media(prefers-reduced-motion:reduce){
+  #einsatzkarte .map-route{
+    opacity:1!important;
+    stroke-dasharray:none!important;
+  }
+  #einsatzkarte .map-point,
+  #einsatzkarte .map-callout{
+    opacity:1!important;
+    animation:none!important;
+    transform:none!important;
+  }
+  #einsatzkarte .travel-dot{display:none!important}
+}
+</style>
+
 </head>
 <body>
 
@@ -2431,15 +2633,26 @@ section:not(.hero)::after{
 <!-- SEILWORX-BLOCK-END -->
 
 <!-- EINSATZKARTE-START -->
-<section id="einsatzkarte" class="einsatzkarte-section reveal" id="einsatzkarte"
+<section id="einsatzkarte" class="einsatzkarte-section reveal">
   <div class="wrap">
     <div class="kicker">DEUTSCHLANDWEIT IM EINSATZ</div>
     <h2>Meine Einsatzkarte</h2>
+    <p class="map-intro">Ausgangspunkt ist Aachen. Von dort führen Einsätze unter anderem nach Hamburg und Berlin.</p>
 
-    <div class="einsatzkarte-box">
+    <div class="einsatzkarte-box map-clean">
       <div class="germany-map-wrap">
-        <svg class="germany-map" viewBox="0 0 500 650" role="img" aria-label="Stilisierte Deutschlandkarte mit Einsatzorten Aachen, Hamburg und Berlin">
-          <!-- bewusst stilisierte, nicht kartografisch exakte Silhouette -->
+        <svg class="germany-map" viewBox="0 0 500 650" role="img"
+             aria-label="Stilisierte Deutschlandkarte mit Aachen, Hamburg und Berlin">
+          <defs>
+            <filter id="mapGlow" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="5" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
           <path class="germany-shape" d="M226 34
             L270 50 L290 76 L326 71 L352 103 L389 111 L394 148
             L420 169 L397 204 L407 240 L383 268 L399 302
@@ -2450,59 +2663,51 @@ section:not(.hero)::after{
             L79 309 L102 282 L95 248 L117 217 L110 184
             L139 166 L146 133 L177 119 L186 84 Z"/>
 
-          <!-- route line -->
-          <path class="map-route" data-route="hamburg" d="M132 388 Q170 220 254 108" />
-          <path class="map-route" data-route="berlin" d="M132 388 Q245 300 365 252" />
+          <path class="map-route route-hamburg" data-route="hamburg"
+                d="M132 388 Q170 220 254 108"/>
+          <path class="map-route route-berlin" data-route="berlin"
+                d="M132 388 Q245 300 365 252"/>
+
+          <!-- Aachen -->
+          <g class="map-point city-aachen" data-city="aachen" transform="translate(132 388)">
+            <circle class="pulse" r="22"/>
+            <circle class="dot" r="9"/>
+          </g>
+          <g class="map-callout callout-aachen" transform="translate(148 370)">
+            <rect x="0" y="0" width="142" height="52" rx="11"/>
+            <text x="14" y="21" class="callout-title">AACHEN</text>
+            <text x="14" y="39" class="callout-sub">FIRMENSITZ</text>
+          </g>
 
           <!-- Hamburg -->
-          <g class="map-point" data-city="berlin" data-city="hamburg" data-city="aachen" tabindex="0" data-city="hamburg" transform="translate(254 108)"><circle class="pulse" r="22"/>
+          <g class="map-point city-hamburg" data-city="hamburg" transform="translate(254 108)">
+            <circle class="pulse" r="22"/>
             <circle class="dot" r="9"/>
-            <text class="map-label" x="18" y="6">Hamburg</text>
+          </g>
+          <g class="map-callout callout-hamburg" transform="translate(271 77)">
+            <rect x="0" y="0" width="146" height="52" rx="11"/>
+            <text x="14" y="21" class="callout-title">HAMBURG</text>
+            <text x="14" y="39" class="callout-sub">EINSATZORT</text>
           </g>
 
           <!-- Berlin -->
-          <g class="map-point" tabindex="0" data-city="berlin" transform="translate(365 252)">
+          <g class="map-point city-berlin" data-city="berlin" transform="translate(365 252)">
             <circle class="pulse" r="22"/>
             <circle class="dot" r="9"/>
-            <text class="map-label" x="18" y="6">Berlin</text>
+          </g>
+          <g class="map-callout callout-berlin" transform="translate(205 230)">
+            <rect x="0" y="0" width="140" height="52" rx="11"/>
+            <text x="14" y="21" class="callout-title">BERLIN</text>
+            <text x="14" y="39" class="callout-sub">EINSATZORT</text>
           </g>
 
-          <!-- Aachen -->
-          <g class="map-point" tabindex="0" data-city="aachen" transform="translate(132 388)">
-            <circle class="pulse" r="22"/>
-            <circle class="dot" r="9"/>
-            <text class="map-label" x="18" y="6">Aachen</text>
-          </g>
+          <circle class="travel-dot travel-hamburg" r="5"/>
+          <circle class="travel-dot travel-berlin" r="5"/>
         </svg>
-      </div>
 
-      <div class="map-info">
-        <h3>Projekte an verschiedenen Standorten</h3>
-        <p>Der Firmensitz von SEILWORX ist in Aachen. Von dort aus führen Einsätze unter anderem nach Hamburg und Berlin.</p>
-
-        <div class="map-cities">
-          <div class="map-city-card active" data-card="aachen">
-            <strong>Aachen · Firmensitz</strong>
-            <span>SEILWORX – Ausgangspunkt für Einsätze in ganz Deutschland</span>
-          </div>
-          <div class="map-city-card" data-card="hamburg">
-            <strong>Hamburg</strong>
-            <span>Montage- und Industrieeinsätze</span>
-          </div>
-          <div class="map-city-card" data-card="berlin">
-            <strong>Berlin</strong>
-            <span>Montage- und Industrieeinsätze</span>
-          </div>
-        </div>
-        <div class="map-detail" id="mapDetail">
-          <div class="map-detail-kicker">Aktiver Standort</div>
-          <h4 id="mapDetailTitle">Aachen · Firmensitz</h4>
-          <p id="mapDetailText">SEILWORX – Ausgangspunkt für Einsätze in ganz Deutschland.</p>
-          <div class="map-stats">
-            <div class="map-stat"><strong>Aachen</strong><span>Firmensitz</span></div>
-            <div class="map-stat"><strong>Hamburg</strong><span>Einsatzort</span></div>
-            <div class="map-stat"><strong>Berlin</strong><span>Einsatzort</span></div>
-          </div>
+        <div class="map-legend">
+          <span><i class="legend-dot headquarters"></i>Firmensitz</span>
+          <span><i class="legend-dot deployment"></i>Einsatzort</span>
         </div>
       </div>
     </div>
@@ -3066,72 +3271,78 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
+
+
+
 <script>
 (function(){
   const section = document.getElementById('einsatzkarte');
   if(!section) return;
 
   const svg = section.querySelector('svg');
-  if(svg && !svg.querySelector('.travel-dot')){
-    const ns = 'http://www.w3.org/2000/svg';
+  const routeHamburg = svg?.querySelector('.route-hamburg');
+  const routeBerlin = svg?.querySelector('.route-berlin');
+  const dotHamburg = svg?.querySelector('.travel-hamburg');
+  const dotBerlin = svg?.querySelector('.travel-berlin');
 
-    const routes = [...svg.querySelectorAll('.map-route[data-route]')];
+  let running = false;
 
-    routes.forEach((route, index)=>{
-      const dot = document.createElementNS(ns,'circle');
-      dot.setAttribute('r','4.5');
-      dot.setAttribute('class','travel-dot');
-      svg.appendChild(dot);
+  function animateDot(route, dot, delay, duration){
+    if(!route || !dot) return;
+    let startedAt = null;
 
-      let startTime = null;
-      const duration = index === 0 ? 2600 : 2300;
-      const delay = index === 0 ? 700 : 1050;
-
-      function animateDot(ts){
-        if(!section.classList.contains('map-animate')){
-          startTime = null;
-          requestAnimationFrame(animateDot);
-          return;
-        }
-
-        if(startTime === null) startTime = ts + delay;
-        if(ts < startTime){
-          requestAnimationFrame(animateDot);
-          return;
-        }
-
-        const elapsed = (ts - startTime) % duration;
-        const progress = elapsed / duration;
-
-        try{
-          const len = route.getTotalLength();
-          const pt = route.getPointAtLength(len * progress);
-          dot.setAttribute('cx', pt.x);
-          dot.setAttribute('cy', pt.y);
-        }catch(e){}
-
-        requestAnimationFrame(animateDot);
+    function step(ts){
+      if(!running){
+        startedAt = null;
+        requestAnimationFrame(step);
+        return;
+      }
+      if(startedAt === null) startedAt = ts + delay;
+      if(ts < startedAt){
+        requestAnimationFrame(step);
+        return;
       }
 
-      requestAnimationFrame(animateDot);
-    });
+      const cycle = (ts - startedAt) % (duration + 900);
+      const progress = Math.min(1, cycle / duration);
+
+      try{
+        const len = route.getTotalLength();
+        const pt = route.getPointAtLength(len * progress);
+        dot.setAttribute('cx', pt.x);
+        dot.setAttribute('cy', pt.y);
+        dot.style.opacity = progress >= 1 ? 0 : 1;
+      }catch(e){}
+
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  animateDot(routeHamburg, dotHamburg, 900, 2200);
+  animateDot(routeBerlin, dotBerlin, 1450, 2050);
+
+  function startMap(){
+    if(running) return;
+    running = true;
+    section.classList.add('map-animate');
   }
 
   if(!('IntersectionObserver' in window)){
-    section.classList.add('map-animate');
+    startMap();
     return;
   }
 
-  const obs = new IntersectionObserver(entries=>{
+  const observer = new IntersectionObserver(entries=>{
     entries.forEach(entry=>{
       if(entry.isIntersecting){
-        section.classList.add('map-animate');
-        obs.unobserve(section);
+        startMap();
+        observer.unobserve(section);
       }
     });
-  },{threshold:.28});
+  },{threshold:.25});
 
-  obs.observe(section);
+  observer.observe(section);
 })();
 </script>
 
