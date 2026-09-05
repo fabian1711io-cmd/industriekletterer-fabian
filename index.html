@@ -1845,6 +1845,100 @@ section[id]{scroll-margin-top:76px}
 }
 </style>
 
+
+<style>
+/* Direktbuttons im gleichen Stil wie "Mehr erfahren" und "Kooperation" */
+.hero .section-jumpbar{
+  position:absolute!important;
+  left:50%!important;
+  right:auto!important;
+  bottom:22px!important;
+  top:auto!important;
+  transform:translateX(-50%)!important;
+  width:min(92%,760px)!important;
+  display:flex!important;
+  flex-wrap:wrap!important;
+  justify-content:center!important;
+  gap:7px!important;
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  overflow:visible!important;
+}
+
+.hero .section-jumpbar a{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:7px!important;
+  min-width:0!important;
+  padding:9px 12px!important;
+  border:0!important;
+  border-radius:4px!important;
+  background:var(--accent)!important;
+  color:#111!important;
+  box-shadow:none!important;
+  font-size:9px!important;
+  font-weight:900!important;
+  line-height:1!important;
+  letter-spacing:.02em!important;
+  text-transform:uppercase!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  transition:transform .25s ease,box-shadow .25s ease!important;
+}
+
+.hero .section-jumpbar a span,
+.hero .section-jumpbar a::before,
+.hero .section-jumpbar a::after{
+  display:none!important;
+}
+
+.hero .section-jumpbar a:hover,
+.hero .section-jumpbar a.active{
+  transform:translateY(-3px)!important;
+  background:var(--accent)!important;
+  color:#111!important;
+  box-shadow:0 12px 28px rgba(255,106,0,.22)!important;
+}
+
+/* Haupt-CTAs und Direktbuttons wirken wie eine Designfamilie */
+.hero-content .btn{
+  border-radius:4px!important;
+}
+
+/* auf dem Handy schön klein und in 3/2/2 Reihen */
+@media(max-width:700px){
+  .hero .section-jumpbar{
+    left:12px!important;
+    right:12px!important;
+    width:auto!important;
+    transform:none!important;
+    bottom:14px!important;
+    gap:6px!important;
+  }
+  .hero .section-jumpbar a{
+    flex:0 0 calc(33.333% - 5px)!important;
+    padding:8px 5px!important;
+    font-size:7.7px!important;
+  }
+  .hero .section-jumpbar a:nth-child(n+7){
+    flex-basis:calc(50% - 4px)!important;
+  }
+  .hero-content{padding-bottom:175px!important}
+}
+
+@media(max-width:410px){
+  .hero .section-jumpbar a{
+    font-size:7.2px!important;
+    padding:8px 4px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
