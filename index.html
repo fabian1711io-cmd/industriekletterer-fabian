@@ -3665,7 +3665,7 @@ section.rope-section-active::before{
 .intro-rope{
   top:17px !important;
   height:200px !important;
-  transform:translateX(-50%) scaleY(0) !important;
+  transform:translateX(-50%) scaleY(0);
   transform-origin:top center !important;
   opacity:1 !important;
   animation:introRopeDeploy .72s cubic-bezier(.18,.82,.2,1) .48s forwards !important;
@@ -3721,8 +3721,8 @@ section.rope-section-active::before{
   top:118px !important;
   width:50px !important;
   height:82px !important;
-  opacity:0 !important;
-  transform:translateX(-50%) translateY(-34px) rotate(-4deg) scale(.92) !important;
+  opacity:0;
+  transform:translateX(-50%) translateY(-34px) rotate(-4deg) scale(.92);
   transform-origin:50% 10% !important;
   animation:
     introClimberAttach .38s cubic-bezier(.2,.9,.2,1) 1.25s forwards,
@@ -3734,8 +3734,8 @@ section.rope-section-active::before{
 /* Titel wirkt wie aufgeschnitten / eingeblendet */
 .intro-title{
   margin-top:170px !important;
-  opacity:0 !important;
-  transform:translateY(20px) scale(.985) !important;
+  opacity:0;
+  transform:translateY(20px) scale(.985);
   filter:blur(5px);
   clip-path:inset(100% 0 0 0);
   animation:introTitleReveal .64s cubic-bezier(.2,.82,.2,1) 1.88s forwards !important;
@@ -3745,7 +3745,7 @@ section.rope-section-active::before{
   text-shadow:0 0 22px rgba(255,122,0,.16);
 }
 .intro-sub{
-  opacity:0 !important;
+  opacity:0;
   transform:translateY(10px);
   animation:introSubReveal .48s ease 2.18s forwards !important;
 }
@@ -3858,6 +3858,29 @@ section.rope-section-active::before{
     animation-delay:0s !important;
     animation-iteration-count:1 !important;
   }
+}
+</style>
+
+
+<style id="intro-animation-fix">
+/* Fix: animierte Werte dürfen nicht durch !important blockiert werden */
+#siteIntro .intro-rope{
+  animation:introRopeDeploy .72s cubic-bezier(.18,.82,.2,1) .48s forwards !important;
+}
+#siteIntro .intro-climber{
+  animation:
+    introClimberAttach .38s cubic-bezier(.2,.9,.2,1) 1.25s forwards,
+    introClimberLower .72s cubic-bezier(.22,.75,.2,1) 1.58s forwards,
+    introClimberLiveSway 1.55s ease-in-out 2.30s infinite alternate !important;
+}
+#siteIntro .intro-title{
+  animation:introTitleReveal .64s cubic-bezier(.2,.82,.2,1) 1.88s forwards !important;
+}
+#siteIntro .intro-sub{
+  animation:introSubReveal .48s ease 2.18s forwards !important;
+}
+#siteIntro .intro-line{
+  animation:introLineReveal .62s cubic-bezier(.2,.85,.2,1) 2.28s forwards !important;
 }
 </style>
 
