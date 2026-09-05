@@ -5673,6 +5673,30 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
 }
 </style>
 
+
+<style id="gear-explanation-return-v1">
+.gear-pack-confirm{
+  width:100%;
+  margin-top:24px;
+  padding:15px 18px;
+  border:0;
+  border-radius:12px;
+  background:#ff7a00;
+  color:#111;
+  font-weight:950;
+  font-size:12px;
+  letter-spacing:.10em;
+  cursor:pointer;
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.gear-pack-confirm:hover,
+.gear-pack-confirm:focus-visible{
+  transform:translateY(-2px);
+  box-shadow:0 10px 28px rgba(255,122,0,.25);
+  outline:none;
+}
+</style>
+
 </head>
 <body>
 
@@ -7420,18 +7444,53 @@ document.addEventListener('DOMContentLoaded', function(){
 })();
 </script>
 
-<script id="gear-pack-js-v2">
+<script id="gear-pack-js-v3">
 (() => {
   const section = document.getElementById('kletterrucksack');
   if(!section) return;
 
   const bag = section.querySelector('.gear-pack-bag-body');
   const items = [...section.querySelectorAll('.gear-item')];
-  if(!bag || !items.length) return;
+  const modal = document.getElementById('gearModal');
+  const title = document.getElementById('gearModalTitle');
+  const text = document.getElementById('gearModalText');
+  const close = modal?.querySelector('.gear-modal-close');
+  const backdrop = modal?.querySelector('.gear-modal-backdrop');
+
+  if(!bag || !items.length || !modal) return;
+
+  let selectedItem = null;
+
+  // Pack-Button in die bestehende Erklärung einfügen
+  let packBtn = modal.querySelector('.gear-pack-confirm');
+  if(!packBtn){
+    packBtn = document.createElement('button');
+    packBtn.type = 'button';
+    packBtn.className = 'gear-pack-confirm';
+    packBtn.textContent = 'IN DEN RUCKSACK →';
+    modal.querySelector('.gear-modal-card')?.appendChild(packBtn);
+  }
+
+  function openInfo(item){
+    if(item.classList.contains('is-packed') || item.classList.contains('is-packing')) return;
+    selectedItem = item;
+    title.textContent = item.dataset.title || '';
+    text.textContent = item.dataset.text || '';
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+  }
+
+  function closeInfo(){
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+  }
 
   function packItem(item){
-    if(item.classList.contains('is-packed') || item.classList.contains('is-packing')) return;
+    if(!item || item.classList.contains('is-packed') || item.classList.contains('is-packing')) return;
 
+    closeInfo();
     item.classList.add('is-packing');
 
     const icon = item.querySelector('.gear-icon');
@@ -7442,17 +7501,18 @@ document.addEventListener('DOMContentLoaded', function(){
     flyer.className = 'gear-flyer';
     flyer.textContent = icon ? icon.textContent : '•';
 
-    const startX = source.left + source.width / 2;
-    const startY = source.top + source.height / 2;
-    const endX = target.left + target.width / 2;
-    const endY = target.top + target.height * .46;
+    const startX = source.left + source.width/2;
+    const startY = source.top + source.height/2;
+    const endX = target.left + target.width/2;
+    const endY = target.top + target.height*.46;
 
     flyer.style.left = startX + 'px';
     flyer.style.top = startY + 'px';
     document.body.appendChild(flyer);
 
     requestAnimationFrame(() => {
-      flyer.style.transform = `translate(${endX - startX}px, ${endY - startY}px) scale(.2) rotate(18deg)`;
+      flyer.style.transform =
+        `translate(${endX-startX}px, ${endY-startY}px) scale(.2) rotate(18deg)`;
       flyer.style.opacity = '0';
     });
 
@@ -7464,13 +7524,17 @@ document.addEventListener('DOMContentLoaded', function(){
       item.classList.add('is-packed');
       bag.classList.remove('bag-receive');
       bag.classList.add('bag-bump');
-
-      setTimeout(() => bag.classList.remove('bag-bump'), 340);
-    }, 720);
+      setTimeout(() => bag.classList.remove('bag-bump'),340);
+    },720);
   }
 
-  items.forEach(item => {
-    item.addEventListener('click', () => packItem(item));
+  items.forEach(item => item.addEventListener('click',() => openInfo(item)));
+  packBtn.addEventListener('click',() => packItem(selectedItem));
+  close?.addEventListener('click',closeInfo);
+  backdrop?.addEventListener('click',closeInfo);
+
+  addEventListener('keydown',e => {
+    if(e.key === 'Escape' && modal.classList.contains('is-open')) closeInfo();
   });
 })();
 </script>
