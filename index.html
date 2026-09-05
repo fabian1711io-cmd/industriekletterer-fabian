@@ -4568,6 +4568,43 @@ body.scroll-climber-entered .moving-climber{
 }
 </style>
 
+
+<style id="upper-rope-definitive-fix">
+/* Der alte gerade Strang wird nicht mehr verwendet, damit nichts doppelt erscheint. */
+.rope-vector-line{
+  display:none !important;
+}
+
+/* Eigenes EINZELNES Seil vom oberen Knoten bis exakt zum Kletterer */
+.rope-upper-visible{
+  position:absolute;
+  left:50%;
+  top:52px;
+  width:20px;
+  height:40px;
+  transform:translateX(-50%);
+  overflow:visible;
+  pointer-events:none;
+  z-index:2;
+}
+.rope-upper-visible-path{
+  fill:none;
+  stroke:#f3790c;
+  stroke-width:7px;
+  stroke-linecap:round;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.65))
+         drop-shadow(0 0 3px rgba(255,122,0,.18));
+}
+
+.rope-lower-wave-strong{z-index:2!important}
+.moving-climber{z-index:5!important}
+
+@media(max-width:900px){
+  .rope-upper-visible{top:44px}
+  .rope-upper-visible-path{stroke-width:5.5px}
+}
+</style>
+
 </head>
 <body>
 
@@ -4623,6 +4660,11 @@ body.scroll-climber-entered .moving-climber{
   </div>
   <div class="rope-vector-line"></div>
   <div class="rope-progress-fill" aria-hidden="true"></div>
+
+
+<svg class="rope-upper-visible" viewBox="0 0 20 100" preserveAspectRatio="none" aria-hidden="true">
+  <path class="rope-upper-visible-path" d="M10 0 L10 100"></path>
+</svg>
 
 <svg class="rope-lower-wave-strong" viewBox="0 0 80 100" preserveAspectRatio="none" aria-hidden="true">
   <path class="rope-lower-wave-path" d="M40 0 L40 100"></path>
@@ -6041,6 +6083,32 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 
   requestAnimationFrame(update);
+})();
+</script>
+
+
+<script id="upper-rope-definitive-js">
+(() => {
+  const track = document.querySelector('.rope-vector-track');
+  const climber = document.querySelector('.moving-climber');
+  const upper = document.querySelector('.rope-upper-visible');
+  if(!track || !climber || !upper) return;
+
+  function updateUpperRope(){
+    const mobile = window.innerWidth <= 900;
+    const ropeTop = mobile ? 44 : 52;
+    const climberTop = parseFloat(climber.style.top) || climber.offsetTop || ropeTop;
+
+    upper.style.top = ropeTop + 'px';
+
+    /* reicht bis leicht hinter die Figur, damit keine sichtbare Lücke entsteht */
+    const endAt = climberTop + (mobile ? 20 : 24);
+    upper.style.height = Math.max(2, endAt - ropeTop) + 'px';
+
+    requestAnimationFrame(updateUpperRope);
+  }
+
+  requestAnimationFrame(updateUpperRope);
 })();
 </script>
 
