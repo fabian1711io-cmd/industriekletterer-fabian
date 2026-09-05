@@ -4458,6 +4458,49 @@ body.scroll-climber-entered .moving-climber{
 }
 </style>
 
+
+<style id="one-rope-only-final">
+/* FINAL: Es existiert optisch nur noch EIN einziges Seil */
+.rope-lower-wave,
+.rope-progress-fill{
+  display:none !important;
+}
+
+/* Das echte Seil ist der einzige sichtbare Strang.
+   Es schwingt als Ganzes minimal und wirkt dadurch nicht mehr doppelt. */
+.rope-vector-line{
+  top:52px !important;
+  bottom:0 !important;
+  height:auto !important;
+  opacity:1 !important;
+  transform-origin:50% 0;
+  animation:singleRopeNaturalMove 4.8s ease-in-out infinite alternate !important;
+}
+
+@keyframes singleRopeNaturalMove{
+  0%   {transform:translateX(-50%) rotate(-0.10deg)}
+  35%  {transform:translateX(calc(-50% + 1px)) rotate(0.06deg)}
+  70%  {transform:translateX(calc(-50% - 1px)) rotate(-0.04deg)}
+  100% {transform:translateX(-50%) rotate(0.10deg)}
+}
+
+/* Der Track selbst bewegt sich NICHT zusätzlich – sonst wirkt es wieder wie zwei Animationen */
+.rope-vector-track{
+  animation:none !important;
+  transform:none !important;
+}
+
+@media(max-width:900px){
+  .rope-vector-line{
+    top:44px !important;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .rope-vector-line{animation:none !important}
+}
+</style>
+
 </head>
 <body>
 
@@ -4513,10 +4556,7 @@ body.scroll-climber-entered .moving-climber{
   </div>
   <div class="rope-vector-line"></div>
   <div class="rope-progress-fill" aria-hidden="true"></div>
-  <svg class="rope-lower-wave" viewBox="0 0 60 100" preserveAspectRatio="none" aria-hidden="true">
-    <path class="rope-wave-main" d="M30 0 L30 100"></path>
-  </svg>
-  <div class="moving-climber">
+<div class="moving-climber">
     <svg viewBox="0 0 42 70">
       <circle cx="22" cy="9" r="6" class="helmet"/>
       <path d="M20 16 L18 38" class="person"/>
@@ -5811,65 +5851,6 @@ document.addEventListener('DOMContentLoaded', function(){
   addEventListener('load', checkHaptic);
 })();
 </script>
-
-<script id="rope-lower-wave-js">
-(() => {
-  const climber = document.querySelector('.moving-climber');
-  const track = document.querySelector('.rope-vector-track');
-  const wave = document.querySelector('.rope-lower-wave');
-  const straightRope = document.querySelector('.rope-vector-line');
-  if (!climber || !track || !wave || !straightRope) return;
-
-  const main = wave.querySelector('.rope-wave-main');
-  if (!main) return;
-
-  let lastTop = parseFloat(getComputedStyle(climber).top) || 72;
-  let strength = 0;
-  let phase = 0;
-
-  function pathFor(amplitude, phaseShift, xOffset=0){
-    const x = 30 + xOffset;
-    const a = amplitude;
-    return [
-      `M ${x} 0`,
-      `C ${x + a*Math.sin(phaseShift)} 17, ${x + a*Math.sin(phaseShift+1.1)} 30, ${x} 43`,
-      `C ${x + a*Math.sin(phaseShift+2.0)} 57, ${x + a*Math.sin(phaseShift+3.1)} 72, ${x} 100`
-    ].join(' ');
-  }
-
-  function animate(){
-    const top = parseFloat(climber.style.top || getComputedStyle(climber).top) || lastTop;
-    const velocity = top - lastTop;
-
-    /* Nur beim Abwärtsfahren deutlich wellen.
-       Beim Stillstand klingt die Bewegung weich aus. */
-    const target = velocity > 0.025 ? Math.min(9.0, 2.4 + velocity * 4.2) : 0;
-    strength += (target - strength) * 0.20;
-    phase += 0.085 + Math.min(.12, Math.abs(velocity) * .03);
-
-    const dMain = pathFor(strength, phase, 0);
-    main.setAttribute('d', dMain);
-
-    /* Wellen beginnen knapp unter dem Kletterer */
-    const mobile = innerWidth <= 900;
-    const base = mobile ? 58 : 72;
-    const start = Math.max(base, top + (mobile ? 16 : 20));
-    wave.style.top = start.toFixed(1) + 'px';
-    wave.style.height = Math.max(0, track.clientHeight - start) + 'px';
-
-    /* Der gerade Strang endet exakt am Start der Welle.
-       Dadurch liegt kein zweites gerades Seil mehr hinter der Animation. */
-    const ropeTop = mobile ? 44 : 52;
-    straightRope.style.height = Math.max(0, start - ropeTop + 2).toFixed(1) + 'px';
-
-    lastTop = top;
-    requestAnimationFrame(animate);
-  }
-
-  animate();
-})();
-</script>
-
 <script id="hero-platform-same-climber-js">
 (() => {
   function startSameClimberSequence(){
