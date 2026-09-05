@@ -4964,11 +4964,11 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
 <nav class="section-jumpbar" aria-label="Direkt zu Abschnitt">
   <a href="#social-media"><span>●</span>Social Media</a>
   <a href="#arbeitgeber"><span>●</span>Arbeitgeber</a>
-  <a href="#was-ich-mache"><span>●</span>Arbeitsalltag</a>
   <a href="#einsatzkarte"><span>●</span>Deutschlandkarte</a>
+  <a href="#projects"><span>●</span>Projekte</a>
+  <a href="#was-ich-mache"><span>●</span>Arbeitsalltag</a>
   <a href="#qualifikationen"><span>●</span>Qualifikationen</a>
   <a href="#einsatzgebiete"><span>●</span>Einsatzgebiete</a>
-  <a href="#projects"><span>●</span>Projekte</a>
   <a href="#kooperation"><span>●</span>Kooperation</a>
 </nav>
 </section>
@@ -6313,129 +6313,6 @@ document.addEventListener('DOMContentLoaded', function(){
   requestAnimationFrame(updateUpperRope);
 })();
 </script>
-
-<script id="rope-master-sync-js">
-(() => {
-  const track = document.querySelector('.rope-vector-track');
-  const climber = document.querySelector('.moving-climber');
-  const points = [...document.querySelectorAll('[data-rope-target]')];
-  if(!track || !climber || !points.length) return;
-
-  const entries = points.map(point => {
-    const id = point.getAttribute('data-rope-target');
-    const section = document.getElementById(id);
-    const buttons = [...document.querySelectorAll(`a[href="#${CSS.escape(id)}"]`)];
-    return {id, point, section, buttons, y:0, scrollAt:0};
-  }).filter(x => x.section);
-
-  let currentTop = parseFloat(climber.style.top) || 72;
-  let activeId = null;
-
-  function metrics(){
-    const mobile = innerWidth <= 900;
-    const start = mobile ? 58 : 72;
-    const end = Math.max(start + 1, track.clientHeight - 28);
-    const maxScroll = Math.max(1, document.documentElement.scrollHeight - innerHeight);
-    const focus = innerHeight * 0.46;
-
-    entries.forEach(e => {
-      const sectionTop = e.section.getBoundingClientRect().top + scrollY;
-      const desiredScroll = Math.max(0, Math.min(maxScroll, sectionTop - focus));
-      e.scrollAt = desiredScroll;
-      e.y = start + (desiredScroll / maxScroll) * (end - start);
-      e.point.style.top = e.y.toFixed(1) + 'px';
-    });
-
-    return {start,end,maxScroll};
-  }
-
-  function setActive(id){
-    if(id === activeId) return;
-    activeId = id;
-
-    entries.forEach(e => {
-      const on = e.id === id;
-      e.point.classList.toggle('master-active', on);
-      e.buttons.forEach(btn => btn.classList.toggle('master-active', on));
-    });
-  }
-
-  function climberTarget(){
-    metrics();
-
-    /* Zwischen zwei Abschnittspunkten wird linear interpoliert.
-       Dadurch trifft der Kletterer jeden Punkt exakt dann,
-       wenn der zugehörige Bereich im Fokus ist. */
-    if(scrollY <= entries[0].scrollAt) return entries[0].y;
-    if(scrollY >= entries[entries.length-1].scrollAt) return entries[entries.length-1].y;
-
-    for(let i=0;i<entries.length-1;i++){
-      const a = entries[i];
-      const b = entries[i+1];
-      if(scrollY >= a.scrollAt && scrollY <= b.scrollAt){
-        const span = Math.max(1, b.scrollAt - a.scrollAt);
-        const t = (scrollY - a.scrollAt) / span;
-        return a.y + (b.y - a.y) * t;
-      }
-    }
-    return entries[0].y;
-  }
-
-  function activeSection(){
-    const focusY = scrollY + innerHeight * 0.46;
-    let nearest = entries[0];
-    let dist = Infinity;
-
-    entries.forEach(e => {
-      const top = e.section.getBoundingClientRect().top + scrollY;
-      const d = Math.abs(top - focusY);
-      if(d < dist){
-        dist = d;
-        nearest = e;
-      }
-    });
-    return nearest;
-  }
-
-  function loop(){
-    const target = climberTarget();
-
-    if(document.body.classList.contains('scroll-climber-entered')){
-      currentTop += (target - currentTop) * 0.30;
-      climber.style.top = currentTop.toFixed(2) + 'px';
-    }
-
-    const active = activeSection();
-    if(active) setActive(active.id);
-
-    requestAnimationFrame(loop);
-  }
-
-  /* Alle Direktbuttons springen so, dass Abschnitt, Punkt und Kletterer
-     wirklich auf derselben Position landen. */
-  document.addEventListener('click', ev => {
-    const link = ev.target.closest('a[href^="#"]');
-    if(!link) return;
-
-    const id = decodeURIComponent(link.getAttribute('href').slice(1));
-    const entry = entries.find(e => e.id === id);
-    if(!entry) return;
-
-    ev.preventDefault();
-    metrics();
-
-    window.scrollTo({
-      top: entry.scrollAt,
-      behavior: 'smooth'
-    });
-  });
-
-  addEventListener('resize', metrics, {passive:true});
-  metrics();
-  requestAnimationFrame(loop);
-})();
-</script>
-
 <script id="rope-entry-clearly-above-first-point-js">
 (() => {
   const firstPoint = document.querySelector('[data-rope-target]');
@@ -6465,6 +6342,148 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 
   install();
+})();
+</script>
+
+
+<script id="rope-master-sync-js">
+(() => {
+  const track = document.querySelector('.rope-vector-track');
+  const climber = document.querySelector('.moving-climber');
+  const pointEls = [...document.querySelectorAll('.rope-section-points [data-rope-target]')];
+  if(!track || !climber || !pointEls.length) return;
+
+  let currentTop = parseFloat(climber.style.top) || (innerWidth <= 900 ? 58 : 72);
+  let activeId = null;
+  let entries = [];
+
+  function rebuild(){
+    entries = pointEls.map(point => {
+      const id = point.dataset.ropeTarget;
+      const section = document.getElementById(id);
+      if(!section) return null;
+
+      const buttons = [...document.querySelectorAll(`.section-jumpbar a[href="#${CSS.escape(id)}"]`)];
+      return {id, point, section, buttons, y:0, scrollAt:0, sectionTop:0};
+    }).filter(Boolean);
+
+    /* Ganz wichtig: nach der ECHTEN Position der Karte/des Bereichs sortieren */
+    entries.sort((a,b) => {
+      const ay = a.section.getBoundingClientRect().top + scrollY;
+      const by = b.section.getBoundingClientRect().top + scrollY;
+      return ay - by;
+    });
+  }
+
+  function metrics(){
+    rebuild();
+
+    const mobile = innerWidth <= 900;
+    const start = mobile ? 58 : 72;
+    const end = Math.max(start + 1, track.clientHeight - 28);
+    const maxScroll = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+    const focusOffset = innerHeight * 0.46;
+
+    entries.forEach(e => {
+      e.sectionTop = e.section.getBoundingClientRect().top + scrollY;
+
+      /* Der Punkt gehört genau zu dem Moment, an dem seine Karte im Fokus steht */
+      e.scrollAt = Math.max(0, Math.min(maxScroll, e.sectionTop - focusOffset));
+      e.y = start + (e.scrollAt / maxScroll) * (end - start);
+      e.point.style.top = e.y.toFixed(1) + 'px';
+    });
+
+    return {start,end,maxScroll};
+  }
+
+  function targetForScroll(){
+    metrics();
+    if(!entries.length) return currentTop;
+
+    if(scrollY <= entries[0].scrollAt) return entries[0].y;
+    if(scrollY >= entries[entries.length - 1].scrollAt) return entries[entries.length - 1].y;
+
+    for(let i=0; i<entries.length-1; i++){
+      const a = entries[i];
+      const b = entries[i+1];
+
+      if(scrollY >= a.scrollAt && scrollY <= b.scrollAt){
+        const range = Math.max(1, b.scrollAt - a.scrollAt);
+        const t = Math.max(0, Math.min(1, (scrollY - a.scrollAt) / range));
+        return a.y + (b.y - a.y) * t;
+      }
+    }
+    return entries[0].y;
+  }
+
+  function nearestActive(){
+    if(!entries.length) return null;
+    const focusY = scrollY + innerHeight * 0.46;
+
+    let best = entries[0];
+    let bestDist = Infinity;
+
+    for(const e of entries){
+      /* Mitte der sichtbaren Karte/Bereichs verwenden, nicht nur deren oberen Rand */
+      const rect = e.section.getBoundingClientRect();
+      const center = scrollY + rect.top + Math.min(rect.height * 0.38, innerHeight * 0.28);
+      const d = Math.abs(center - focusY);
+
+      if(d < bestDist){
+        bestDist = d;
+        best = e;
+      }
+    }
+    return best;
+  }
+
+  function setActive(entry){
+    const id = entry?.id || null;
+    if(id === activeId) return;
+    activeId = id;
+
+    entries.forEach(e => {
+      const on = e.id === id;
+      e.point.classList.toggle('master-active', on);
+      e.point.classList.toggle('active', on);
+      e.buttons.forEach(btn => {
+        btn.classList.toggle('master-active', on);
+        btn.classList.toggle('active', on);
+      });
+    });
+  }
+
+  function loop(){
+    const target = targetForScroll();
+
+    if(document.body.classList.contains('scroll-climber-entered')){
+      currentTop += (target - currentTop) * 0.34;
+      climber.style.top = currentTop.toFixed(2) + 'px';
+    }
+
+    setActive(nearestActive());
+    requestAnimationFrame(loop);
+  }
+
+  /* Jeder Hero-Button springt exakt zu SEINER Karte und damit auch zu SEINEM Punkt */
+  document.addEventListener('click', ev => {
+    const link = ev.target.closest('.section-jumpbar a[href^="#"], .rope-section-points a[href^="#"]');
+    if(!link) return;
+
+    const id = decodeURIComponent(link.getAttribute('href').slice(1));
+    metrics();
+    const entry = entries.find(e => e.id === id);
+    if(!entry) return;
+
+    ev.preventDefault();
+    window.scrollTo({top:entry.scrollAt, behavior:'smooth'});
+  });
+
+  addEventListener('resize', metrics, {passive:true});
+  addEventListener('load', metrics, {once:true});
+
+  metrics();
+  requestAnimationFrame(loop);
 })();
 </script>
 
