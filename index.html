@@ -3128,6 +3128,110 @@ header a:has(.social-brand-logo):hover .social-brand-logo,
 }
 </style>
 
+
+<style>
+/* Ausführlicher Bereich: Was ich mache */
+.work-detail-section{
+  position:relative;
+  padding:105px 0;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 85% 15%,rgba(255,122,0,.10),transparent 28%),
+    linear-gradient(180deg,#0a0a0a,#111 55%,#0b0b0b);
+}
+.work-detail-head{
+  max-width:950px;
+}
+.work-detail-head h2{
+  margin:8px 0 26px;
+  max-width:820px;
+  font-size:clamp(38px,6vw,70px);
+  line-height:.96;
+  letter-spacing:-.045em;
+}
+.work-detail-copy{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0 28px;
+}
+.work-detail-copy p{
+  margin:0 0 18px;
+  color:rgba(255,255,255,.72);
+  line-height:1.75;
+}
+.work-detail-copy .work-detail-highlight{
+  grid-column:1/-1;
+  margin-top:8px;
+  padding:20px 22px;
+  border-left:3px solid #ff7a00;
+  border-radius:0 14px 14px 0;
+  background:rgba(255,122,0,.07);
+  color:rgba(255,255,255,.86);
+}
+.work-detail-highlight strong{color:#fff}
+.work-detail-grid{
+  margin-top:38px;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+.work-detail-card{
+  position:relative;
+  min-height:205px;
+  padding:24px;
+  overflow:hidden;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.09);
+  background:linear-gradient(145deg,rgba(25,25,25,.96),rgba(13,13,13,.96));
+  transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;
+}
+.work-detail-card::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:0;
+  height:3px;
+  background:#ff7a00;
+  transition:width .35s ease;
+}
+.work-detail-card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(255,122,0,.38);
+  box-shadow:0 20px 45px rgba(0,0,0,.25);
+}
+.work-detail-card:hover::after{width:100%}
+.work-number{
+  display:block;
+  margin-bottom:25px;
+  color:#ff7a00;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.14em;
+}
+.work-detail-card h3{
+  margin:0 0 10px;
+  font-size:1.18rem;
+}
+.work-detail-card p{
+  margin:0;
+  color:rgba(255,255,255,.62);
+  line-height:1.6;
+  font-size:.9rem;
+}
+@media(max-width:850px){
+  .work-detail-copy{grid-template-columns:1fr}
+  .work-detail-copy .work-detail-highlight{grid-column:1}
+  .work-detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:560px){
+  .work-detail-section{padding:78px 0}
+  .work-detail-grid{grid-template-columns:1fr}
+  .work-detail-card{min-height:0;padding:20px}
+  .work-number{margin-bottom:16px}
+}
+</style>
+
 </head>
 <body>
 
@@ -3467,6 +3571,64 @@ header a:has(.social-brand-logo):hover .social-brand-logo,
 
 
 <!-- EXTRA-PRO-BLOCK-START -->
+
+<!-- WAS-ICH-MACHE-START -->
+<section id="was-ich-mache" class="work-detail-section reveal">
+  <div class="wrap">
+    <div class="work-detail-head">
+      <div class="kicker">MEIN ARBEITSALLTAG</div>
+      <h2>Arbeiten, wo andere nicht hinkommen</h2>
+      <div class="work-detail-copy">
+        <p>Als Industriekletterer arbeite ich an Orten, die mit normalen Arbeitsmitteln nur schwer oder gar nicht erreichbar sind. Mithilfe professioneller Seilzugangstechnik erreiche ich Arbeitsbereiche an Gebäuden, Industrieanlagen und anderen Höhenstrukturen.</p>
+
+        <p>Meine Einsätze sind sehr unterschiedlich: von Montage- und Wartungsarbeiten über Arbeiten an Industrieanlagen bis hin zum Transport von Material und Bauteilen in schwer zugänglichen Bereichen. Dabei gehört nicht nur das Arbeiten in großer Höhe zum Alltag – auch enge, komplizierte und technisch anspruchsvolle Einsatzorte sind Teil meines Jobs.</p>
+
+        <p>Bei Montageeinsätzen bin ich deutschlandweit unterwegs. Dazu gehören unter anderem Arbeiten in Aachen sowie Einsätze in Hamburg und Berlin. Je nach Auftrag müssen Arbeitsbereiche eingerichtet, Materialien über Seilsysteme bewegt oder Arbeiten direkt aus dem Seil durchgeführt werden.</p>
+
+        <p>Ein weiterer Bereich sind Arbeiten an industriellen Anlagen. Dazu können beispielsweise Reinigungsarbeiten in stark verschmutzten oder mineralisierten Bereichen gehören, bei denen je nach Einsatz zusätzliche persönliche Schutzausrüstung benötigt wird.</p>
+
+        <p>Bei allen Arbeiten steht die Sicherheit an erster Stelle. Anschlagpunkte, Seilsysteme, Ausrüstung und Arbeitsabläufe müssen zum jeweiligen Einsatz passen. Als ausgebildeter Dachdecker und FISAT-Level-2-Industriekletterer verbinde ich dabei handwerkliche Erfahrung mit professioneller Seilzugangstechnik.</p>
+
+        <p class="work-detail-highlight">Genau diese Abwechslung macht den Beruf für mich besonders: <strong>Kein Einsatzort ist gleich und häufig beginnt meine Arbeit dort, wo klassische Zugangswege enden.</strong></p>
+      </div>
+    </div>
+
+    <div class="work-detail-grid stagger">
+      <article class="work-detail-card">
+        <span class="work-number">01</span>
+        <h3>Industrieklettern</h3>
+        <p>Professioneller Seilzugang für Arbeiten in Höhen und Bereichen, die über klassische Zugangswege nur schwer erreichbar sind.</p>
+      </article>
+      <article class="work-detail-card">
+        <span class="work-number">02</span>
+        <h3>Montage</h3>
+        <p>Montagearbeiten direkt aus dem Seil und an anspruchsvollen Einsatzorten – abgestimmt auf die jeweilige Aufgabe und Umgebung.</p>
+      </article>
+      <article class="work-detail-card">
+        <span class="work-number">03</span>
+        <h3>Industrieanlagen</h3>
+        <p>Arbeiten und Reinigungsaufgaben in industriellen Bereichen, auch unter anspruchsvollen Bedingungen und mit zusätzlicher Schutzausrüstung.</p>
+      </article>
+      <article class="work-detail-card">
+        <span class="work-number">04</span>
+        <h3>Materialtransport</h3>
+        <p>Transport von Material und Bauteilen über geeignete Seilsysteme, wenn herkömmliche Transportwege nicht ausreichen.</p>
+      </article>
+      <article class="work-detail-card">
+        <span class="work-number">05</span>
+        <h3>Schwer zugängliche Bereiche</h3>
+        <p>Arbeiten an komplizierten, engen oder hoch gelegenen Einsatzorten, bei denen flexible Seilzugangstechnik gefragt ist.</p>
+      </article>
+      <article class="work-detail-card">
+        <span class="work-number">06</span>
+        <h3>Deutschlandweite Einsätze</h3>
+        <p>Von Aachen aus bin ich für unterschiedliche Projekte unterwegs – unter anderem mit Einsätzen in Hamburg und Berlin.</p>
+      </article>
+    </div>
+  </div>
+</section>
+<!-- WAS-ICH-MACHE-END -->
+
 <section id="qualifikationen" class="section">
   <div class="wrap">
     <div class="kicker">QUALIFIKATIONEN</div>
