@@ -4396,6 +4396,30 @@ body.scroll-climber-entered .moving-climber{
 }
 </style>
 
+
+<style id="single-rope-wave-fix">
+/* Nur noch EIN sichtbares Seil:
+   oberhalb des Kletterers gerade, unterhalb als bewegte Welle. */
+.rope-vector-line{
+  bottom:auto !important;
+  opacity:1 !important;
+}
+.rope-lower-wave{
+  z-index:1 !important;
+}
+.rope-wave-shadow{
+  stroke-width:10px;
+  opacity:.72;
+}
+.rope-wave-main{
+  stroke-width:7px;
+}
+@media(max-width:900px){
+  .rope-wave-shadow{stroke-width:8px}
+  .rope-wave-main{stroke-width:5.5px}
+}
+</style>
+
 </head>
 <body>
 
@@ -5757,7 +5781,8 @@ document.addEventListener('DOMContentLoaded', function(){
   const climber = document.querySelector('.moving-climber');
   const track = document.querySelector('.rope-vector-track');
   const wave = document.querySelector('.rope-lower-wave');
-  if (!climber || !track || !wave) return;
+  const straightRope = document.querySelector('.rope-vector-line');
+  if (!climber || !track || !wave || !straightRope) return;
 
   const main = wave.querySelector('.rope-wave-main');
   const shadow = wave.querySelector('.rope-wave-shadow');
@@ -5802,6 +5827,11 @@ document.addEventListener('DOMContentLoaded', function(){
     const start = Math.max(base, top + (mobile ? 16 : 20));
     wave.style.top = start.toFixed(1) + 'px';
     wave.style.height = Math.max(0, track.clientHeight - start) + 'px';
+
+    /* Der gerade Strang endet exakt am Start der Welle.
+       Dadurch liegt kein zweites gerades Seil mehr hinter der Animation. */
+    const ropeTop = mobile ? 44 : 52;
+    straightRope.style.height = Math.max(0, start - ropeTop + 2).toFixed(1) + 'px';
 
     lastTop = top;
     requestAnimationFrame(animate);
