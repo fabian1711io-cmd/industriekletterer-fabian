@@ -2845,6 +2845,289 @@ header a:has(.social-brand-logo):hover .social-brand-logo,
 }
 </style>
 
+
+<style>
+/* Professioneller Kooperationsbereich */
+.coop-premium-section{
+  position:relative;
+  padding:105px 0;
+  background:
+    radial-gradient(circle at 10% 15%,rgba(255,122,0,.12),transparent 30%),
+    linear-gradient(180deg,#0c0c0c,#111 55%,#0b0b0b);
+  border-top:1px solid rgba(255,255,255,.08);
+  overflow:hidden;
+}
+.coop-premium-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:34px 34px;
+  mask-image:linear-gradient(to bottom,transparent,black 20%,black 80%,transparent);
+}
+.coop-premium-head{
+  position:relative;
+  max-width:820px;
+  margin-bottom:34px;
+}
+.coop-premium-head h2{
+  margin:8px 0 14px;
+  font-size:clamp(34px,5vw,62px);
+  line-height:.98;
+  letter-spacing:-.035em;
+}
+.coop-premium-head p{
+  margin:0;
+  max-width:760px;
+  color:rgba(255,255,255,.72);
+  line-height:1.75;
+  font-size:1.02rem;
+}
+.coop-premium-layout{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+  gap:24px;
+  align-items:stretch;
+}
+.coop-premium-info,
+.coop-form-card{
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:22px;
+  background:rgba(18,18,18,.88);
+  box-shadow:0 26px 70px rgba(0,0,0,.28);
+}
+.coop-premium-info{
+  padding:30px;
+}
+.coop-badge{
+  display:inline-flex;
+  padding:7px 10px;
+  border:1px solid rgba(255,122,0,.35);
+  border-radius:999px;
+  color:#ff7a00;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.12em;
+}
+.coop-premium-info h3{
+  margin:18px 0 20px;
+  font-size:clamp(24px,3vw,34px);
+}
+.coop-topic-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.coop-topic{
+  min-height:76px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.08);
+  background:#151515;
+  transition:.25s ease;
+}
+.coop-topic:hover{
+  transform:translateY(-3px);
+  border-color:rgba(255,122,0,.4);
+  background:#191919;
+}
+.coop-topic span{
+  color:#ff7a00;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.1em;
+}
+.coop-topic strong{
+  font-size:.94rem;
+}
+.coop-values{
+  display:grid;
+  gap:12px;
+  margin-top:24px;
+}
+.coop-values>div{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+}
+.coop-values i{
+  width:26px;
+  height:26px;
+  flex:0 0 26px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:#ff7a00;
+  color:#111;
+  font-style:normal;
+  font-weight:1000;
+  font-size:12px;
+}
+.coop-values span{
+  display:grid;
+  gap:2px;
+}
+.coop-values strong{
+  font-size:.95rem;
+}
+.coop-values small{
+  color:rgba(255,255,255,.6);
+  line-height:1.45;
+}
+.coop-process{
+  margin-top:26px;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,.08);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  color:rgba(255,255,255,.72);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.09em;
+}
+.coop-process b{
+  color:#ff7a00;
+  font-size:15px;
+}
+
+.coop-form-card{
+  padding:30px;
+  border-color:rgba(255,122,0,.18);
+}
+.coop-form-top{
+  margin-bottom:22px;
+}
+.coop-form-kicker{
+  color:#ff7a00;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.14em;
+}
+.coop-form-top h3{
+  margin:8px 0 8px;
+  font-size:clamp(26px,3vw,38px);
+}
+.coop-form-top p{
+  margin:0;
+  color:rgba(255,255,255,.62);
+  line-height:1.6;
+}
+#kooperation .coop-form{
+  max-width:none;
+  margin:0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+#kooperation .coop-form label{
+  display:grid;
+  gap:7px;
+}
+#kooperation .coop-form label>span{
+  color:rgba(255,255,255,.74);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.04em;
+}
+#kooperation .coop-form .full{
+  grid-column:1/-1;
+}
+#kooperation .coop-form input,
+#kooperation .coop-form select,
+#kooperation .coop-form textarea{
+  width:100%;
+  box-sizing:border-box;
+  padding:15px 16px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:12px;
+  background:#0f0f0f;
+  color:#fff;
+  font:inherit;
+  outline:none;
+  transition:border-color .2s ease,box-shadow .2s ease,background .2s ease;
+}
+#kooperation .coop-form input:focus,
+#kooperation .coop-form select:focus,
+#kooperation .coop-form textarea:focus{
+  border-color:#ff7a00;
+  box-shadow:0 0 0 3px rgba(255,122,0,.10);
+  background:#121212;
+}
+#kooperation .coop-form textarea{
+  min-height:160px;
+  resize:vertical;
+}
+#kooperation .coop-form select option{
+  color:#111;
+  background:#fff;
+}
+#kooperation .coop-form .privacy{
+  grid-column:1/-1;
+  color:rgba(255,255,255,.5);
+  font-size:.78rem;
+  line-height:1.5;
+}
+.coop-submit-btn{
+  grid-column:1/-1;
+  justify-self:start;
+  border:0;
+  cursor:pointer;
+}
+.coop-submit-btn span{
+  transition:transform .2s ease;
+}
+.coop-submit-btn:hover span{
+  transform:translateX(4px);
+}
+
+@media(max-width:900px){
+  .coop-premium-layout{
+    grid-template-columns:1fr;
+  }
+}
+@media(max-width:700px){
+  .coop-premium-section{
+    padding:78px 0;
+  }
+  .coop-premium-info,
+  .coop-form-card{
+    padding:20px;
+    border-radius:17px;
+  }
+  .coop-topic-grid{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+  .coop-topic{
+    min-height:68px;
+    padding:11px;
+    align-items:flex-start;
+    flex-direction:column;
+    gap:5px;
+  }
+  #kooperation .coop-form{
+    grid-template-columns:1fr;
+  }
+  #kooperation .coop-form .full,
+  #kooperation .coop-form .privacy,
+  .coop-submit-btn{
+    grid-column:1;
+  }
+  .coop-submit-btn{
+    width:100%;
+    justify-content:center;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -3313,44 +3596,115 @@ header a:has(.social-brand-logo):hover .social-brand-logo,
 </div>
 <!-- PROJEKTGALERIE-VOLLBILD-END -->
 
-<section id="kooperation">
+
+<section id="kooperation" class="coop-premium-section">
   <div class="wrap">
-    <div class="coop-box">
-      <div class="kicker">ZUSAMMENARBEIT</div>
-      <h2>KOOPERATION ANFRAGEN</h2>
-      <p>Du möchtest mit mir zusammenarbeiten? Fülle das Formular aus. Deine Anfrage wird direkt und vertraulich übermittelt.</p>
+    <div class="coop-premium-head reveal">
+      <div class="kicker">KOOPERATIONEN & PARTNERSCHAFTEN</div>
+      <h2>Gemeinsam starke Inhalte schaffen</h2>
+      <p>
+        Du vertrittst eine Marke, einen Hersteller oder ein Unternehmen und suchst authentischen Content
+        aus dem echten Arbeitsalltag eines Industriekletterers? Dann freue ich mich über deine Anfrage.
+      </p>
+    </div>
 
-      <form class="coop-form" action="https://formsubmit.co/Fabian1711.io@gmail.com" method="POST">
-        <input type="hidden" name="_subject" value="Neue Kooperationsanfrage über die Website">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
+    <div class="coop-premium-layout">
+      <div class="coop-premium-info reveal">
+        <div class="coop-badge">FÜR MARKEN & HERSTELLER</div>
 
-        <input type="text" name="Name" placeholder="Name / Ansprechpartner" required>
-        <input type="text" name="Firma" placeholder="Firma / Marke">
+        <h3>Was gut zu meinem Content passt</h3>
 
-        <input type="email" name="E-Mail" placeholder="E-Mail-Adresse" required>
-        <input type="tel" name="Telefon" placeholder="Telefon (optional)">
-
-        <select name="Art der Kooperation" class="full" required>
-          <option value="" selected disabled>Art der Kooperation auswählen</option>
-          <option value="Produktkooperation">Produktkooperation</option>
-          <option value="Produkttest">Produkttest</option>
-          <option value="Social-Media-Kooperation">Social-Media-Kooperation</option>
-          <option value="Werbung / Content">Werbung / Content</option>
-          <option value="Sonstiges">Sonstiges</option>
-        </select>
-
-        <textarea name="Nachricht" class="full" placeholder="Beschreibe kurz die geplante Kooperation …" required></textarea>
-
-        <div class="privacy">
-          Mit dem Absenden werden die eingegebenen Daten zur Bearbeitung der Anfrage übermittelt.
+        <div class="coop-topic-grid">
+          <div class="coop-topic"><span>01</span><strong>Produkttests</strong></div>
+          <div class="coop-topic"><span>02</span><strong>Arbeitskleidung</strong></div>
+          <div class="coop-topic"><span>03</span><strong>Kletterausrüstung</strong></div>
+          <div class="coop-topic"><span>04</span><strong>Technik</strong></div>
+          <div class="coop-topic"><span>05</span><strong>Werkzeug</strong></div>
+          <div class="coop-topic"><span>06</span><strong>Social Media Content</strong></div>
         </div>
 
-        <button type="submit" class="btn">Kooperationsanfrage senden</button>
-      </form>
+        <div class="coop-values">
+          <div>
+            <i>✓</i>
+            <span><strong>Authentisch</strong><small>Echte Eindrücke aus meinem Arbeitsalltag</small></span>
+          </div>
+          <div>
+            <i>✓</i>
+            <span><strong>Praxisnah</strong><small>Produkte dort gezeigt, wo sie eingesetzt werden</small></span>
+          </div>
+          <div>
+            <i>✓</i>
+            <span><strong>Transparent</strong><small>Klare und ehrliche Kommunikation bei Kooperationen</small></span>
+          </div>
+        </div>
+
+        <div class="coop-process">
+          <span>ANFRAGE</span><b>→</b><span>ABSTIMMUNG</span><b>→</b><span>UMSETZUNG</span>
+        </div>
+      </div>
+
+      <div class="coop-form-card reveal">
+        <div class="coop-form-top">
+          <span class="coop-form-kicker">KOOPERATION ANFRAGEN</span>
+          <h3>Erzähl mir von deinem Projekt</h3>
+          <p>Je mehr Informationen du schickst, desto besser kann ich deine Anfrage einschätzen.</p>
+        </div>
+
+        <form class="coop-form" action="https://formsubmit.co/Fabian1711.io@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="Neue Kooperationsanfrage über die Website">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+
+          <label>
+            <span>Name / Ansprechpartner *</span>
+            <input type="text" name="Name" placeholder="Dein Name" required>
+          </label>
+
+          <label>
+            <span>Firma / Marke</span>
+            <input type="text" name="Firma" placeholder="Unternehmen oder Marke">
+          </label>
+
+          <label>
+            <span>E-Mail-Adresse *</span>
+            <input type="email" name="E-Mail" placeholder="name@firma.de" required>
+          </label>
+
+          <label>
+            <span>Telefon</span>
+            <input type="tel" name="Telefon" placeholder="Optional">
+          </label>
+
+          <label class="full">
+            <span>Art der Kooperation *</span>
+            <select name="Art der Kooperation" required>
+              <option value="" selected disabled>Bitte auswählen</option>
+              <option value="Produktkooperation">Produktkooperation</option>
+              <option value="Produkttest">Produkttest</option>
+              <option value="Social-Media-Kooperation">Social-Media-Kooperation</option>
+              <option value="Werbung / Content">Werbung / Content</option>
+              <option value="Sonstiges">Sonstiges</option>
+            </select>
+          </label>
+
+          <label class="full">
+            <span>Nachricht *</span>
+            <textarea name="Nachricht" placeholder="Worum geht es bei der Kooperation, welches Produkt oder welche Idee steckt dahinter?" required></textarea>
+          </label>
+
+          <div class="privacy">
+            Deine Angaben werden ausschließlich zur Bearbeitung deiner Anfrage übermittelt.
+          </div>
+
+          <button type="submit" class="btn coop-submit-btn">
+            Kooperationsanfrage senden <span>→</span>
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </section>
+
 
 <footer><div class="wrap">© 2026 Fabian Schmidt · Industriekletterer · Social Media</div></footer>
 
