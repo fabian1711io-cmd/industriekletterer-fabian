@@ -2008,6 +2008,102 @@ section[id]{scroll-margin-top:76px}
 }
 </style>
 
+
+<style>
+/* Kleine Übergänge zwischen den Abschnitten */
+section:not(.hero){
+  position:relative;
+}
+
+section:not(.hero)::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-1px;
+  width:min(88%,980px);
+  height:1px;
+  transform:translateX(-50%);
+  background:linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,122,0,.16) 18%,
+    rgba(255,122,0,.65) 50%,
+    rgba(255,122,0,.16) 82%,
+    transparent 100%
+  );
+  opacity:.65;
+  pointer-events:none;
+}
+
+.section-transition-dot{
+  position:absolute;
+  left:50%;
+  bottom:-5px;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  transform:translateX(-50%);
+  background:#ff7a00;
+  box-shadow:
+    0 0 0 5px rgba(255,122,0,.08),
+    0 0 18px rgba(255,122,0,.45);
+  z-index:3;
+  pointer-events:none;
+  opacity:.78;
+}
+
+.section-transition-dot::after{
+  content:"";
+  position:absolute;
+  inset:2px;
+  border-radius:50%;
+  background:#111;
+  opacity:.35;
+}
+
+.section-transition-dot.transition-active{
+  animation:sectionDotPulse 1.5s ease-in-out;
+}
+
+@keyframes sectionDotPulse{
+  0%{
+    transform:translateX(-50%) scale(.75);
+    box-shadow:
+      0 0 0 0 rgba(255,122,0,.0),
+      0 0 0 rgba(255,122,0,.0);
+  }
+  45%{
+    transform:translateX(-50%) scale(1.25);
+    box-shadow:
+      0 0 0 9px rgba(255,122,0,.09),
+      0 0 24px rgba(255,122,0,.65);
+  }
+  100%{
+    transform:translateX(-50%) scale(1);
+    box-shadow:
+      0 0 0 5px rgba(255,122,0,.08),
+      0 0 18px rgba(255,122,0,.45);
+  }
+}
+
+@media(max-width:700px){
+  section:not(.hero)::after{
+    width:90%;
+  }
+  .section-transition-dot{
+    width:8px;
+    height:8px;
+    bottom:-4px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .section-transition-dot.transition-active{
+    animation:none!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -2799,6 +2895,44 @@ document.addEventListener('DOMContentLoaded', function(){
 
   toggleTopButton();
   window.addEventListener('scroll',toggleTopButton,{passive:true});
+})();
+</script>
+
+
+<script>
+(function(){
+  const sections = [...document.querySelectorAll('section:not(.hero)')];
+
+  sections.forEach((section, index)=>{
+    if(index === sections.length - 1) return;
+
+    if(!section.querySelector(':scope > .section-transition-dot')){
+      const dot = document.createElement('span');
+      dot.className = 'section-transition-dot';
+      dot.setAttribute('aria-hidden','true');
+      section.appendChild(dot);
+    }
+  });
+
+  const dots = [...document.querySelectorAll('.section-transition-dot')];
+
+  if(!('IntersectionObserver' in window)){
+    return;
+  }
+
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.remove('transition-active');
+        void entry.target.offsetWidth;
+        entry.target.classList.add('transition-active');
+      }
+    });
+  },{
+    threshold:.9
+  });
+
+  dots.forEach(dot=>obs.observe(dot));
 })();
 </script>
 
