@@ -5697,6 +5697,248 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
 }
 </style>
 
+
+<style id="climb-minigame-v1">
+.climb-game-section{
+  position:relative;
+  padding:110px 20px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 80% 15%,rgba(255,122,0,.08),transparent 24%),
+    linear-gradient(180deg,#080808,#0d0d0d);
+}
+.climb-game-wrap{
+  width:min(1050px,100%);
+  margin:0 auto;
+}
+.climb-game-head{
+  max-width:760px;
+  margin:0 auto 48px;
+  text-align:center;
+}
+.climb-game-kicker{
+  color:#ff7a00;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.24em;
+  margin-bottom:14px;
+}
+.climb-game-head h2{
+  margin:0;
+  color:#fff;
+  font-size:clamp(38px,6vw,68px);
+  line-height:.96;
+  letter-spacing:-.045em;
+}
+.climb-game-head p{
+  max-width:680px;
+  margin:18px auto 0;
+  color:rgba(255,255,255,.62);
+  line-height:1.7;
+}
+.climb-game-shell{
+  max-width:760px;
+  margin:0 auto;
+}
+.climb-game-hud{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:10px;
+}
+.climb-game-hud div{
+  padding:12px 14px;
+  text-align:center;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;
+  background:#111;
+}
+.climb-game-hud span{
+  display:block;
+  color:rgba(255,255,255,.46);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.16em;
+}
+.climb-game-hud strong{
+  display:block;
+  margin-top:3px;
+  color:#ff7a00;
+  font-size:22px;
+}
+.climb-game-stage{
+  position:relative;
+  height:520px;
+  overflow:hidden;
+  border-radius:22px;
+  border:1px solid rgba(255,255,255,.10);
+  background:
+    linear-gradient(180deg,#141414 0%,#0b0b0b 65%,#080808 100%);
+  box-shadow:0 30px 70px rgba(0,0,0,.38);
+  outline:none;
+  touch-action:none;
+}
+.climb-game-stage::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg,transparent 49.6%,rgba(255,122,0,.06) 50%,transparent 50.4%),
+    repeating-linear-gradient(0deg,transparent 0 56px,rgba(255,255,255,.025) 57px);
+}
+.climb-game-city{
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:105px;
+  opacity:.38;
+  background:
+    linear-gradient(90deg,
+      #1b1b1b 0 9%,transparent 9% 12%,
+      #181818 12% 25%,transparent 25% 29%,
+      #1e1e1e 29% 41%,transparent 41% 45%,
+      #181818 45% 62%,transparent 62% 66%,
+      #202020 66% 80%,transparent 80% 84%,
+      #191919 84% 100%);
+}
+.climb-game-rope{
+  position:absolute;
+  left:50%;
+  top:0;
+  bottom:0;
+  width:5px;
+  transform:translateX(-50%);
+  border-radius:999px;
+  background:#ff7a00;
+  box-shadow:0 0 14px rgba(255,122,0,.35);
+  opacity:.85;
+}
+.climb-game-player{
+  position:absolute;
+  left:50%;
+  bottom:48px;
+  width:50px;
+  height:82px;
+  transform:translateX(-50%);
+  z-index:8;
+  transition:filter .15s ease;
+}
+.climb-game-player svg{width:100%;height:100%;overflow:visible}
+.climb-game-player .person,
+.climb-game-player .harness,
+.climb-game-player .lanyard,
+.climb-game-player .carabiner{
+  fill:none;
+  stroke:#f3f3f3;
+  stroke-width:3;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.climb-game-player .helmet{fill:#ff7a00}
+.climb-game-player .harness{stroke:#ff7a00}
+.climb-game-player .carabiner{stroke:#ff7a00}
+.climb-game-player.game-hit{filter:drop-shadow(0 0 12px #ff3b30)}
+.climb-game-object{
+  position:absolute;
+  z-index:7;
+  width:46px;
+  height:46px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  font-size:27px;
+  user-select:none;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+}
+.climb-game-object.tool{
+  background:rgba(255,122,0,.12);
+  border:1px solid rgba(255,122,0,.38);
+  box-shadow:0 0 18px rgba(255,122,0,.10);
+}
+.climb-game-object.hazard{
+  background:rgba(255,59,48,.11);
+  border:1px solid rgba(255,59,48,.35);
+}
+.climb-game-overlay{
+  position:absolute;
+  inset:0;
+  z-index:20;
+  display:grid;
+  place-items:center;
+  padding:20px;
+  background:rgba(0,0,0,.65);
+  backdrop-filter:blur(6px);
+}
+.climb-game-overlay.hidden{display:none}
+.climb-game-overlay-card{
+  width:min(420px,100%);
+  padding:30px;
+  text-align:center;
+  border-radius:20px;
+  background:linear-gradient(155deg,#181818,#0c0c0c);
+  border:1px solid rgba(255,122,0,.3);
+  box-shadow:0 24px 70px rgba(0,0,0,.55);
+}
+.climb-game-overlay-label{
+  color:#ff7a00;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.18em;
+}
+.climb-game-overlay-card h3{
+  margin:9px 0 12px;
+  color:#fff;
+  font-size:30px;
+}
+.climb-game-overlay-card p{
+  color:rgba(255,255,255,.62);
+  line-height:1.7;
+}
+.climb-game-overlay-card button{
+  margin-top:8px;
+  padding:14px 20px;
+  border:0;
+  border-radius:11px;
+  background:#ff7a00;
+  color:#111;
+  font-weight:950;
+  letter-spacing:.08em;
+  cursor:pointer;
+}
+.climb-game-controls{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:12px;
+}
+.climb-game-controls button{
+  height:58px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.09);
+  background:#131313;
+  color:#fff;
+  font-size:27px;
+  font-weight:900;
+  cursor:pointer;
+  touch-action:none;
+}
+.climb-game-controls button:active{
+  background:#ff7a00;
+  color:#111;
+}
+.climb-game-tip{
+  margin-top:10px;
+  text-align:center;
+  color:rgba(255,255,255,.4);
+  font-size:11px;
+}
+@media(max-width:700px){
+  .climb-game-section{padding:82px 14px}
+  .climb-game-stage{height:480px}
+}
+</style>
+
 </head>
 <body>
 
@@ -5880,6 +6122,7 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
   <a href="#einsatzkarte"><span>●</span>Deutschlandkarte</a>
   <a href="#projects"><span>●</span>Projekte</a>
   <a href="#kletterrucksack"><span>●</span>Kletterrucksack</a>
+  <a href="#minigame"><span>●</span>Minigame</a>
   <a href="#arbeitstag"><span>●</span>Arbeitstag</a>
   <a href="#was-ich-mache"><span>●</span>Arbeitsalltag</a>
   <a href="#qualifikationen"><span>●</span>Qualifikationen</a>
@@ -6199,6 +6442,63 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
       <div class="gear-modal-label">AUSRÜSTUNG</div>
       <h3 id="gearModalTitle"></h3>
       <p id="gearModalText"></p>
+    </div>
+  </div>
+</section>
+
+
+<section id="minigame" class="climb-game-section">
+  <div class="climb-game-wrap">
+    <div class="climb-game-head reveal">
+      <div class="climb-game-kicker">INDUSTRIEKLETTER-MINIGAME</div>
+      <h2>Halte dich am Seil und sammle Werkzeug</h2>
+      <p>
+        Bewege den Kletterer nach links und rechts, sammle Werkzeug ein und weiche Hindernissen aus.
+        Du hast 3 Leben und 30 Sekunden Zeit.
+      </p>
+    </div>
+
+    <div class="climb-game-shell reveal">
+      <div class="climb-game-hud">
+        <div><span>PUNKTE</span><strong id="gameScore">0</strong></div>
+        <div><span>LEBEN</span><strong id="gameLives">3</strong></div>
+        <div><span>ZEIT</span><strong id="gameTime">30</strong></div>
+      </div>
+
+      <div class="climb-game-stage" id="climbGameStage" tabindex="0" aria-label="Industriekletter Minigame">
+        <div class="climb-game-city" aria-hidden="true"></div>
+        <div class="climb-game-rope" aria-hidden="true"></div>
+
+        <div class="climb-game-player" id="climbGamePlayer" aria-hidden="true">
+          <svg viewBox="0 0 42 70">
+            <circle cx="22" cy="9" r="6" class="helmet"/>
+            <path d="M20 16 L18 38" class="person"/>
+            <path d="M19 21 L8 30 M19 22 L30 16" class="person"/>
+            <path d="M18 38 L9 55 M18 38 L29 55" class="person"/>
+            <path d="M12 34 Q18 42 25 34 M13 37 L10 44 M24 37 L29 44" class="harness"/>
+            <ellipse cx="32" cy="22" rx="3.5" ry="6" class="carabiner" transform="rotate(25 32 22)"/>
+            <path d="M7 29 Q4 38 8 47" class="lanyard"/>
+          </svg>
+        </div>
+
+        <div class="climb-game-overlay" id="climbGameOverlay">
+          <div class="climb-game-overlay-card">
+            <div class="climb-game-overlay-label">BEREIT?</div>
+            <h3>Industriekletter-Challenge</h3>
+            <p>Werkzeug sammeln = +10 Punkte<br>Hindernis treffen = 1 Leben weg</p>
+            <button type="button" id="climbGameStart">SPIEL STARTEN</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="climb-game-controls">
+        <button type="button" id="gameLeft" aria-label="Nach links">←</button>
+        <button type="button" id="gameRight" aria-label="Nach rechts">→</button>
+      </div>
+
+      <div class="climb-game-tip">
+        Handy: Pfeiltasten gedrückt halten · Computer: ← / → oder A / D
+      </div>
     </div>
   </div>
 </section>
@@ -7536,6 +7836,198 @@ document.addEventListener('DOMContentLoaded', function(){
   addEventListener('keydown',e => {
     if(e.key === 'Escape' && modal.classList.contains('is-open')) closeInfo();
   });
+})();
+</script>
+
+
+<script id="climb-minigame-js-v1">
+(() => {
+  const stage = document.getElementById('climbGameStage');
+  const player = document.getElementById('climbGamePlayer');
+  const overlay = document.getElementById('climbGameOverlay');
+  const startBtn = document.getElementById('climbGameStart');
+  const scoreEl = document.getElementById('gameScore');
+  const livesEl = document.getElementById('gameLives');
+  const timeEl = document.getElementById('gameTime');
+  const leftBtn = document.getElementById('gameLeft');
+  const rightBtn = document.getElementById('gameRight');
+  if(!stage || !player || !overlay || !startBtn) return;
+
+  let running = false;
+  let score = 0;
+  let lives = 3;
+  let timeLeft = 30;
+  let playerX = .5;
+  let moveDir = 0;
+  let objects = [];
+  let last = 0;
+  let spawnTimer = 0;
+  let timerAcc = 0;
+  let raf = 0;
+
+  const tools = ['🔧','🔩','🛠️','🪝'];
+  const hazards = ['⚠️','🧱','⚡'];
+
+  function reset(){
+    objects.forEach(o => o.el.remove());
+    objects = [];
+    score = 0;
+    lives = 3;
+    timeLeft = 30;
+    playerX = .5;
+    moveDir = 0;
+    scoreEl.textContent = score;
+    livesEl.textContent = lives;
+    timeEl.textContent = timeLeft;
+    player.style.left = '50%';
+  }
+
+  function spawn(){
+    const isTool = Math.random() < .68;
+    const el = document.createElement('div');
+    el.className = 'climb-game-object ' + (isTool ? 'tool' : 'hazard');
+    el.textContent = isTool
+      ? tools[Math.floor(Math.random()*tools.length)]
+      : hazards[Math.floor(Math.random()*hazards.length)];
+
+    const x = .08 + Math.random()*.84;
+    const y = -30;
+    el.style.left = (x*100) + '%';
+    el.style.top = y + 'px';
+    stage.appendChild(el);
+
+    objects.push({
+      el,
+      x,
+      y,
+      speed: 135 + Math.random()*75,
+      tool: isTool
+    });
+  }
+
+  function rectHit(a,b){
+    return !(a.right < b.left || a.left > b.right || a.bottom < b.top || a.top > b.bottom);
+  }
+
+  function finish(){
+    running = false;
+    cancelAnimationFrame(raf);
+    overlay.classList.remove('hidden');
+    overlay.innerHTML = `
+      <div class="climb-game-overlay-card">
+        <div class="climb-game-overlay-label">EINSATZ BEENDET</div>
+        <h3>${score} Punkte</h3>
+        <p>${lives > 0 ? 'Starker Einsatz.' : 'Keine Leben mehr.'}<br>Willst du nochmal klettern?</p>
+        <button type="button" id="climbGameRestart">NOCHMAL SPIELEN</button>
+      </div>`;
+    overlay.querySelector('#climbGameRestart')?.addEventListener('click', start);
+  }
+
+  function start(){
+    reset();
+    running = true;
+    overlay.classList.add('hidden');
+    stage.focus({preventScroll:true});
+    last = performance.now();
+    spawnTimer = 0;
+    timerAcc = 0;
+    raf = requestAnimationFrame(loop);
+  }
+
+  function loop(now){
+    if(!running) return;
+    const dt = Math.min(.033,(now-last)/1000);
+    last = now;
+
+    playerX += moveDir * dt * .72;
+    playerX = Math.max(.06,Math.min(.94,playerX));
+    player.style.left = (playerX*100) + '%';
+
+    spawnTimer += dt;
+    timerAcc += dt;
+
+    if(spawnTimer > .62){
+      spawnTimer = 0;
+      spawn();
+    }
+
+    if(timerAcc >= 1){
+      timerAcc -= 1;
+      timeLeft--;
+      timeEl.textContent = timeLeft;
+      if(timeLeft <= 0){
+        finish();
+        return;
+      }
+    }
+
+    const playerRect = player.getBoundingClientRect();
+
+    for(let i=objects.length-1;i>=0;i--){
+      const o = objects[i];
+      o.y += o.speed*dt;
+      o.el.style.top = o.y + 'px';
+
+      const r = o.el.getBoundingClientRect();
+      if(rectHit(playerRect,r)){
+        if(o.tool){
+          score += 10;
+          scoreEl.textContent = score;
+        }else{
+          lives--;
+          livesEl.textContent = lives;
+          player.classList.add('game-hit');
+          setTimeout(()=>player.classList.remove('game-hit'),180);
+          if(navigator.vibrate) navigator.vibrate(70);
+        }
+        o.el.remove();
+        objects.splice(i,1);
+
+        if(lives <= 0){
+          finish();
+          return;
+        }
+      }else if(o.y > stage.clientHeight + 40){
+        o.el.remove();
+        objects.splice(i,1);
+      }
+    }
+
+    raf = requestAnimationFrame(loop);
+  }
+
+  function setMove(dir){
+    if(running) moveDir = dir;
+  }
+
+  startBtn.addEventListener('click',start);
+
+  document.addEventListener('keydown',e=>{
+    if(!running) return;
+    if(e.key==='ArrowLeft' || e.key.toLowerCase()==='a'){
+      e.preventDefault(); setMove(-1);
+    }
+    if(e.key==='ArrowRight' || e.key.toLowerCase()==='d'){
+      e.preventDefault(); setMove(1);
+    }
+  });
+
+  document.addEventListener('keyup',e=>{
+    if(['ArrowLeft','ArrowRight','a','A','d','D'].includes(e.key)) moveDir = 0;
+  });
+
+  function bindHold(btn,dir){
+    if(!btn) return;
+    const down = e => { e.preventDefault(); setMove(dir); };
+    const up = e => { e.preventDefault(); if(moveDir===dir) setMove(0); };
+    btn.addEventListener('pointerdown',down);
+    btn.addEventListener('pointerup',up);
+    btn.addEventListener('pointercancel',up);
+    btn.addEventListener('pointerleave',up);
+  }
+
+  bindHold(leftBtn,-1);
+  bindHold(rightBtn,1);
 })();
 </script>
 
