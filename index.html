@@ -6307,6 +6307,42 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
 }
 </style>
 
+
+<style id="pack-game-hard-mode-v1">
+#packGameItems button.names-hidden b{
+  opacity:0;
+  width:0;
+  overflow:hidden;
+}
+#packGameItems button.names-hidden{
+  justify-content:center;
+}
+#packGameItems button.names-hidden span{
+  font-size:31px;
+}
+#packGameItems button b{
+  transition:opacity .25s ease;
+}
+.pack-game-card::after{
+  content:"SCHWIERIGKEIT: MITTEL";
+  display:block;
+  margin-top:12px;
+  text-align:right;
+  color:rgba(255,122,0,.65);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.14em;
+}
+@media(max-width:760px){
+  .pack-game-items{
+    gap:7px;
+  }
+  .pack-game-items button{
+    min-height:62px;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -6939,18 +6975,24 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
         <button data-correct="1" data-icon="🪝"><span>🪝</span><b>Karabiner</b></button>
         <button data-correct="1" data-icon="🧤"><span>🧤</span><b>Handschuhe</b></button>
         <button data-correct="1" data-icon="🛠️"><span>🛠️</span><b>Werkzeug</b></button>
+        <button data-correct="1" data-icon="⚙️"><span>⚙️</span><b>Abseilgerät</b></button>
+        <button data-correct="1" data-icon="🔗"><span>🔗</span><b>Verbindungsmittel</b></button>
 
         <button data-correct="0" data-icon="🎮"><span>🎮</span><b>Gamepad</b></button>
         <button data-correct="0" data-icon="🍕"><span>🍕</span><b>Pizza</b></button>
         <button data-correct="0" data-icon="🛹"><span>🛹</span><b>Skateboard</b></button>
         <button data-correct="0" data-icon="🎧"><span>🎧</span><b>Kopfhörer</b></button>
+        <button data-correct="0" data-icon="⚽"><span>⚽</span><b>Fußball</b></button>
+        <button data-correct="0" data-icon="🧸"><span>🧸</span><b>Teddy</b></button>
+        <button data-correct="0" data-icon="🎲"><span>🎲</span><b>Würfel</b></button>
+        <button data-correct="0" data-icon="📺"><span>📺</span><b>Fernseher</b></button>
       </div>
 
       <div class="pack-game-overlay" id="packGameOverlay">
         <div>
           <div class="climb-game-overlay-label">BEREIT?</div>
           <h3>Pack den Kletterrucksack</h3>
-          <p>Richtige Ausrüstung = +10 Punkte<br>Falscher Gegenstand = 1 Leben weg</p>
+          <p>20 Sekunden · 8 richtige Gegenstände<br>Falsch = -5 Punkte und 1 Leben weg</p>
           <button type="button" id="packGameStart">SPIEL STARTEN</button>
         </div>
       </div>
@@ -8525,7 +8567,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="minigame-hub-pack-js-v1">
+<script id="minigame-hub-pack-js-v2">
 (() => {
   const hub = document.getElementById('gameHub');
   const climberPanel = document.getElementById('climberGamePanel');
@@ -8536,28 +8578,21 @@ document.addEventListener('DOMContentLoaded', function(){
     climberPanel?.classList.remove('is-active');
     packPanel?.classList.remove('is-active');
   }
-
   function openGame(name){
     hub?.setAttribute('hidden','');
     climberPanel?.classList.toggle('is-active',name==='climber');
     packPanel?.classList.toggle('is-active',name==='backpack');
   }
-
   document.querySelectorAll('[data-game-open]').forEach(btn=>{
     btn.addEventListener('click',()=>openGame(btn.dataset.gameOpen));
   });
-
   document.getElementById('backToGameHubClimber')?.addEventListener('click',showHub);
   document.getElementById('backToGameHubPack')?.addEventListener('click',showHub);
-
-  // Falls über "#minigame" gesprungen wird: immer Auswahl zeigen
   document.querySelectorAll('a[href="#minigame"]').forEach(a=>{
     a.addEventListener('click',()=>setTimeout(showHub,20));
   });
-
   showHub();
 
-  // ---- Pack den Kletterrucksack ----
   const area = document.querySelector('.pack-game-area');
   const bag = document.getElementById('packGameBag');
   const overlay = document.getElementById('packGameOverlay');
@@ -8565,29 +8600,56 @@ document.addEventListener('DOMContentLoaded', function(){
   const scoreEl = document.getElementById('packScore');
   const livesEl = document.getElementById('packLives');
   const timeEl = document.getElementById('packTime');
-  const itemButtons = [...document.querySelectorAll('#packGameItems button')];
+  const itemsBox = document.getElementById('packGameItems');
+  if(!area || !bag || !overlay || !start || !itemsBox) return;
 
-  if(!area || !bag || !overlay || !start) return;
+  let running=false, score=0, lives=3, time=20, timer=null, hideNamesTimer=null;
 
-  let running=false, score=0, lives=3, time=30, timer=null;
+  function buttons(){
+    return [...itemsBox.querySelectorAll('button')];
+  }
+
+  function shuffle(){
+    const arr=buttons();
+    for(let i=arr.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [arr[i],arr[j]]=[arr[j],arr[i]];
+    }
+    arr.forEach(b=>itemsBox.appendChild(b));
+  }
 
   function resetPack(){
-    score=0; lives=3; time=30;
+    clearInterval(timer);
+    clearTimeout(hideNamesTimer);
+    score=0; lives=3; time=20;
     scoreEl.textContent=score;
     livesEl.textContent=lives;
     timeEl.textContent=time;
-    itemButtons.forEach(b=>b.classList.remove('is-packed','is-wrong'));
+    buttons().forEach(b=>{
+      b.classList.remove('is-packed','is-wrong','names-hidden');
+      b.disabled=false;
+    });
+    shuffle();
   }
 
-  function endPack(){
+  function endPack(won=false){
+    if(!running) return;
     running=false;
     clearInterval(timer);
+    clearTimeout(hideNamesTimer);
+
+    if(won){
+      const bonus=Math.max(0,time)*2;
+      score+=bonus;
+      scoreEl.textContent=score;
+    }
+
     overlay.classList.remove('hidden');
     overlay.innerHTML=`
       <div>
-        <div class="climb-game-overlay-label">RUCKSACK GEPACKT</div>
+        <div class="climb-game-overlay-label">${won ? 'RUCKSACK KOMPLETT' : 'EINSATZ BEENDET'}</div>
         <h3>${score} Punkte</h3>
-        <p>${lives>0 ? 'Starker Einsatz.' : 'Keine Leben mehr.'}<br>Willst du nochmal packen?</p>
+        <p>${won ? `Zeitbonus: +${Math.max(0,time)*2} Punkte` : (lives<=0 ? 'Keine Leben mehr.' : 'Die Zeit ist abgelaufen.')}<br>Willst du es nochmal versuchen?</p>
         <button type="button" id="packGameRestart">NOCHMAL SPIELEN</button>
       </div>`;
     overlay.querySelector('#packGameRestart')?.addEventListener('click',beginPack);
@@ -8597,10 +8659,16 @@ document.addEventListener('DOMContentLoaded', function(){
     resetPack();
     running=true;
     overlay.classList.add('hidden');
+
+    // Nach 4 Sekunden verschwinden die Namen – dann zählen Symbol + Gedächtnis.
+    hideNamesTimer=setTimeout(()=>{
+      if(running) buttons().forEach(b=>b.classList.add('names-hidden'));
+    },4000);
+
     timer=setInterval(()=>{
       time--;
       timeEl.textContent=time;
-      if(time<=0) endPack();
+      if(time<=0) endPack(false);
     },1000);
   }
 
@@ -8617,7 +8685,7 @@ document.addEventListener('DOMContentLoaded', function(){
     flyer.style.top=sy+'px';
     document.body.appendChild(flyer);
     requestAnimationFrame(()=>{
-      flyer.style.transform=`translate(${ex-sx}px,${ey-sy}px) scale(.2) rotate(16deg)`;
+      flyer.style.transform=`translate(${ex-sx}px,${ey-sy}px) scale(.18) rotate(22deg)`;
       flyer.style.opacity='0';
     });
     bag.classList.add('is-catching');
@@ -8625,32 +8693,32 @@ document.addEventListener('DOMContentLoaded', function(){
       flyer.remove();
       bag.classList.remove('is-catching');
       btn.classList.add('is-packed');
+      btn.disabled=true;
+
+      const remaining=buttons().filter(b=>b.dataset.correct==='1' && !b.classList.contains('is-packed'));
+      if(remaining.length===0) endPack(true);
     },650);
   }
 
-  itemButtons.forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      if(!running || btn.classList.contains('is-packed')) return;
+  itemsBox.addEventListener('click',e=>{
+    const btn=e.target.closest('button');
+    if(!btn || !running || btn.classList.contains('is-packed')) return;
 
-      if(btn.dataset.correct==='1'){
-        score+=10;
-        scoreEl.textContent=score;
-        flyToBag(btn);
-
-        const remaining=itemButtons.filter(b=>b.dataset.correct==='1' && !b.classList.contains('is-packed') && b!==btn);
-        if(remaining.length===0){
-          setTimeout(endPack,700);
-        }
-      }else{
-        lives--;
-        livesEl.textContent=lives;
-        btn.classList.remove('is-wrong');
-        void btn.offsetWidth;
-        btn.classList.add('is-wrong');
-        if(navigator.vibrate) navigator.vibrate(70);
-        if(lives<=0) endPack();
-      }
-    });
+    if(btn.dataset.correct==='1'){
+      score+=10;
+      scoreEl.textContent=score;
+      flyToBag(btn);
+    }else{
+      lives--;
+      score=Math.max(0,score-5);
+      livesEl.textContent=lives;
+      scoreEl.textContent=score;
+      btn.classList.remove('is-wrong');
+      void btn.offsetWidth;
+      btn.classList.add('is-wrong');
+      if(navigator.vibrate) navigator.vibrate([60,35,60]);
+      if(lives<=0) endPack(false);
+    }
   });
 
   start.addEventListener('click',beginPack);
