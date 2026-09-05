@@ -3282,6 +3282,93 @@ a[href="#contact"],
 }
 </style>
 
+
+<style id="rope-navigation-refined">
+/* Verfeinerte Seil-Navigation */
+.rope-progress-fill{
+  position:absolute;
+  left:50%;
+  top:52px;
+  width:3px;
+  height:0;
+  transform:translateX(-50%);
+  border-radius:999px;
+  background:linear-gradient(180deg,#ffd09a 0%,#ff8a14 45%,#ff6500 100%);
+  box-shadow:
+    0 0 7px rgba(255,138,20,.85),
+    0 0 16px rgba(255,122,0,.55);
+  z-index:2;
+  pointer-events:none;
+  transition:height .08s linear;
+}
+.moving-climber{
+  z-index:4;
+}
+.rope-eight{
+  z-index:5;
+}
+.rope-section-points{
+  z-index:9999!important;
+}
+.rope-section-points a{
+  opacity:.76;
+  transition:
+    top .25s ease,
+    opacity .2s ease,
+    transform .2s ease!important;
+}
+.rope-section-points a i{
+  position:relative;
+  z-index:3;
+}
+.rope-section-points a.active{
+  opacity:1;
+}
+.rope-section-points a.active i{
+  animation:ropePointPulse 1.65s ease-in-out infinite;
+}
+.rope-section-points a.active i::before{
+  content:"";
+  position:absolute;
+  inset:-7px;
+  border-radius:50%;
+  border:1px solid rgba(255,138,20,.55);
+  animation:ropePointRing 1.65s ease-out infinite;
+}
+.rope-section-points a:hover{
+  opacity:1;
+}
+@keyframes ropePointPulse{
+  0%,100%{
+    transform:scale(1.22);
+    box-shadow:0 0 0 4px rgba(255,122,0,.14),0 0 14px rgba(255,122,0,.7)!important;
+  }
+  50%{
+    transform:scale(1.42);
+    box-shadow:0 0 0 5px rgba(255,122,0,.2),0 0 24px rgba(255,138,20,1)!important;
+  }
+}
+@keyframes ropePointRing{
+  0%{transform:scale(.72);opacity:.8}
+  100%{transform:scale(1.55);opacity:0}
+}
+@media(max-width:900px){
+  .rope-progress-fill{
+    top:44px;
+    width:2px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .rope-section-points a.active i,
+  .rope-section-points a.active i::before{
+    animation:none!important;
+  }
+  .rope-progress-fill{
+    transition:none!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -3319,6 +3406,7 @@ a[href="#contact"],
     </svg>
   </div>
   <div class="rope-vector-line"></div>
+  <div class="rope-progress-fill" aria-hidden="true"></div>
   <div class="moving-climber">
     <svg viewBox="0 0 42 70">
       <circle cx="22" cy="9" r="6" class="helmet"/>
@@ -3337,7 +3425,7 @@ a[href="#contact"],
 <div class="rope-section-points" aria-label="Abschnittsnavigation">
   <a href="#social-media" data-rope-target="social-media" aria-label="Social Media"><i></i><span>Social</span></a>
   <a href="#arbeitgeber" data-rope-target="arbeitgeber" aria-label="Arbeitgeber"><i></i><span>Arbeitgeber</span></a>
-  <a href="#was-ich-mache" data-rope-target="was-ich-mache" aria-label="Arbeitsalltag"><span></span></a>
+  <a href="#was-ich-mache" data-rope-target="was-ich-mache" aria-label="Arbeitsalltag"><i></i><span>Arbeitsalltag</span></a>
 <a href="#einsatzkarte" data-rope-target="einsatzkarte" aria-label="Deutschlandkarte"><i></i><span>Karte</span></a>
   <a href="#qualifikationen" data-rope-target="qualifikationen" aria-label="Qualifikationen"><i></i><span>Qualifikation</span></a>
   <a href="#einsatzgebiete" data-rope-target="einsatzgebiete" aria-label="Einsatzgebiete"><i></i><span>Einsatz</span></a>
@@ -4002,6 +4090,7 @@ document.addEventListener('DOMContentLoaded', function(){
 (function(){
   const climber = document.querySelector('.moving-climber');
   const track = document.querySelector('.rope-vector-track');
+  const ropeFill = document.querySelector('.rope-progress-fill');
   if(!climber || !track) return;
 
   function moveClimber(){
@@ -4009,7 +4098,13 @@ document.addEventListener('DOMContentLoaded', function(){
     const progress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
     const start = window.innerWidth <= 900 ? 58 : 72;
     const usable = Math.max(0, track.clientHeight - start - 28);
-    climber.style.top = (start + progress * usable) + 'px';
+    const climberTop = start + progress * usable;
+    climber.style.top = climberTop + 'px';
+
+    if(ropeFill){
+      const fillStart = window.innerWidth <= 900 ? 44 : 52;
+      ropeFill.style.height = Math.max(0, climberTop - fillStart) + 'px';
+    }
   }
   moveClimber();
   window.addEventListener('scroll', moveClimber, {passive:true});
