@@ -487,105 +487,70 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
 <style>
 /* Animierter Seil-Effekt */
 .rope-track{
-  position:fixed;
-  right:18px;
-  top:88px;
-  bottom:28px;
-  width:22px;
-  z-index:9998;
-  pointer-events:none;
-  opacity:.72;
+  position:fixed; right:18px; top:82px; bottom:28px; width:48px;
+  z-index:9998; pointer-events:none; opacity:.88;
 }
 .rope-line{
-  position:absolute;
-  left:50%;
-  top:0;
-  bottom:0;
-  width:8px;
-  transform:translateX(-50%);
-  border-radius:999px;
-  background:
-    repeating-linear-gradient(
-      135deg,
-      #d96f00 0 6px,
-      #ff9a2f 6px 12px,
-      #a94f00 12px 18px
-    );
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,.08),
-    0 0 14px rgba(255,122,0,.22);
+  position:absolute; left:50%; top:46px; bottom:0; width:8px;
+  transform:translateX(-50%); border-radius:999px;
+  background:repeating-linear-gradient(135deg,#d96f00 0 6px,#ff9a2f 6px 12px,#a94f00 12px 18px);
+  box-shadow:0 0 0 1px rgba(255,255,255,.08),0 0 14px rgba(255,122,0,.25);
   animation:ropeTexture 1.15s linear infinite;
 }
 .rope-line::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:inherit;
-  background:linear-gradient(
-    90deg,
-    rgba(255,255,255,.12),
-    transparent 45%,
-    rgba(0,0,0,.20)
-  );
+  content:""; position:absolute; inset:0; border-radius:inherit;
+  background:linear-gradient(90deg,rgba(255,255,255,.14),transparent 45%,rgba(0,0,0,.22));
 }
-.rope-progress{
-  position:absolute;
-  left:50%;
-  top:0;
-  width:14px;
-  height:14px;
+.figure-eight-knot{
+  position:absolute; left:50%; top:0; width:44px; height:58px;
+  transform:translateX(-50%);
+  filter:drop-shadow(0 4px 7px rgba(0,0,0,.55));
+}
+.figure-eight-knot svg{width:100%;height:100%;overflow:visible}
+.figure-eight-knot path{
+  fill:none; stroke:#ff8612; stroke-width:7; stroke-linecap:round; stroke-linejoin:round;
+}
+.figure-eight-knot .knot-hi{
+  stroke:rgba(255,196,120,.65); stroke-width:2.2;
+}
+.rope-climber{
+  position:absolute; left:50%; top:48px; width:31px; height:44px;
   transform:translate(-50%,-50%);
-  border-radius:50%;
-  background:#ff7a00;
-  border:3px solid #111;
-  box-shadow:
-    0 0 0 2px rgba(255,122,0,.35),
-    0 0 18px rgba(255,122,0,.55);
+  filter:drop-shadow(0 4px 7px rgba(0,0,0,.7));
   transition:top .08s linear;
 }
-.rope-progress::after{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:6px;
-  height:6px;
-  transform:translate(-50%,-50%);
-  border-radius:50%;
-  background:#fff3e6;
+.rope-climber svg{width:100%;height:100%;overflow:visible}
+.rope-climber .head{fill:#ff8a14;stroke:#111;stroke-width:1.5}
+.rope-climber .body,.rope-climber .limb{
+  fill:none;stroke:#f4f4f4;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;
+}
+.rope-climber .harness{fill:none;stroke:#ff7a00;stroke-width:2.7;stroke-linecap:round}
+.rope-climber .carabiner{fill:none;stroke:#ff7a00;stroke-width:2}
+.rope-climber::after{
+  content:""; position:absolute; left:50%; top:50%; width:48px; height:48px;
+  transform:translate(-50%,-50%); border-radius:50%;
+  border:1px solid rgba(255,122,0,.22);
+  animation:climberGlow 2s ease-out infinite;
 }
 .rope-knot{
-  position:absolute;
-  left:50%;
-  width:18px;
-  height:8px;
-  transform:translateX(-50%) rotate(-18deg);
-  border-radius:999px;
-  background:#ff8a14;
-  box-shadow:0 0 8px rgba(255,122,0,.25);
+  position:absolute; left:50%; width:18px; height:8px;
+  transform:translateX(-50%) rotate(-18deg); border-radius:999px;
+  background:#ff8a14; box-shadow:0 0 8px rgba(255,122,0,.25);
 }
-.rope-knot.k1{top:23%}
-.rope-knot.k2{top:49%;transform:translateX(-50%) rotate(18deg)}
-.rope-knot.k3{top:74%}
-@keyframes ropeTexture{
-  from{background-position:0 0}
-  to{background-position:0 24px}
-}
+.rope-knot.k1{top:30%}.rope-knot.k2{top:57%;transform:translateX(-50%) rotate(18deg)}.rope-knot.k3{top:80%}
+@keyframes ropeTexture{from{background-position:0 0}to{background-position:0 24px}}
+@keyframes climberGlow{0%{transform:translate(-50%,-50%) scale(.6);opacity:.7}100%{transform:translate(-50%,-50%) scale(1.35);opacity:0}}
 @media(max-width:900px){
-  .rope-track{
-    right:8px;
-    top:78px;
-    bottom:76px;
-    width:16px;
-    opacity:.5;
-  }
-  .rope-line{width:5px}
-  .rope-progress{width:11px;height:11px;border-width:2px}
+  .rope-track{right:5px;top:72px;bottom:76px;width:36px;opacity:.68}
+  .rope-line{width:5px;top:38px}
+  .figure-eight-knot{width:34px;height:45px}
+  .figure-eight-knot path{stroke-width:6}
+  .rope-climber{width:25px;height:36px;top:40px}
   .rope-knot{display:none}
 }
 @media(prefers-reduced-motion:reduce){
-  .rope-line{animation:none}
-  .rope-progress{transition:none}
+  .rope-line,.rope-climber::after{animation:none}
+  .rope-climber{transition:none}
 }
 </style>
 
@@ -736,11 +701,26 @@ footer{padding:30px 0;color:#737b80;font-size:12px}
 
 <!-- ROPE-EFFECT-START -->
 <div class="rope-track" aria-hidden="true">
+  <div class="figure-eight-knot">
+    <svg viewBox="0 0 50 66">
+      <path d="M25 4 C8 10,8 28,25 34 C42 40,42 56,25 62 C8 56,8 40,25 34 C42 28,42 10,25 4"/>
+      <path class="knot-hi" d="M22 7 C12 13,13 25,25 30 M29 38 C39 44,36 54,26 59"/>
+    </svg>
+  </div>
   <div class="rope-line"></div>
   <span class="rope-knot k1"></span>
   <span class="rope-knot k2"></span>
   <span class="rope-knot k3"></span>
-  <span class="rope-progress"></span>
+  <div class="rope-climber">
+    <svg viewBox="0 0 34 48">
+      <circle class="head" cx="18" cy="7" r="5"/>
+      <path class="body" d="M17 13 L16 28"/>
+      <path class="limb" d="M16 17 L8 23 M16 18 L24 14"/>
+      <path class="limb" d="M16 28 L9 40 M16 28 L25 39"/>
+      <path class="harness" d="M11 24 Q16 30 21 24 M12 26 L9 31 M20 26 L24 31"/>
+      <ellipse class="carabiner" cx="26" cy="18" rx="3" ry="5" transform="rotate(24 26 18)"/>
+    </svg>
+  </div>
 </div>
 <!-- ROPE-EFFECT-END -->
 
@@ -1123,16 +1103,17 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <script>
 (function(){
-  const dot = document.querySelector('.rope-progress');
+  const climber = document.querySelector('.rope-climber');
   const track = document.querySelector('.rope-track');
-  if(!dot || !track) return;
+  if(!climber || !track) return;
 
   function updateRope(){
     const doc = document.documentElement;
     const maxScroll = Math.max(1, doc.scrollHeight - window.innerHeight);
     const progress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
-    const usable = Math.max(0, track.clientHeight);
-    dot.style.top = (progress * usable) + 'px';
+    const topPadding = window.innerWidth <= 900 ? 40 : 50;
+    const usable = Math.max(0, track.clientHeight - topPadding);
+    climber.style.top = (topPadding + progress * usable) + 'px';
   }
 
   updateRope();
