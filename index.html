@@ -5488,9 +5488,9 @@ document.addEventListener('DOMContentLoaded', function(){
 
     /* Nur beim Abwärtsfahren deutlich wellen.
        Beim Stillstand klingt die Bewegung weich aus. */
-    const target = velocity > 0.03 ? Math.min(4.2, 1.1 + velocity * 2.2) : 0;
-    strength += (target - strength) * 0.16;
-    phase += 0.065 + Math.min(.08, Math.abs(velocity) * .02);
+    const target = velocity > 0.025 ? Math.min(9.0, 2.4 + velocity * 4.2) : 0;
+    strength += (target - strength) * 0.20;
+    phase += 0.085 + Math.min(.12, Math.abs(velocity) * .03);
 
     const dMain = pathFor(strength, phase, 0);
     const dShadow = pathFor(strength, phase, 0);
