@@ -8409,65 +8409,6 @@ html{
 @media(max-width:700px){#begriffe{scroll-margin-top:16px}}
 </style>
 
-
-<style id="hero-category-menu-v46-style">
-.hero-category-menu-v46{
-  position:relative;
-  display:inline-flex;
-  flex-direction:column;
-  align-items:stretch;
-  gap:7px;
-  vertical-align:top;
-}
-.hero-category-main-v46{
-  width:100%;
-  justify-content:center;
-  cursor:pointer;
-}
-.hero-category-arrow-v46{
-  display:inline-block;
-  margin-left:7px;
-  font-size:.95em;
-  transition:transform .28s ease;
-}
-.hero-category-main-v46[aria-expanded="true"] .hero-category-arrow-v46{
-  transform:rotate(180deg);
-}
-.hero-category-items-v46{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-  max-height:0;
-  opacity:0;
-  overflow:hidden;
-  transform:translateY(-7px);
-  transition:max-height .32s cubic-bezier(.16,1,.3,1),opacity .22s ease,transform .32s cubic-bezier(.16,1,.3,1);
-  pointer-events:none;
-}
-.hero-category-items-v46.open{
-  max-height:180px;
-  opacity:1;
-  transform:none;
-  pointer-events:auto;
-}
-.hero-category-items-v46 > a{
-  margin:0!important;
-  width:100%!important;
-  min-width:0!important;
-  font-size:.82em!important;
-  padding-top:.72em!important;
-  padding-bottom:.72em!important;
-}
-@media(max-width:700px){
-  .hero-category-menu-v46{width:100%}
-  .hero-category-main-v46{width:100%!important}
-  .hero-category-items-v46 > a{width:100%!important}
-}
-@media(prefers-reduced-motion:reduce){
-  .hero-category-items-v46,.hero-category-arrow-v46{transition:none!important}
-}
-</style>
-
 </head>
 <body>
 
@@ -8570,17 +8511,80 @@ html{
   <a href="#qualifikationen" data-rope-target="qualifikationen" aria-label="Qualifikationen"><i></i><span>Qualifikation</span></a>
   <a href="#einsatzgebiete" data-rope-target="einsatzgebiete" aria-label="Einsatzgebiete"><i></i><span>Einsatz</span></a>
   <a href="#projects" data-rope-target="projects" aria-label="Projekte"><i></i><span>Projekte</span></a>
+<a href="#faq">FAQ</a>
+<a href="#kooperation" data-rope-target="kooperation" aria-label="Kooperation"><i></i><span>Kooperation</span></a>
+  <a href="#contact" data-rope-target="contact" aria-label="Kontakt"><i></i><span>Kontakt</span></a>
+</div>
+<!-- ROPE-SECTION-POINTS-END -->
 
-<div class="hero-category-menu-v46">
-  <button type="button" class=" hero-category-main-v46" id="heroCategoryToggleV46" aria-expanded="false">
-    KATEGORIEN <span class="hero-category-arrow-v46">⌄</span>
-  </button>
-  <div class="hero-category-items-v46" id="heroCategoryItemsV46">
-    <a href="#faq">FAQ</a>
-    <a class="btn" href="#begriffe">LEXIKON →</a>
+
+<div class="progress" id="progress"></div>
+
+<header class="topbar">
+  <div class="wrap nav">
+    <a class="brand" href="#home">FABIAN SCHMIDT<small>INDUSTRIEKLETTERER</small></a>
+    <nav class="links">
+      <a href="#home">Home</a>
+      <a href="#about">Über mich</a>
+      <a href="#services">Leistungen</a>
+      <a href="#projects">Projekte</a>
+      
+      <a href="#contact">Kontakt</a>
+    </nav>
+    <div class="social-mini">
+      <a href="https://www.instagram.com/_f4qi4n_/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="social-brand-logo instagram-logo" viewBox="0 0 24 24" aria-hidden="true">
+<defs>
+  <linearGradient id="igGradientHeaderFixed" x1="0%" y1="100%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#ffd600"/>
+    <stop offset="28%" stop-color="#ff7a00"/>
+    <stop offset="55%" stop-color="#ff0169"/>
+    <stop offset="82%" stop-color="#d300c5"/>
+    <stop offset="100%" stop-color="#7638fa"/>
+  </linearGradient>
+</defs>
+<rect x="1.2" y="1.2" width="21.6" height="21.6" rx="6.2" fill="url(#igGradientHeaderFixed)"/>
+<rect x="5.7" y="5.7" width="12.6" height="12.6" rx="4" fill="none" stroke="#fff" stroke-width="1.8"/>
+<circle cx="12" cy="12" r="3.1" fill="none" stroke="#fff" stroke-width="1.8"/>
+<circle cx="17.1" cy="6.9" r="1.05" fill="#fff"/>
+</svg></a>
+      <a href="https://www.tiktok.com/@industriekletterer2" target="_blank" rel="noopener"><svg class="social-brand-logo tiktok-logo" viewBox="0 0 24 24" aria-hidden="true">
+<rect width="24" height="24" rx="6" fill="#050505"/>
+<path d="M14.4 5.1c.35 1.9 1.48 3.05 3.35 3.45v2.45a7.7 7.7 0 0 1-3.32-.96v4.55a4.78 4.78 0 1 1-4.12-4.73v2.48a2.33 2.33 0 1 0 1.66 2.23V5.1h2.43z" fill="#25F4EE" transform="translate(-.55 .35)"/>
+<path d="M14.4 5.1c.35 1.9 1.48 3.05 3.35 3.45v2.45a7.7 7.7 0 0 1-3.32-.96v4.55a4.78 4.78 0 1 1-4.12-4.73v2.48a2.33 2.33 0 1 0 1.66 2.23V5.1h2.43z" fill="#FE2C55" transform="translate(.55 -.2)"/>
+<path d="M14.4 5.1c.35 1.9 1.48 3.05 3.35 3.45v2.45a7.7 7.7 0 0 1-3.32-.96v4.55a4.78 4.78 0 1 1-4.12-4.73v2.48a2.33 2.33 0 1 0 1.66 2.23V5.1h2.43z" fill="#fff"/>
+</svg></a>
+    </div>
   </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+<div class="hero-platform-scene" id="heroPlatformScene" aria-hidden="true">
+  <div class="hero-platform"></div>
+  <div class="hero-walker" id="heroWalker">
+    <svg viewBox="0 0 42 70">
+      <circle cx="22" cy="9" r="6" class="helmet"/>
+      <path d="M20 16 L18 38" class="person"/>
+      <path d="M19 21 L8 30 M19 22 L30 16" class="person"/>
+      <path d="M18 38 L9 55 M18 38 L29 55" class="person"/>
+      <path d="M12 34 Q18 42 25 34 M13 37 L10 44 M24 37 L29 44" class="harness"/>
+      <ellipse cx="32" cy="22" rx="3.5" ry="6" class="carabiner" transform="rotate(25 32 22)"/>
+      <path d="M7 29 Q4 38 8 47" class="lanyard"/>
+    </svg>
+  </div>
+  <div class="hero-rope-contact"></div>
 </div>
 
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="wrap hero-content">
+    <div class="eyebrow">Höhenarbeit mit Leidenschaft</div>
+    <h1><span class="hero-white">INDUSTRIE</span><br><span class="hero-orange">KLETTERER</span></h1>
+    <p class="hero-sub">Industrielle Höhenarbeit, schwer zugängliche Bereiche und besondere Herausforderungen – mein Job ist dort, wo andere nicht hinkommen.</p>
+    <div class="hero-slogan">SICHER. ZUVERLÄSSIG. ÜBERALL.</div><div class="hero-tags"><span>Industrie</span><span>Windkraft</span><span>Montage</span><span>Seilzugang</span></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a class="btn" href="#projects">MEHR ERFAHREN →</a>
+<a class="btn" href="#faq">FAQ →</a>
+<a class="btn" href="#begriffe">LEXIKON →</a>
 
 <a href="#kooperation" class="btn">Kooperation</a>
     </div>
@@ -11514,27 +11518,6 @@ document.addEventListener('click',function(e){
   window.scrollTo({top:top,behavior:'smooth'});
   history.replaceState(null,'','#begriffe');
 });
-</script>
-
-
-<script id="hero-category-menu-v46-js">
-(function(){
-  const toggle=document.getElementById('heroCategoryToggleV46');
-  const items=document.getElementById('heroCategoryItemsV46');
-  if(!toggle||!items)return;
-
-  toggle.addEventListener('click',function(){
-    const open=items.classList.toggle('open');
-    toggle.setAttribute('aria-expanded',open?'true':'false');
-  });
-
-  items.querySelectorAll('a').forEach(link=>{
-    link.addEventListener('click',()=>{
-      items.classList.remove('open');
-      toggle.setAttribute('aria-expanded','false');
-    });
-  });
-})();
 </script>
 
 </body>
