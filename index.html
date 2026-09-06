@@ -7211,6 +7211,63 @@ section:not(.hero) > .section-inner{
 }
 </style>
 
+
+<style id="equipment-no-black-plates-v13">
+/* Ausrüstung am Gurt: schwarze Beschriftungsschilder ausblenden.
+   Sichtbar bleiben die Abbildungen und die orangenen interaktiven Punkte. */
+.equipment-poster-board{
+  overflow:hidden !important;
+  background:#000 !important;
+}
+
+/* Die vorhandenen orangenen Punkte bleiben klar sichtbar */
+.poster-hotspot{
+  z-index:10 !important;
+  background:#ff7900 !important;
+  border:2px solid rgba(255,255,255,.12) !important;
+}
+
+/* Zusätzliche schwarze Masken über den Beschriftungskästen des Posterbildes */
+.equipment-poster-board::before,
+.equipment-poster-board::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  background:#000;
+  z-index:4;
+  pointer-events:none;
+}
+
+/* erste und zweite Schildreihe */
+.equipment-poster-board::before{
+  top:31%;
+  height:10.5%;
+  box-shadow:
+    0 335px 0 #000,
+    0 612px 0 #000;
+}
+
+/* Unterer Beschreibungskasten von Nr. 26 */
+.equipment-poster-board::after{
+  left:12%;
+  right:51%;
+  top:92.2%;
+  height:6.5%;
+}
+
+/* Punkte über den Masken */
+.poster-hotspot{position:absolute !important}
+
+@media(max-width:700px){
+  .poster-hotspot{
+    width:15px !important;
+    height:15px !important;
+    font-size:5px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 
