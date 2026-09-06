@@ -8158,6 +8158,118 @@ html{
 </style>
 
 
+
+<style id="visitor-counter-v34-style">
+.visitor-counter-v34{
+  padding:70px 22px;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(255,121,0,.08),transparent 28%),
+    linear-gradient(180deg,#0a0a0a,#070707);
+}
+.visitor-counter-inner-v34{
+  width:min(1160px,100%);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:34px;
+  align-items:center;
+  padding:28px 30px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:20px;
+  background:rgba(255,255,255,.025);
+  box-shadow:0 22px 60px rgba(0,0,0,.28);
+  position:relative;
+  overflow:hidden;
+}
+.visitor-counter-inner-v34::after{
+  content:"";
+  position:absolute;
+  left:-20%;
+  bottom:-90%;
+  width:55%;
+  aspect-ratio:1;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,121,0,.16),transparent 66%);
+  pointer-events:none;
+}
+.visitor-counter-kicker-v34{
+  display:inline-block;
+  color:#ff7900;
+  font-size:11px;
+  font-weight:950;
+  letter-spacing:.2em;
+  margin-bottom:8px;
+}
+.visitor-counter-copy-v34 h2{
+  margin:0 0 8px;
+  color:#fff;
+  font-size:clamp(30px,4vw,48px);
+  line-height:1;
+}
+.visitor-counter-copy-v34 p{
+  margin:0;
+  color:#aaa;
+  font-size:15px;
+}
+.visitor-counter-box-v34{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  min-width:260px;
+  padding:18px 20px;
+  border-radius:15px;
+  background:#101010;
+  border:1px solid rgba(255,121,0,.28);
+  box-shadow:0 12px 32px rgba(0,0,0,.3),0 0 28px rgba(255,121,0,.06);
+}
+.visitor-counter-icon-v34{
+  width:46px;height:46px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#ff7900;
+  color:#101010;
+  font-size:22px;
+  box-shadow:0 0 24px rgba(255,121,0,.28);
+  animation:visitorPulseV34 2s ease-in-out infinite;
+}
+.visitor-counter-badge-wrap-v34{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.visitor-counter-badge-wrap-v34 span{
+  color:#8f8f8f;
+  font-size:10px;
+  letter-spacing:.16em;
+  font-weight:900;
+}
+.visitor-counter-badge-wrap-v34 img{
+  display:block;
+  height:28px;
+  width:auto;
+  max-width:220px;
+}
+@keyframes visitorPulseV34{
+  0%,100%{transform:scale(1);box-shadow:0 0 20px rgba(255,121,0,.22)}
+  50%{transform:scale(1.06);box-shadow:0 0 34px rgba(255,121,0,.42)}
+}
+@media(max-width:760px){
+  .visitor-counter-v34{padding:52px 16px}
+  .visitor-counter-inner-v34{
+    grid-template-columns:1fr;
+    padding:24px 20px;
+  }
+  .visitor-counter-box-v34{
+    width:100%;
+    min-width:0;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .visitor-counter-icon-v34{animation:none}
+}
+</style>
+
 </head>
 <body>
 
@@ -9219,6 +9331,30 @@ html{
 
 
 
+
+
+<section id="besucherzaehler" class="visitor-counter-v34 reveal">
+  <div class="visitor-counter-inner-v34">
+    <div class="visitor-counter-copy-v34">
+      <span class="visitor-counter-kicker-v34">LIVE · WEBSITE</span>
+      <h2>Besucherzähler</h2>
+      <p>So oft wurde meine Website bereits aufgerufen.</p>
+    </div>
+
+    <div class="visitor-counter-box-v34" aria-label="Besucherzähler">
+      <div class="visitor-counter-icon-v34" aria-hidden="true">◉</div>
+      <div class="visitor-counter-badge-wrap-v34">
+        <span>SEITENAUFRUFE</span>
+        <img
+          src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Ffabian1711io-cmd.github.io%2Findustriekletterer-fabian%2F&label=BESUCHER&labelColor=%23111111&countColor=%23ff7900&style=flat-square"
+          alt="Besucherzähler"
+          loading="eager"
+          decoding="async"
+          referrerpolicy="no-referrer-when-downgrade">
+      </div>
+    </div>
+  </div>
+</section>
 
 <section id="kooperation" class="coop-premium-section">
   <div class="wrap">
