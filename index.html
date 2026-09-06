@@ -8404,6 +8404,12 @@ html{
 }
 </style>
 
+
+<style id="minigames-removed-v52">
+#minigame,#gameHub,#climberGamePanel,#packGamePanel,
+a[href="#minigame"],[data-rope-target="minigame"]{display:none!important}
+</style>
+
 </head>
 <body>
 
@@ -8590,9 +8596,7 @@ html{
   <a href="#einsatzkarte"><span>●</span>Deutschlandkarte</a>
   <a href="#projects"><span>●</span>Projekte</a>
   <a href="#gurt-ausruestung"><span>●</span>Am Gurt</a>
-  
-  <a href="#minigame"><span>●</span>Minigame</a>
-  <a href="#arbeitstag"><span>●</span>Arbeitstag</a>
+<a href="#arbeitstag"><span>●</span>Arbeitstag</a>
   <a href="#was-ich-mache"><span>●</span>Arbeitsalltag</a>
   <a href="#fisat-levels"><span>●</span>FISAT Level</a>
   <a href="#qualifikationen"><span>●</span>Qualifikationen</a>
@@ -9356,96 +9360,8 @@ html{
 
 
 
-<section id="minigame" class="climb-game-section">
-  <div class="climb-game-wrap">
-    <div class="climb-game-head reveal">
-      <div class="climb-game-kicker">INDUSTRIEKLETTER-MINIGAME</div>
-      <h2>Halte dich am Seil und sammle Werkzeug</h2>
-      <p>
-        Bewege den Kletterer nach links und rechts, sammle Werkzeug ein und weiche Hindernissen aus.
-        Du hast 3 Leben und 30 Sekunden Zeit.
-      </p>
-    </div>
-
-    
-<div class="game-hub" id="gameHub">
-  <div class="game-hub-head">
-    <div class="climb-game-kicker">MINIGAMES</div>
-    <h3>Wähle dein Spiel</h3>
-    <p>Such dir aus, welche Challenge du spielen möchtest.</p>
-  </div>
-
-  <div class="game-choice-grid">
-    <button type="button" class="game-choice-card" data-game-open="climber">
-      <div class="game-choice-icon">🧗</div>
-      <div>
-        <span>SPIEL 01</span>
-        <strong>Industriekletter-Challenge</strong>
-        <p>Werkzeuge sammeln, Hindernissen ausweichen und am Seil schwingen.</p>
-      </div>
-      <b>SPIELEN →</b>
-    </button>
-
-    <button type="button" class="game-choice-card" data-game-open="backpack">
-      <div class="game-choice-icon">🎒</div>
-      <div>
-        <span>SPIEL 02</span>
-        <strong>Pack den Kletterrucksack</strong>
-        <p>Tippe nur die richtige Ausrüstung an und packe den Rucksack so schnell wie möglich.</p>
-      </div>
-      <b>SPIELEN →</b>
-    </button>
-  </div>
-</div>
 
 
-<div class="climb-game-shell reveal game-panel" id="climberGamePanel">
-      <button type="button" class="game-back-btn" id="backToGameHubClimber">← SPIELAUSWAHL</button>
-      <div class="climb-game-hud">
-        <div><span>PUNKTE</span><strong id="gameScore">0</strong></div>
-        <div><span>LEBEN</span><strong id="gameLives">3</strong></div>
-        <div><span>ZEIT</span><strong id="gameTime">30</strong></div>
-      </div>
-
-      <div class="climb-game-stage" id="climbGameStage" tabindex="0" aria-label="Industriekletter Minigame">
-        <div class="climb-game-city" aria-hidden="true"></div>
-        <svg class="climb-game-rope-swing" id="climbGameRopeSvg" aria-hidden="true">
-          <path id="climbGameRopePath" d=""></path>
-        </svg>
-
-        <div class="climb-game-player" id="climbGamePlayer" aria-hidden="true">
-          <svg viewBox="0 0 42 70">
-            <circle cx="22" cy="9" r="6" class="helmet"/>
-            <path d="M20 16 L18 38" class="person"/>
-            <path d="M19 21 L8 30 M19 22 L30 16" class="person"/>
-            <path d="M18 38 L9 55 M18 38 L29 55" class="person"/>
-            <path d="M12 34 Q18 42 25 34 M13 37 L10 44 M24 37 L29 44" class="harness"/>
-            <ellipse cx="32" cy="22" rx="3.5" ry="6" class="carabiner" transform="rotate(25 32 22)"/>
-            <path d="M7 29 Q4 38 8 47" class="lanyard"/>
-          </svg>
-        </div>
-
-        <div class="climb-game-overlay" id="climbGameOverlay">
-          <div class="climb-game-overlay-card">
-            <div class="climb-game-overlay-label">BEREIT?</div>
-            <h3>Industriekletter-Challenge</h3>
-            <p>Werkzeug sammeln = +10 Punkte<br>Hindernis treffen = 1 Leben weg</p>
-            <button type="button" id="climbGameStart">SPIEL STARTEN</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="climb-game-controls">
-        <button type="button" id="gameLeft" aria-label="Nach links">←</button>
-        <button type="button" id="gameRight" aria-label="Nach rechts">→</button>
-      </div>
-
-      <div class="climb-game-tip">
-        Handy: Pfeiltasten gedrückt halten · Computer: ← / → oder A / D
-      </div>
-    </div>
-  </div>
-</section>
 
 
 <div class="pack-game-panel game-panel" id="packGamePanel">
