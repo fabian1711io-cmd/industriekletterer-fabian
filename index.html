@@ -7843,6 +7843,53 @@ section:not(.hero) > .section-inner{
 }
 </style>
 
+
+<style id="map-bayern-v25">
+#einsatzkarte{position:relative}
+#einsatzkarte .map-pin-bayern-v25{
+  position:absolute;
+  left:62%;
+  top:67%;
+  z-index:8;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  pointer-events:none;
+}
+#einsatzkarte .map-pin-bayern-v25 .map-pin-dot{
+  width:13px;
+  height:13px;
+  border-radius:50%;
+  background:#ff7900;
+  border:2px solid #fff;
+  box-shadow:0 0 0 5px rgba(255,121,0,.22),0 0 18px rgba(255,121,0,.55);
+}
+#einsatzkarte .map-pin-bayern-v25 .map-pin-label{
+  padding:5px 9px;
+  border-radius:7px;
+  background:rgba(8,8,8,.90);
+  border:1px solid rgba(255,121,0,.55);
+  color:#fff;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.04em;
+}
+@media(max-width:700px){
+  #einsatzkarte .map-pin-bayern-v25{
+    left:61%;
+    top:68%;
+    gap:4px;
+  }
+  #einsatzkarte .map-pin-bayern-v25 .map-pin-dot{
+    width:10px;height:10px;
+  }
+  #einsatzkarte .map-pin-bayern-v25 .map-pin-label{
+    padding:3px 6px;
+    font-size:9px;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -8152,6 +8199,12 @@ section:not(.hero) > .section-inner{
       >
     </div>
   </div>
+
+      <div class="map-pin map-pin-bayern-v25" data-place="Bayern" aria-label="Bayern">
+        <span class="map-pin-dot"></span>
+        <span class="map-pin-label">Bayern</span>
+      </div>
+
 </section>
 <!-- EINSATZKARTE-END -->
 
