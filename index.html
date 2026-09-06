@@ -8074,6 +8074,26 @@ section:not(.hero) > .section-inner{
 }
 </style>
 
+
+<style id="intro-no-overlap-v27">
+#siteIntro.intro-v2{
+  background:#050505 !important;
+  opacity:1;
+  isolation:isolate;
+}
+/* The actual website/hero stays hidden while the intro is active. */
+body.intro-lock-v27 > *:not(#siteIntro){
+  visibility:hidden !important;
+}
+#siteIntro.intro-v26-exit{
+  animation:introExitCleanV27 .65s ease forwards !important;
+}
+@keyframes introExitCleanV27{
+  0%{opacity:1}
+  100%{opacity:0;visibility:hidden}
+}
+</style>
+
 </head>
 <body>
 
@@ -10591,6 +10611,23 @@ document.addEventListener('DOMContentLoaded',()=>{
   setTimeout(()=>intro.classList.add('intro-v26-exit'),3600);
   setTimeout(()=>{intro.style.display='none';},4520);
 });
+</script>
+
+
+<script id="intro-no-overlap-v27-js">
+(()=>{
+  document.body.classList.add('intro-lock-v27');
+  const finish=()=>{
+    const intro=document.getElementById('siteIntro');
+    if(intro) intro.style.display='none';
+    document.body.classList.remove('intro-lock-v27');
+  };
+  setTimeout(()=>{
+    const intro=document.getElementById('siteIntro');
+    if(intro) intro.classList.add('intro-v26-exit');
+  },3600);
+  setTimeout(finish,4300);
+})();
 </script>
 
 </body>
