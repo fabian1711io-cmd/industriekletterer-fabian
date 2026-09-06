@@ -8403,6 +8403,12 @@ html{
 }
 </style>
 
+
+<style id="lexikon-hero-sync-v41">
+#begriffe{scroll-margin-top:24px}
+@media(max-width:700px){#begriffe{scroll-margin-top:16px}}
+</style>
+
 </head>
 <body>
 
@@ -8578,6 +8584,7 @@ html{
     <div style="display:flex;gap:10px;flex-wrap:wrap">
       <a class="btn" href="#projects">MEHR ERFAHREN →</a>
 <a class="btn" href="#faq">FAQ →</a>
+<a class="btn" href="#begriffe">LEXIKON →</a>
 
 <a href="#kooperation" class="btn">Kooperation</a>
     </div>
@@ -11497,6 +11504,21 @@ document.addEventListener('click', function(e){
 });
 </script>
 
+
+
+<script id="lexikon-hero-sync-js-v41">
+document.addEventListener('click',function(e){
+  const link=e.target.closest('a[href="#begriffe"]');
+  if(!link)return;
+  const target=document.getElementById('begriffe');
+  if(!target)return;
+  e.preventDefault();
+  const offset=window.innerWidth<=700?16:24;
+  const top=target.getBoundingClientRect().top+window.scrollY-offset;
+  window.scrollTo({top:top,behavior:'smooth'});
+  history.replaceState(null,'','#begriffe');
+});
+</script>
 
 </body>
 </html>
