@@ -7359,6 +7359,37 @@ section:not(.hero) > .section-inner{
 }
 </style>
 
+
+<style id="equipment-uncut-fix-v17">
+/* Ausrüstung vollständig zeigen: keine schwarzen Überlagerungen über den Werkzeugen */
+.equipment-plate-mask{
+  display:none !important;
+}
+.equipment-poster-board::before,
+.equipment-poster-board::after{
+  display:none !important;
+  content:none !important;
+}
+
+/* Original-Abbildung vollständig und unverzerrt */
+.equipment-poster-board{
+  overflow:visible !important;
+}
+.equipment-poster-board > img{
+  width:100% !important;
+  height:auto !important;
+  object-fit:contain !important;
+  object-position:center !important;
+  display:block !important;
+}
+
+/* Orange Striche bleiben unverändert anklickbar */
+.poster-hotspot{
+  display:block !important;
+  z-index:20 !important;
+}
+</style>
+
 </head>
 <body>
 
