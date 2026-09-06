@@ -7704,6 +7704,65 @@ section:not(.hero) > .section-inner{
 }
 </style>
 
+
+<style id="equipment-warning-v23-style">
+@keyframes equipmentWarningBlinkV23{
+  0%,100%{
+    box-shadow:0 0 0 rgba(255,224,0,0),0 0 18px rgba(255,224,0,.28);
+    filter:brightness(1);
+  }
+  50%{
+    box-shadow:0 0 34px rgba(255,224,0,.95),0 0 70px rgba(255,224,0,.45);
+    filter:brightness(1.18);
+  }
+}
+
+.equipment-warning-v23{
+  width:min(calc(100% - 76px),1040px);
+  margin:22px 58px 78px auto;
+  padding:22px 26px;
+  border:3px solid #ffe100;
+  border-radius:14px;
+  background:#ffe100;
+  color:#050505;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  animation:equipmentWarningBlinkV23 1.15s ease-in-out infinite;
+  position:relative;
+  z-index:5;
+}
+.equipment-warning-v23 strong{
+  font-size:clamp(24px,3vw,38px);
+  line-height:1;
+  font-weight:1000;
+  letter-spacing:.02em;
+}
+.equipment-warning-v23 span{
+  font-size:clamp(15px,1.7vw,20px);
+  font-weight:800;
+  line-height:1.35;
+}
+
+@media(max-width:700px){
+  .equipment-warning-v23{
+    width:calc(100% - 38px);
+    margin:16px 30px 56px 8px;
+    padding:18px 16px;
+    gap:12px;
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .equipment-warning-v23{
+    animation:none !important;
+    box-shadow:0 0 24px rgba(255,224,0,.45);
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -8026,6 +8085,12 @@ section:not(.hero) > .section-inner{
     <div class="value"><div class="ico">▲</div><b>Leidenschaft</b><span>Mehr als nur ein Job – echte Begeisterung für Höhenarbeit.</span></div>
   </div>
 </section>
+
+
+<div class="equipment-warning-v23" role="alert" aria-live="polite">
+  <strong>ACHTUNG</strong>
+  <span>Nur mit entsprechender Ausbildung benutzen.</span>
+</div>
 
 <section id="about" class="reveal">
   <div class="wrap">
