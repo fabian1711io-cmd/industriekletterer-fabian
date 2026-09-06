@@ -7890,6 +7890,172 @@ section:not(.hero) > .section-inner{
 }
 </style>
 
+
+<style id="faq-section-v28-style">
+.faq-section-v28{
+  padding:90px 22px;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(255,121,0,.08), transparent 28%),
+    #080808;
+  position:relative;
+}
+.faq-wrap-v28{
+  width:min(1120px,100%);
+  margin:0 auto;
+}
+.faq-head-v28{
+  max-width:760px;
+  margin-bottom:34px;
+}
+.faq-kicker-v28{
+  display:inline-block;
+  color:#ff7900;
+  font-weight:900;
+  font-size:12px;
+  letter-spacing:.22em;
+  margin-bottom:10px;
+}
+.faq-head-v28 h2{
+  margin:0 0 12px;
+  color:#fff;
+  font-size:clamp(34px,5vw,62px);
+  line-height:1;
+}
+.faq-head-v28 p{
+  margin:0;
+  color:#bdbdbd;
+  font-size:16px;
+  line-height:1.6;
+}
+.faq-list-v28{
+  display:grid;
+  gap:12px;
+}
+.faq-item-v28{
+  border:1px solid rgba(255,255,255,.10);
+  background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.018));
+  border-radius:14px;
+  overflow:hidden;
+  transition:.25s ease;
+}
+.faq-item-v28:hover{
+  border-color:rgba(255,121,0,.5);
+  transform:translateY(-1px);
+}
+.faq-item-v28[open]{
+  border-color:rgba(255,121,0,.75);
+  box-shadow:0 14px 38px rgba(0,0,0,.28);
+}
+.faq-item-v28 summary{
+  list-style:none;
+  cursor:pointer;
+  padding:20px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  color:#fff;
+  font-weight:850;
+  font-size:clamp(16px,2vw,19px);
+}
+.faq-item-v28 summary::-webkit-details-marker{display:none}
+.faq-item-v28 summary span{
+  flex:0 0 auto;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  color:#111;
+  background:#ff7900;
+  font-size:24px;
+  font-weight:900;
+  transition:transform .25s ease;
+}
+.faq-item-v28[open] summary span{
+  transform:rotate(45deg);
+}
+.faq-answer-v28{
+  padding:0 22px 22px;
+  color:#cfcfcf;
+  line-height:1.65;
+  font-size:15px;
+  max-width:900px;
+  animation:faqOpenV28 .28s ease;
+}
+@keyframes faqOpenV28{
+  from{opacity:0;transform:translateY(-5px)}
+  to{opacity:1;transform:none}
+}
+@media(max-width:700px){
+  .faq-section-v28{padding:64px 16px}
+  .faq-item-v28 summary{padding:17px 16px}
+  .faq-answer-v28{padding:0 16px 18px}
+}
+</style>
+
+
+<style id="faq-section-v29-style">
+.faq-section-v29{
+  padding:96px 22px;
+  background:
+    radial-gradient(circle at 12% 5%,rgba(255,121,0,.09),transparent 30%),
+    linear-gradient(180deg,#080808,#0b0b0b);
+}
+.faq-wrap-v29{width:min(1120px,100%);margin:0 auto}
+.faq-head-v29{max-width:820px;margin-bottom:40px}
+.faq-kicker-v29{
+  display:inline-block;color:#ff7900;font-size:12px;font-weight:950;
+  letter-spacing:.23em;margin-bottom:11px
+}
+.faq-head-v29 h2{
+  margin:0 0 14px;color:#fff;font-size:clamp(36px,5vw,64px);
+  line-height:.98;letter-spacing:-.025em
+}
+.faq-head-v29 p{
+  margin:0;color:#bdbdbd;font-size:17px;line-height:1.65
+}
+.faq-list-v29{display:grid;gap:13px}
+.faq-item-v29{
+  border:1px solid rgba(255,255,255,.10);
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.018));
+  border-radius:15px;overflow:hidden;transition:.25s ease
+}
+.faq-item-v29:hover{border-color:rgba(255,121,0,.5);transform:translateY(-1px)}
+.faq-item-v29[open]{
+  border-color:rgba(255,121,0,.78);
+  box-shadow:0 16px 40px rgba(0,0,0,.32),inset 3px 0 0 #ff7900
+}
+.faq-item-v29 summary{
+  list-style:none;cursor:pointer;padding:21px 23px;display:flex;
+  align-items:center;justify-content:space-between;gap:20px;
+  color:#fff;font-weight:900;font-size:clamp(16px,2vw,20px)
+}
+.faq-item-v29 summary::-webkit-details-marker{display:none}
+.faq-item-v29 summary span{
+  flex:0 0 auto;width:36px;height:36px;border-radius:50%;
+  display:grid;place-items:center;background:#ff7900;color:#111;
+  font-size:25px;font-weight:1000;transition:transform .25s ease
+}
+.faq-item-v29[open] summary span{transform:rotate(45deg)}
+.faq-answer-v29{
+  padding:0 23px 24px;color:#d0d0d0;line-height:1.72;
+  font-size:15.5px;max-width:960px;animation:faqOpenV29 .28s ease
+}
+.faq-answer-v29 p{margin:0 0 12px}
+.faq-answer-v29 p:last-child{margin-bottom:0}
+@keyframes faqOpenV29{
+  from{opacity:0;transform:translateY(-7px)}
+  to{opacity:1;transform:none}
+}
+@media(max-width:700px){
+  .faq-section-v29{padding:68px 16px}
+  .faq-head-v29 p{font-size:15px}
+  .faq-item-v29 summary{padding:18px 16px}
+  .faq-answer-v29{padding:0 16px 20px;font-size:14.5px}
+}
+</style>
+
 </head>
 <body>
 
@@ -7992,7 +8158,8 @@ section:not(.hero) > .section-inner{
   <a href="#qualifikationen" data-rope-target="qualifikationen" aria-label="Qualifikationen"><i></i><span>Qualifikation</span></a>
   <a href="#einsatzgebiete" data-rope-target="einsatzgebiete" aria-label="Einsatzgebiete"><i></i><span>Einsatz</span></a>
   <a href="#projects" data-rope-target="projects" aria-label="Projekte"><i></i><span>Projekte</span></a>
-  <a href="#kooperation" data-rope-target="kooperation" aria-label="Kooperation"><i></i><span>Kooperation</span></a>
+  <a href="#faq">FAQ</a>
+<a href="#kooperation" data-rope-target="kooperation" aria-label="Kooperation"><i></i><span>Kooperation</span></a>
   <a href="#contact" data-rope-target="contact" aria-label="Kontakt"><i></i><span>Kontakt</span></a>
 </div>
 <!-- ROPE-SECTION-POINTS-END -->
@@ -8802,6 +8969,145 @@ section:not(.hero) > .section-inner{
   </div>
 </div>
 <!-- PROJEKTGALERIE-VOLLBILD-END -->
+
+
+
+
+<section id="faq" class="faq-section-v29 reveal">
+  <div class="faq-wrap-v29">
+    <div class="faq-head-v29">
+      <span class="faq-kicker-v29">FAQ · INDUSTRIEKLETTERN</span>
+      <h2>Häufige Fragen ausführlich erklärt</h2>
+      <p>Hier beantworte ich einige der Fragen, die mir über meinen Beruf, die Ausbildung, die Ausrüstung und den Arbeitsalltag besonders häufig gestellt werden.</p>
+    </div>
+
+    <div class="faq-list-v29">
+
+      <details class="faq-item-v29">
+        <summary>Was ist Industrieklettern eigentlich?<span>+</span></summary>
+        <div class="faq-answer-v29">
+          <p>Industrieklettern bedeutet, mit professioneller Seilzugangs- und Positionierungstechnik an Arbeitsplätze zu gelangen, die mit klassischen Zugängen nur schwer oder gar nicht erreichbar sind. Dazu gehören zum Beispiel hohe Fassaden, Industrieanlagen, Dächer, Schächte, Türme oder Konstruktionen mit komplizierten Zugangswegen.</p>
+          <p>Der große Vorteil der Seilzugangstechnik ist, dass viele Bereiche ohne großes Gerüst oder schwere Zugangstechnik erreicht werden können. Dadurch kann sehr flexibel gearbeitet werden. Trotzdem steht nicht die Geschwindigkeit, sondern immer die Sicherheit an erster Stelle.</p>
+        </div>
+      </details>
+
+      <details class="faq-item-v29">
+        <summary>Welche Voraussetzungen sollte man mitbringen?<span>+</span></summary>
+        <div class="faq-answer-v29">
+          <p>Man sollte körperlich belastbar sein, konzentriert arbeiten können und ein gutes Verantwortungsbewusstsein haben. Wichtig ist außerdem, auch unter ungewohnten Bedingungen ruhig und kontrolliert zu bleiben.</p>
+          <p>Ein sicherer Umgang mit Höhe entwickelt sich häufig mit der Erfahrung. Dazu kommen technische Kenntnisse, Teamfähigkeit und die Bereitschaft, Arbeitsabläufe genau einzuhalten. Bei der Arbeit am Seil darf man sich nicht auf Improvisation verlassen, sondern muss strukturiert und vorausschauend arbeiten.</p>
+        </div>
+      </details>
+
+      <details class="faq-item-v29">
+        <summary>Muss man komplett schwindelfrei sein?<span>+</span></summary>
+        <div class="faq-answer-v29">
+          <p>Man sollte mit Höhe grundsätzlich umgehen können. Gerade am Anfang kann sich die Situation ungewohnt anfühlen, weil man sich nicht auf einem festen Boden befindet, sondern am Seil arbeitet.</p>
+          <p>Mit Erfahrung verändert sich dieses Gefühl meistens. Entscheidend ist nicht, überhaupt keinen Respekt vor der Höhe zu haben. Im Gegenteil: Respekt vor Höhe, Material und möglichen Gefahren ist wichtig. Ziel ist, auch in exponierten Situationen ruhig, konzentriert und sicher zu arbeiten.</p>
+        </div>
+      </details>
+
+      <details class="faq-item-v29">
+        <summary>Welche Ausbildung braucht man als Industriekletterer?<span>+</span></summary>
+        <div class="faq-answer-v29">
+          <p>Für professionelle Seilzugangsarbeiten braucht man eine entsprechende Ausbildung und Qualifikation. In Deutschland gibt es unter anderem das FISAT-System mit verschiedenen Qualifikationsstufen.</p>
+          <p>Die Ausbildung besteht aus Theorie und Praxis. Dabei geht es nicht nur darum, sich am Seil auf- und abzubewegen. Vermittelt werden auch Themen wie Anschlagpunkte, Arbeitsplatzpositionierung, Materialkunde, Knotenkunde, Rettungstechniken, Gefahrenbeurteilung und sichere Arbeitsabläufe.</p>
+          <p>Die Qualifikationsstufen bauen aufeinander auf. Mit zunehmendem Level werden die Techniken und Verantwortungsbereiche umfangreicher.</p>
+        </div>
+      </details>
+
+      <details class="faq-item-v29">
+        <summary>Was macht ein Industriekletterer im Arbeitsalltag?<span>+</span></summary>
+        <div class="faq-answer-v29">
+          <p>Der Arbeitsalltag kann sehr unterschiedlich sein. Je nach Einsatz geht es zum Beispiel um Montagearbeiten, Arbeiten an Industrieanlagen, Materialtransport, Reinigungsarbeiten, Inspektionen oder Arbeiten an schwer zugänglichen Bauteilen.</p>
+          <p>Oft beginnt ein Einsatz lange bevor man tatsächlich am Seil hängt. Zuerst wird die Situation vor Ort beurteilt, der Zugang geplant, Material vorbereitet und das Sicherungssystem aufgebaut. Erst wenn alles kontrolliert ist, beginnt die eigentliche Arbeit.</p>
+        </div>
+      </details>
+
+      <details class="faq-item-v29">
+        <summary>Wie läuft ein typischer Einsatz ab?<span>+</span></summary>
+        <div class="faq-answer-v29">
+          <p>Am Anfang steht die Vorbereitung. Dazu gehören die Kontrolle der persönlichen Schutzausrüstung, die Auswahl des benötigten Materials und die Abstimmung im Team.</p>
+          <p>Danach werden geeignete Anschlagpunkte und das Seilsystem vorbereitet. Dabei wird auf Redundanz und eine sichere Arbeitsposition geachtet. Anschließend erfolgt der Zugang zum Arbeitsplatz, zum Beispiel durch Abseilen oder Aufsteigen am Seil.</p>
+          <p>Während der Arbeit werden Werkzeug und Material gesichert. Nach Abschluss des Einsatzes wird der Bereich kontrolliert, Material zurückgebaut und die Ausrüstung erneut überprüft.</p>
+        </div>
+      </details>
+
+      <details class="faq-item-v29">
+        <summary>Wie wichtig ist Sicherheit bei dem Job?<span>+</span></summary>
+        <div class="faq-answer-v29">
+          <p>Sicherheit ist der wichtigste Teil der Arbeit. Bei Tätigkeiten in der Höhe können kleine Fehler große Folgen haben. Deshalb müssen Sicherungssysteme, Ausrüstung und Arbeitsabläufe kontrolliert und nachvollziehbar aufgebaut sein.</p>
+          <p>Dazu gehören unter anderem geeignete Anschlagpunkte, Redundanz, persönliche Schutzausrüstung, Partnerkontrolle, klare Kommunikation und ein funktionierendes Rettungskonzept. Auch Wetter, Umgebung und mögliche Gefahren am Arbeitsplatz müssen berücksichtigt werden.</p>
+        </div>
+      </details>
+
+      <details class="faq-item-v29">
+        <summary>Was bedeutet Redundanz beim Industrieklettern?<span>+</span></summary>
+        <div class="faq-answer-v29">
+          <p>Redundanz bedeutet vereinfacht gesagt, dass die Sicherheit nicht nur von einem einzigen Element abhängen soll. Wenn ein Teil des Systems ausfällt, soll ein zweites, unabhängiges Sicherungssystem weiterhin Schutz bieten.</p>
+          <p>In der Seilzugangstechnik wird deshalb mit mehreren Sicherungselementen gearbeitet. Wie genau das System aufgebaut wird, hängt von der jeweiligen Situation, den Anschlagpunkten und dem Arbeitsverfahren ab.</p>
+        </div>
+      </details>
+
+      <details class="faq-item-v29">
+        <summary>Arbeitet man als Industriekletterer alleine?<span>+</span></summary>
+        <div class="faq-answer-v29">
+          <p>Nein. Seilzugangsarbeiten werden im Team geplant und durchgeführt. Gerade bei Arbeiten in der Höhe ist es wichtig, dass sich die Teammitglieder gegenseitig kontrollieren und unterstützen können.</p>
+          <p>Kommunikation spielt dabei eine große Rolle. Je nach Einsatz erfolgt die Abstimmung direkt, über Funkgeräte oder vorher festgelegte Zeichen. Außerdem muss jederzeit klar sein, wie im Notfall reagiert wird.</p>
+        </div>
+      </details>
+
+      <details class="faq-item-v29">
+        <summary>Welche Ausrüstung trägt man am Gurt?<span>+</span></summary>
+        <div class="faq-answer-v29">
+          <p>Am Gurt befinden sich je nach Einsatz unterschiedliche Ausrüstungsgegenstände. Dazu können unter anderem Karabiner, Abseilgerät, Steigklemmen, Verbindungsmittel, Bandschlingen, Umlenkrollen oder weiteres Spezialmaterial gehören.</p>
+          <p>Nicht jeder Einsatz benötigt die gleiche Ausrüstung. Entscheidend ist, dass nur das Material eingesetzt wird, das für die jeweilige Aufgabe vorgesehen und geeignet ist. Die Ausrüstung muss außerdem regelmäßig kontrolliert und entsprechend den Vorgaben verwendet werden.</p>
+        </div>
+      </details>
+
+      <details class="faq-item-v29">
+        <summary>Wie kommt Werkzeug oder schweres Material nach oben?<span>+</span></summary>
+        <div class="faq-answer-v29">
+          <p>Kleinere Werkzeuge können gesichert am Gurt mitgeführt werden. Größere oder schwerere Bauteile werden über separate Seilsysteme bewegt.</p>
+          <p>Dafür können zum Beispiel Umlenkrollen, Flaschenzüge oder Materialseile eingesetzt werden. Bei größeren Transportaufgaben wird der Ablauf genau geplant, damit weder Personen noch Bauteile gefährdet werden.</p>
+        </div>
+      </details>
+
+      <details class="faq-item-v29">
+        <summary>Kann man bei jedem Wetter arbeiten?<span>+</span></summary>
+        <div class="faq-answer-v29">
+          <p>Nein. Wetterbedingungen sind ein wichtiger Teil der Einsatzplanung. Starker Wind, Gewitter, extreme Temperaturen, Eis, Nässe oder schlechte Sicht können die Arbeit deutlich gefährlicher machen.</p>
+          <p>Ob gearbeitet werden kann, hängt immer von der konkreten Situation ab. Wenn die Bedingungen keine sichere Durchführung zulassen, muss die Arbeit unterbrochen oder verschoben werden.</p>
+        </div>
+      </details>
+
+      <details class="faq-item-v29">
+        <summary>Ist Industrieklettern gefährlich?<span>+</span></summary>
+        <div class="faq-answer-v29">
+          <p>Arbeiten in der Höhe haben grundsätzlich ein erhöhtes Gefährdungspotenzial. Genau deshalb gibt es klare Ausbildungsstandards, Sicherheitsregeln, Kontrollen und festgelegte Arbeitsverfahren.</p>
+          <p>Professionelles Industrieklettern bedeutet nicht, unnötige Risiken einzugehen. Im Gegenteil: Risiken sollen erkannt, bewertet und so weit wie möglich reduziert werden. Gute Planung und konsequentes Arbeiten nach den Sicherheitsregeln sind entscheidend.</p>
+        </div>
+      </details>
+
+      <details class="faq-item-v29">
+        <summary>Wie bleibt man im Notfall handlungsfähig?<span>+</span></summary>
+        <div class="faq-answer-v29">
+          <p>Vor dem Einsatz muss geklärt sein, wie eine Rettung durchgeführt werden kann. Ein Rettungskonzept gehört deshalb zu einer professionellen Planung dazu.</p>
+          <p>Die Beteiligten müssen wissen, welche Rettungstechniken notwendig sind, welches Material gebraucht wird und wie eine Person im Ernstfall möglichst schnell aus dem Gefahrenbereich gebracht werden kann.</p>
+        </div>
+      </details>
+
+      <details class="faq-item-v29">
+        <summary>Warum macht man diesen Beruf?<span>+</span></summary>
+        <div class="faq-answer-v29">
+          <p>Für mich ist es die Mischung aus Technik, körperlicher Arbeit, Höhe und immer neuen Herausforderungen. Kein Einsatz ist komplett gleich und oft muss man für schwierige Bereiche passende Lösungen finden.</p>
+          <p>Gerade diese Abwechslung macht den Beruf interessant. Gleichzeitig braucht man viel Respekt vor der Arbeit, der Ausrüstung und der Verantwortung, die man dabei trägt.</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
 
 
 <section id="kooperation" class="coop-premium-section">
