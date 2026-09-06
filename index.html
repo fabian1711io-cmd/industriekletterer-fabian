@@ -7619,6 +7619,91 @@ section:not(.hero) > .section-inner{
 }
 </style>
 
+
+<style id="equipment-click-animation-v22">
+/* Animation beim Anklicken der Ausrüstungspunkte */
+@keyframes equipPulseRing{
+  0%{transform:translate(-50%,-50%) scale(.55);opacity:.95;box-shadow:0 0 0 0 rgba(255,121,0,.65)}
+  70%{transform:translate(-50%,-50%) scale(1.55);opacity:.25;box-shadow:0 0 0 18px rgba(255,121,0,0)}
+  100%{transform:translate(-50%,-50%) scale(1.8);opacity:0}
+}
+@keyframes equipPointKick{
+  0%{transform:translate(-50%,-50%) scale(1)}
+  45%{transform:translate(-50%,-50%) scale(1.18)}
+  100%{transform:translate(-50%,-50%) scale(1)}
+}
+@keyframes equipPopupIn{
+  0%{opacity:0;transform:translateY(26px) scale(.92);filter:blur(6px)}
+  65%{opacity:1;transform:translateY(-4px) scale(1.015);filter:blur(0)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes equipBackdropIn{
+  from{opacity:0}
+  to{opacity:1}
+}
+@keyframes equipGlowSweep{
+  0%{left:-35%;opacity:0}
+  20%{opacity:.75}
+  100%{left:120%;opacity:0}
+}
+
+.equipment-poster-hotspot{
+  overflow:visible !important;
+}
+.equipment-poster-hotspot.equip-clicked{
+  animation:equipPointKick .34s ease !important;
+}
+.equipment-poster-hotspot.equip-clicked::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:100%;
+  height:100%;
+  border:2px solid #ff7900;
+  border-radius:50%;
+  pointer-events:none;
+  animation:equipPulseRing .55s ease-out forwards;
+}
+
+.equipment-popup-v21.open .equipment-popup-backdrop-v21{
+  animation:equipBackdropIn .26s ease both;
+}
+.equipment-popup-v21.open .equipment-popup-card-v21{
+  animation:equipPopupIn .46s cubic-bezier(.16,1,.3,1) both;
+  overflow:hidden;
+}
+.equipment-popup-v21.open .equipment-popup-card-v21::before{
+  content:"";
+  position:absolute;
+  top:-20%;
+  bottom:-20%;
+  width:28%;
+  left:-35%;
+  transform:skewX(-18deg);
+  background:linear-gradient(90deg,transparent,rgba(255,121,0,.18),transparent);
+  pointer-events:none;
+  animation:equipGlowSweep .85s ease .1s both;
+}
+.equipment-popup-num-v21{
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.equipment-popup-v21.open .equipment-popup-num-v21{
+  transform:scale(1.06);
+  box-shadow:0 0 20px rgba(255,121,0,.35);
+}
+
+@media(prefers-reduced-motion:reduce){
+  .equipment-poster-hotspot.equip-clicked,
+  .equipment-poster-hotspot.equip-clicked::after,
+  .equipment-popup-v21.open .equipment-popup-backdrop-v21,
+  .equipment-popup-v21.open .equipment-popup-card-v21,
+  .equipment-popup-v21.open .equipment-popup-card-v21::before{
+    animation:none !important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -10188,6 +10273,18 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(e.key==='Escape' && popup.classList.contains('open')) closePopup();
   });
 });
+</script>
+
+
+<script id="equipment-click-animation-js-v22">
+document.addEventListener('click',(e)=>{
+  const btn=e.target.closest('.equipment-poster-hotspot');
+  if(!btn) return;
+  btn.classList.remove('equip-clicked');
+  void btn.offsetWidth;
+  btn.classList.add('equip-clicked');
+  setTimeout(()=>btn.classList.remove('equip-clicked'),650);
+},true);
 </script>
 
 </body>
