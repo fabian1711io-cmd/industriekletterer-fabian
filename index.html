@@ -8270,35 +8270,71 @@ html{
 }
 </style>
 
-<style id="terms-section-v37-style">
-.terms-section-v37{padding:82px 22px;background:#090909;color:#fff}
-.terms-inner-v37{width:min(1160px,100%);margin:auto}
-.terms-head-v37{max-width:760px;margin-bottom:34px}
-.terms-kicker-v37{display:block;color:#ff7900;font-size:11px;font-weight:950;letter-spacing:.18em;margin-bottom:10px}
-.terms-head-v37 h2{margin:0 0 13px;font-size:clamp(34px,5vw,58px);line-height:.95}
-.terms-head-v37 p{margin:0;color:#aaa;line-height:1.65;max-width:680px}
-.terms-grid-v37{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.term-card-v37{background:#101010;border:1px solid rgba(255,255,255,.09);border-radius:13px;overflow:hidden;transition:border-color .25s ease,transform .25s ease,background .25s ease}
-.term-card-v37:hover{border-color:rgba(255,121,0,.35)}
-.term-card-v37[open]{border-color:rgba(255,121,0,.52);background:#12100e}
-.term-card-v37 summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:38px 1fr 28px;align-items:center;gap:12px;padding:18px 18px;user-select:none}
-.term-card-v37 summary::-webkit-details-marker{display:none}
-.term-card-v37 summary span{color:#ff7900;font-size:11px;font-weight:950;letter-spacing:.1em}
-.term-card-v37 summary strong{font-size:16px}
-.term-card-v37 summary i{font-style:normal;color:#ff7900;font-size:23px;text-align:center;transition:transform .28s ease}
-.term-card-v37[open] summary i{transform:rotate(45deg)}
-.term-answer-v37{padding:0 58px 20px 68px;color:#b7b7b7;line-height:1.65;font-size:14px;animation:termOpenV37 .32s ease both}
-.terms-note-v37{margin-top:24px;padding:18px 20px;border-left:4px solid #ff7900;background:#111;display:flex;gap:18px;align-items:flex-start}
-.terms-note-v37 strong{color:#ff7900;font-size:12px;letter-spacing:.14em}
-.terms-note-v37 p{margin:0;color:#999;font-size:13px;line-height:1.55}
-@keyframes termOpenV37{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-@media(max-width:720px){
- .terms-section-v37{padding:58px 16px}
- .terms-grid-v37{grid-template-columns:1fr}
- .term-answer-v37{padding:0 18px 18px 68px}
- .terms-note-v37{display:block}.terms-note-v37 strong{display:block;margin-bottom:8px}
+<style id="terms-pro-v39-style">
+.terms-pro-v39{position:relative;overflow:hidden;padding:94px 22px;background:#080808;color:#fff}
+.terms-pro-bg-v39{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.terms-pro-bg-v39::before{content:"";position:absolute;inset:0;opacity:.22;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:48px 48px}
+.terms-pro-bg-v39 span{position:absolute;border:1px solid rgba(255,121,0,.13);border-radius:50%;animation:termFloatV39 9s ease-in-out infinite}
+.terms-pro-bg-v39 span:nth-child(1){width:420px;height:420px;right:-180px;top:70px}
+.terms-pro-bg-v39 span:nth-child(2){width:230px;height:230px;left:-100px;top:42%;animation-delay:-3s}
+.terms-pro-bg-v39 span:nth-child(3){width:120px;height:120px;right:9%;bottom:7%;animation-delay:-6s}
+.terms-pro-inner-v39{position:relative;z-index:2;width:min(1180px,100%);margin:auto}
+.terms-pro-head-v39{max-width:920px;margin-bottom:42px}
+.terms-pro-kicker-v39{display:block;color:#ff7900;font-size:11px;font-weight:950;letter-spacing:.2em;margin-bottom:11px}
+.terms-pro-head-v39 h2{margin:0 0 15px;font-size:clamp(38px,5.5vw,66px);line-height:.92;letter-spacing:-.04em}
+.terms-pro-head-v39>p{margin:0;color:#aaa;max-width:790px;line-height:1.72}
+.kn-intro-v39{margin-top:30px;display:grid;grid-template-columns:120px 1fr;gap:24px;align-items:center;padding:22px;border:1px solid rgba(255,121,0,.28);border-radius:20px;background:linear-gradient(120deg,rgba(255,121,0,.095),rgba(255,255,255,.018));box-shadow:0 22px 55px rgba(0,0,0,.22)}
+.kn-orb-v39{width:104px;height:104px;border-radius:50%;display:grid;place-content:center;text-align:center;background:#ff7900;color:#111;box-shadow:0 0 0 9px rgba(255,121,0,.07),0 0 42px rgba(255,121,0,.23);animation:knPulseV39 2.7s ease-in-out infinite}
+.kn-orb-v39 strong{font-size:34px;line-height:1}.kn-orb-v39 span{font-size:9px;font-weight:900;letter-spacing:.12em;margin-top:5px}
+.kn-intro-v39 h3{margin:0 0 8px;font-size:20px}.kn-intro-v39 p{margin:0 0 8px;color:#bbb;line-height:1.65;font-size:14px}.kn-intro-v39 p:last-child{margin-bottom:0}
+.kn-warning-v39{color:#9d9d9d!important;font-size:13px!important}
+.terms-pro-grid-v39{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.term-pro-card-v39{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.09);border-radius:18px;box-shadow:0 14px 35px rgba(0,0,0,.18);transition:transform .3s cubic-bezier(.16,1,.3,1),border-color .3s ease,box-shadow .3s ease}
+.term-pro-card-v39::before{content:"";position:absolute;left:0;top:0;width:0;height:3px;background:linear-gradient(90deg,#ff7900,#ffc27b);box-shadow:0 0 24px rgba(255,121,0,.4);transition:width .4s cubic-bezier(.16,1,.3,1)}
+.term-pro-card-v39::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 0%,transparent 42%,rgba(255,121,0,.10) 50%,transparent 58%);transform:translateX(-130%);transition:transform .75s ease;pointer-events:none}
+.term-pro-card-v39:hover{transform:translateY(-4px);border-color:rgba(255,121,0,.35);box-shadow:0 22px 48px rgba(0,0,0,.27),0 0 32px rgba(255,121,0,.045)}
+.term-pro-card-v39:hover::after{transform:translateX(130%)}
+.term-pro-card-v39[open]{grid-column:span 2;border-color:rgba(255,121,0,.5);background:linear-gradient(180deg,rgba(255,121,0,.07),rgba(255,255,255,.018));box-shadow:0 24px 60px rgba(0,0,0,.32),0 0 42px rgba(255,121,0,.06);animation:termOpenCardV39 .38s cubic-bezier(.16,1,.3,1)}
+.term-pro-card-v39[open]::before{width:100%}
+.term-pro-card-v39 summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:48px 1fr auto 38px;gap:12px;align-items:center;min-height:78px;padding:15px 18px;user-select:none}
+.term-pro-card-v39 summary::-webkit-details-marker{display:none}
+.term-no-v39{width:42px;height:42px;border-radius:13px;background:#ff7900;color:#111;display:grid;place-items:center;font-size:11px;font-weight:950;box-shadow:0 0 0 0 rgba(255,121,0,.28);transition:transform .3s ease,box-shadow .3s ease}
+.term-pro-card-v39:hover .term-no-v39{transform:rotate(-4deg) scale(1.06);box-shadow:0 0 0 7px rgba(255,121,0,.07)}
+.term-name-v39{font-size:17px;font-weight:900}
+.term-badge-v39{padding:7px 9px;border-radius:999px;border:1px solid rgba(255,121,0,.24);background:rgba(255,121,0,.065);color:#ff9b3d;font-size:10px;font-weight:900;letter-spacing:.08em;white-space:nowrap}
+.term-plus-v39{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,121,0,.26);background:rgba(255,121,0,.07);color:#ff7900;font-size:22px;transition:transform .4s cubic-bezier(.16,1,.3,1),background .3s ease}
+.term-pro-card-v39[open] .term-plus-v39{transform:rotate(135deg);background:#ff7900;color:#111}
+.term-body-v39{padding:2px 28px 26px 78px;color:#b8b8b8;line-height:1.72;font-size:14px;animation:termBodyInV39 .45s cubic-bezier(.16,1,.3,1) both}
+.term-body-v39 p{margin:0 0 13px}.term-body-v39 p:last-child{margin-bottom:0}
+.term-tech-v39{margin:16px 0 10px;padding:14px 16px;border-left:3px solid #ff7900;border-radius:9px;background:rgba(255,121,0,.065);display:grid;gap:5px}
+.term-tech-v39 strong{color:#ff8c24;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.term-tech-v39 span{color:#bdbdbd;font-size:13px;line-height:1.55}
+.kn-values-v39{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:17px 0}
+.kn-values-v39 div{padding:13px 12px;border-radius:12px;border:1px solid rgba(255,121,0,.22);background:#0d0d0d;text-align:center}
+.kn-values-v39 strong{display:block;color:#ff7900;font-size:22px;line-height:1;margin-bottom:6px}.kn-values-v39 span{color:#8f8f8f;font-size:10px;letter-spacing:.04em}
+.term-small-v39{color:#777!important;font-size:11px!important;line-height:1.55!important}
+.terms-pro-note-v39{margin-top:28px;padding:21px 22px;border:1px solid rgba(255,121,0,.28);border-radius:16px;background:linear-gradient(90deg,rgba(255,121,0,.08),rgba(255,255,255,.015));display:grid;grid-template-columns:46px 1fr;gap:16px;align-items:start;box-shadow:0 18px 40px rgba(0,0,0,.2)}
+.terms-note-icon-v39{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#ff7900;color:#111;font-size:22px;font-weight:950;animation:warningPulseV39 2.2s ease-in-out infinite}
+.terms-pro-note-v39 strong{display:block;color:#ff7900;font-size:11px;letter-spacing:.14em;margin-bottom:7px}.terms-pro-note-v39 p{margin:0;color:#999;line-height:1.62;font-size:13px}
+@keyframes termBodyInV39{from{opacity:0;transform:translateY(-10px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+@keyframes termOpenCardV39{0%{transform:scale(.992)}60%{transform:scale(1.006)}100%{transform:scale(1)}}
+@keyframes knPulseV39{0%,100%{transform:scale(1);box-shadow:0 0 0 9px rgba(255,121,0,.07),0 0 34px rgba(255,121,0,.17)}50%{transform:scale(1.045);box-shadow:0 0 0 14px rgba(255,121,0,.035),0 0 50px rgba(255,121,0,.28)}}
+@keyframes warningPulseV39{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes termFloatV39{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(0,18px,0) rotate(8deg)}}
+@media(max-width:760px){
+ .terms-pro-v39{padding:62px 16px}
+ .kn-intro-v39{grid-template-columns:1fr}.kn-orb-v39{width:88px;height:88px}.kn-orb-v39 strong{font-size:29px}
+ .terms-pro-grid-v39{grid-template-columns:1fr}
+ .term-pro-card-v39[open]{grid-column:auto}
+ .term-pro-card-v39 summary{grid-template-columns:44px 1fr 34px;padding:14px}
+ .term-badge-v39{grid-column:2/3;width:max-content;margin-top:-7px}.term-plus-v39{grid-column:3/4;grid-row:1/3}
+ .term-body-v39{padding:2px 18px 21px 58px}
+ .kn-values-v39{grid-template-columns:1fr}
+ .terms-pro-note-v39{grid-template-columns:40px 1fr}
 }
-@media(prefers-reduced-motion:reduce){.term-answer-v37{animation:none}}
+@media(prefers-reduced-motion:reduce){
+ .terms-pro-bg-v39 span,.kn-orb-v39,.terms-note-icon-v39,.term-pro-card-v39[open],.term-body-v39{animation:none!important}
+}
 </style>
 
 </head>
@@ -8599,82 +8635,414 @@ html{
 
 
 
-<section id="begriffe" class="terms-section-v37">
-  <div class="terms-inner-v37">
-    <div class="terms-head-v37 reveal">
-      <span class="terms-kicker-v37">INDUSTRIEKLETTERN · EINFACH ERKLÄRT</span>
+
+<section id="begriffe" class="terms-pro-v39">
+  <div class="terms-pro-bg-v39" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+
+  <div class="terms-pro-inner-v39">
+    <header class="terms-pro-head-v39 reveal">
+      <span class="terms-pro-kicker-v39">INDUSTRIEKLETTERN · WISSEN</span>
       <h2>Begriffe einfach erklärt</h2>
-      <p>Beim Industrieklettern gibt es viele Fachbegriffe. Hier findest du einige davon kurz und verständlich erklärt.</p>
+      <p>
+        Industrieklettern besteht nicht nur aus „am Seil hängen“. Hinter jedem Einsatz stecken
+        abgestimmte Systeme, geprüfte Ausrüstung, klare Begriffe und definierte Belastungswerte.
+        Hier erkläre ich wichtige Fachbegriffe ausführlich und möglichst verständlich.
+      </p>
+
+      <div class="kn-intro-v39">
+        <div class="kn-orb-v39">
+          <strong>kN</strong>
+          <span>Kilonewton</span>
+        </div>
+        <div>
+          <h3>Was bedeutet eigentlich kN?</h3>
+          <p>
+            <strong>kN</strong> steht für Kilonewton und ist eine Einheit für Kraft. 
+            1 kN entspricht 1.000 Newton. Vereinfacht kann man sich merken: 
+            <strong>1 kN entspricht ungefähr der Gewichtskraft von 100 kg</strong>.
+            10 kN entsprechen damit grob der Gewichtskraft von etwa 1.000 kg.
+          </p>
+          <p class="kn-warning-v39">
+            Wichtig: Diese Umrechnung dient nur dem Verständnis. Bei einem Sturz entstehen dynamische
+            Kräfte, die deutlich höher sein können als das reine Körpergewicht. Deshalb darf man eine
+            auf einem Karabiner oder Seil angegebene Bruchlast niemals einfach als „zulässiges Gewicht“
+            interpretieren.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <div class="terms-pro-grid-v39">
+
+      <details class="term-pro-card-v39 reveal">
+        <summary>
+          <span class="term-no-v39">01</span>
+          <span class="term-name-v39">Redundanz</span>
+          <span class="term-badge-v39">2 Systeme</span>
+          <span class="term-plus-v39">+</span>
+        </summary>
+        <div class="term-body-v39">
+          <p>
+            Redundanz bedeutet, dass ein sicherheitsrelevantes System nicht nur einmal vorhanden ist.
+            Beim seilunterstützten Arbeiten wird deshalb grundsätzlich mit voneinander unabhängigen
+            Sicherungselementen gearbeitet. Fällt ein Teil des Arbeitssystems aus, soll ein zweites,
+            unabhängiges System weiterhin Schutz bieten.
+          </p>
+          <p>
+            Typisch ist die Trennung zwischen <strong>Arbeitsseil</strong> und <strong>Sicherungsseil</strong>.
+            Das Arbeitsseil wird für Bewegung und Positionierung verwendet, während das Sicherungsseil
+            das unabhängige Backup bildet. Auch Anschlagpunkte und die gesamte Systemführung müssen so
+            geplant werden, dass nicht ein einzelner Fehler beide Systeme gleichzeitig unwirksam macht.
+          </p>
+          <div class="term-tech-v39">
+            <strong>Warum wichtig?</strong>
+            <span>Ein einzelner Materialfehler, falscher Anschlag oder beschädigter Systemteil soll nicht automatisch zum Absturz führen.</span>
+          </div>
+        </div>
+      </details>
+
+      <details class="term-pro-card-v39 reveal">
+        <summary>
+          <span class="term-no-v39">02</span>
+          <span class="term-name-v39">Anschlagpunkt</span>
+          <span class="term-badge-v39">Kraftaufnahme</span>
+          <span class="term-plus-v39">+</span>
+        </summary>
+        <div class="term-body-v39">
+          <p>
+            Ein Anschlagpunkt ist die Stelle, an der ein Seil- oder Sicherungssystem mit einem Bauwerk
+            verbunden wird. Das kann zum Beispiel eine dafür vorgesehene Anschlageinrichtung, ein
+            geeigneter konstruktiver Punkt oder ein anderes freigegebenes System sein.
+          </p>
+          <p>
+            Entscheidend ist nicht nur, <em>dass</em> ein Punkt vorhanden ist, sondern auch, ob er für
+            die geplante Belastungsrichtung und den vorgesehenen Einsatzzweck geeignet ist. Kräfte können
+            je nach Seilverlauf, Umlenkung und Winkel deutlich ansteigen. Deshalb werden Anschlagpunkte
+            nicht nach Gefühl ausgewählt.
+          </p>
+          <div class="term-tech-v39">
+            <strong>kN-Hinweis</strong>
+            <span>Die erforderliche Festigkeit hängt vom System, der Norm, dem Hersteller und der konkreten Einbausituation ab. Ein pauschaler kN-Wert für „jeden Anschlagpunkt“ wäre falsch.</span>
+          </div>
+        </div>
+      </details>
+
+      <details class="term-pro-card-v39 reveal">
+        <summary>
+          <span class="term-no-v39">03</span>
+          <span class="term-name-v39">Arbeitsseil</span>
+          <span class="term-badge-v39">EN 1891 Typ A</span>
+          <span class="term-plus-v39">+</span>
+        </summary>
+        <div class="term-body-v39">
+          <p>
+            Das Arbeitsseil ist das Seil, an dem sich der Industriekletterer bewegt und positioniert.
+            Über Abseilgeräte, Steigklemmen und andere geeignete Geräte kann am Seil auf- oder abgestiegen
+            und eine Arbeitsposition gehalten werden.
+          </p>
+          <p>
+            Im professionellen Seilzugang werden häufig halbstatische Kernmantelseile nach
+            <strong>EN 1891 Typ A</strong> verwendet. Sie sollen sich unter Last nur begrenzt dehnen und
+            dadurch kontrolliertes Arbeiten ermöglichen.
+          </p>
+          <div class="term-tech-v39">
+            <strong>Beispiel aus Herstellerdaten</strong>
+            <span>Das Petzl AXIS 11 mm ist mit 19 kN Bruchlast mit Achterknoten und 22 kN mit vernähter Endverbindung angegeben. Der Fangstoß bei Sturzfaktor 0,3 wird mit 5,2 kN angegeben.</span>
+          </div>
+          <p class="term-small-v39">
+            Diese Werte sind Produktbeispiele und dürfen nicht auf andere Seile übertragen werden.
+          </p>
+        </div>
+      </details>
+
+      <details class="term-pro-card-v39 reveal">
+        <summary>
+          <span class="term-no-v39">04</span>
+          <span class="term-name-v39">Sicherungsseil</span>
+          <span class="term-badge-v39">Backup</span>
+          <span class="term-plus-v39">+</span>
+        </summary>
+        <div class="term-body-v39">
+          <p>
+            Das Sicherungsseil ist das unabhängige zweite Seilsystem. Es läuft getrennt vom Arbeitsseil
+            und wird mit einem geeigneten mitlaufenden Auffang- oder Sicherungsgerät verwendet.
+          </p>
+          <p>
+            Während das Arbeitsseil die normale Last trägt, soll das Sicherungssystem bei einem
+            Versagen des Arbeitssystems eingreifen. Genau deshalb ist eine saubere Trennung der Systeme
+            so wichtig: Arbeits- und Sicherungsseil sollen nicht von demselben einzelnen Fehler abhängig sein.
+          </p>
+          <div class="term-tech-v39">
+            <strong>Belastung</strong>
+            <span>Auch hier sind Bruchlast und zulässige Systemkonfiguration immer abhängig vom konkreten Seil, Gerät, Verbindungsmittel und Hersteller.</span>
+          </div>
+        </div>
+      </details>
+
+      <details class="term-pro-card-v39 reveal">
+        <summary>
+          <span class="term-no-v39">05</span>
+          <span class="term-name-v39">Karabiner</span>
+          <span class="term-badge-v39">25 / 8 / 7 kN*</span>
+          <span class="term-plus-v39">+</span>
+        </summary>
+        <div class="term-body-v39">
+          <p>
+            Karabiner sind Verbindungselemente. Sie verbinden beispielsweise Gurt, Geräte,
+            Verbindungsmittel, Schlingen oder andere Bestandteile des Systems miteinander.
+            Im professionellen Bereich werden je nach Anwendung verriegelnde Verbindungselemente verwendet.
+          </p>
+          <p>
+            Auf vielen Karabinern stehen mehrere kN-Werte. Diese beziehen sich auf unterschiedliche
+            Belastungsrichtungen. Die höchste Festigkeit liegt normalerweise in der
+            <strong>Längsrichtung bei geschlossenem Schnapper</strong>. Querbelastung oder Belastung
+            bei geöffnetem Schnapper kann die Festigkeit erheblich reduzieren.
+          </p>
+          <div class="kn-values-v39">
+            <div><strong>25 kN</strong><span>Längsachse*</span></div>
+            <div><strong>8 kN</strong><span>Querachse*</span></div>
+            <div><strong>7 kN</strong><span>Schnapper offen*</span></div>
+          </div>
+          <p class="term-small-v39">
+            *Beispiel Petzl OK. Andere Modelle haben andere Werte. Maßgeblich ist immer die Markierung und Gebrauchsanleitung des konkreten Karabiners.
+          </p>
+        </div>
+      </details>
+
+      <details class="term-pro-card-v39 reveal">
+        <summary>
+          <span class="term-no-v39">06</span>
+          <span class="term-name-v39">Abseilgerät</span>
+          <span class="term-badge-v39">Seilkontrolle</span>
+          <span class="term-plus-v39">+</span>
+        </summary>
+        <div class="term-body-v39">
+          <p>
+            Ein Abseilgerät ermöglicht die kontrollierte Bewegung nach unten und kann je nach Gerät
+            zusätzlich zur Arbeitsplatzpositionierung verwendet werden. Dabei wird das Seil durch das
+            Gerät geführt und die Geschwindigkeit kontrolliert.
+          </p>
+          <p>
+            Wichtig ist, dass ein Abseilgerät nicht einfach nach einer möglichst hohen kN-Zahl ausgewählt
+            wird. Entscheidend sind unter anderem zugelassener Seildurchmesser, maximale Nutzlast,
+            Gerätekategorie, Norm, Bedienweise und die vom Hersteller vorgesehenen Einsatzbedingungen.
+          </p>
+          <div class="term-tech-v39">
+            <strong>Merke</strong>
+            <span>Bei Geräten sind zulässige Lastbereiche und Systemfreigaben oft aussagekräftiger als eine einzelne Bruchlastangabe.</span>
+          </div>
+        </div>
+      </details>
+
+      <details class="term-pro-card-v39 reveal">
+        <summary>
+          <span class="term-no-v39">07</span>
+          <span class="term-name-v39">Auffanggerät</span>
+          <span class="term-badge-v39">Sicherungsgerät</span>
+          <span class="term-plus-v39">+</span>
+        </summary>
+        <div class="term-body-v39">
+          <p>
+            Ein mitlaufendes Auffanggerät wird am Sicherungsseil geführt und bewegt sich bei normaler
+            Bewegung mit. Kommt es zu einer schnellen unkontrollierten Bewegung oder einem Sturz,
+            kann das Gerät blockieren und das Auffangsystem aktivieren.
+          </p>
+          <p>
+            Das Auffanggerät ist Teil eines Gesamtsystems. Dazu gehören Seil, Verbindungsmittel,
+            Auffanggurt, Anschlagpunkte und gegebenenfalls ein energieabsorbierendes Element.
+            Die Belastungswerte einzelner Komponenten dürfen deshalb nicht isoliert betrachtet werden.
+          </p>
+          <div class="term-tech-v39">
+            <strong>Systemgedanke</strong>
+            <span>Entscheidend ist nicht „wie viel kN das Gerät hält“, sondern ob das komplette System in der vorgesehenen Kombination zugelassen und korrekt eingesetzt ist.</span>
+          </div>
+        </div>
+      </details>
+
+      <details class="term-pro-card-v39 reveal">
+        <summary>
+          <span class="term-no-v39">08</span>
+          <span class="term-name-v39">Positionierung</span>
+          <span class="term-badge-v39">Arbeitsplatz</span>
+          <span class="term-plus-v39">+</span>
+        </summary>
+        <div class="term-body-v39">
+          <p>
+            Arbeitsplatzpositionierung bedeutet, den Körper so zu sichern und auszurichten, dass eine
+            Tätigkeit kontrolliert ausgeführt werden kann. Dafür können je nach Situation Seil,
+            Verbindungsmittel oder spezielle Positionierungssysteme eingesetzt werden.
+          </p>
+          <p>
+            Eine gute Positionierung entlastet nicht nur den Körper, sondern hilft auch dabei, Werkzeug
+            sicher zu bedienen und unkontrollierte Pendelbewegungen zu vermeiden. Sie ersetzt jedoch
+            nicht automatisch ein erforderliches unabhängiges Sicherungssystem.
+          </p>
+        </div>
+      </details>
+
+      <details class="term-pro-card-v39 reveal">
+        <summary>
+          <span class="term-no-v39">09</span>
+          <span class="term-name-v39">Seilzugang</span>
+          <span class="term-badge-v39">Zugangstechnik</span>
+          <span class="term-plus-v39">+</span>
+        </summary>
+        <div class="term-body-v39">
+          <p>
+            Beim seilunterstützten Zugang werden Arbeitsplätze mithilfe von Seilen erreicht.
+            Diese Technik ist besonders sinnvoll, wenn Bereiche mit Gerüst, Hubarbeitsbühne oder anderen
+            Zugangswegen nur schwer, sehr aufwendig oder gar nicht erreichbar sind.
+          </p>
+          <p>
+            Der Vorteil liegt in der Flexibilität: Industriekletterer können sich an komplexen
+            Konstruktionen bewegen, Arbeitspositionen wechseln und Material mitführen oder separat
+            transportieren. Gleichzeitig erfordert die Methode eine klare Einsatzplanung,
+            Gefährdungsbeurteilung, Rettungsplanung und ausgebildetes Personal.
+          </p>
+        </div>
+      </details>
+
+      <details class="term-pro-card-v39 reveal">
+        <summary>
+          <span class="term-no-v39">10</span>
+          <span class="term-name-v39">Sekurant</span>
+          <span class="term-badge-v39">Anschlageinrichtung</span>
+          <span class="term-plus-v39">+</span>
+        </summary>
+        <div class="term-body-v39">
+          <p>
+            „Sekurant“ wird im Alltag häufig als Bezeichnung für dauerhaft am Gebäude installierte
+            Anschlageinrichtungen verwendet. Solche Systeme findet man zum Beispiel auf Dächern,
+            an Fassaden oder technischen Anlagen.
+          </p>
+          <p>
+            Ob und wie ein Sekurant genutzt werden darf, hängt von seiner Zulassung, seinem Zustand,
+            der Dokumentation, dem vorgesehenen Einsatzzweck und der jeweiligen Systemplanung ab.
+            Eine optisch massive Befestigung ist nicht automatisch ein geeigneter Anschlagpunkt.
+          </p>
+          <div class="term-tech-v39">
+            <strong>Wichtig bei kN</strong>
+            <span>Die Belastbarkeit darf nicht geschätzt werden. Herstellerunterlagen, Kennzeichnung, Prüfung und das konkrete Anschlagsystem sind entscheidend.</span>
+          </div>
+        </div>
+      </details>
+
+      <details class="term-pro-card-v39 reveal">
+        <summary>
+          <span class="term-no-v39">11</span>
+          <span class="term-name-v39">PSAgA</span>
+          <span class="term-badge-v39">Absturzschutz</span>
+          <span class="term-plus-v39">+</span>
+        </summary>
+        <div class="term-body-v39">
+          <p>
+            PSAgA bedeutet <strong>Persönliche Schutzausrüstung gegen Absturz</strong>. Dazu zählen
+            je nach Anwendung zum Beispiel Auffanggurte, Verbindungsmittel, Verbindungselemente,
+            Auffanggeräte und weitere Komponenten eines persönlichen Absturzschutzsystems.
+          </p>
+          <p>
+            PSAgA ist keine einzelne Ausrüstung, sondern ein abgestimmtes System. Komponenten müssen
+            miteinander kompatibel sein und entsprechend der Herstellerangaben verwendet, geprüft
+            und dokumentiert werden. Verschleiß, Sturzbelastung, chemische Einflüsse, Hitze oder
+            Beschädigungen können die weitere Verwendung beeinflussen.
+          </p>
+        </div>
+      </details>
+
+      <details class="term-pro-card-v39 reveal">
+        <summary>
+          <span class="term-no-v39">12</span>
+          <span class="term-name-v39">Steigklemme</span>
+          <span class="term-badge-v39">Aufstieg</span>
+          <span class="term-plus-v39">+</span>
+        </summary>
+        <div class="term-body-v39">
+          <p>
+            Eine Steigklemme ist so konstruiert, dass sie sich in einer Richtung am Seil verschieben
+            lässt und bei Belastung in die andere Richtung greift. Dadurch kann sie beim Aufstieg
+            am Seil oder in bestimmten Zug- und Positionierungssystemen eingesetzt werden.
+          </p>
+          <p>
+            Auch bei einer Steigklemme ist die zulässige Nutzung nicht mit einer einfachen
+            „Bruchlast in kN“ beschrieben. Entscheidend sind unter anderem Seildurchmesser,
+            Gerätezulassung, Belastungsrichtung und die konkrete Systemkonfiguration.
+          </p>
+        </div>
+      </details>
+
+      <details class="term-pro-card-v39 reveal">
+        <summary>
+          <span class="term-no-v39">13</span>
+          <span class="term-name-v39">Prusik</span>
+          <span class="term-badge-v39">Klemmknoten</span>
+          <span class="term-plus-v39">+</span>
+        </summary>
+        <div class="term-body-v39">
+          <p>
+            Der Prusik ist ein Klemmknoten, der sich bei Belastung am Seil festzieht und sich im
+            unbelasteten Zustand verschieben lässt. Er kann – abhängig von Material, Durchmessern,
+            System und Ausbildung – für verschiedene Hilfs-, Sicherungs- oder Rettungstechniken
+            verwendet werden.
+          </p>
+          <p>
+            Für einen Prusik gibt es keinen universellen kN-Wert. Die tatsächliche Festigkeit hängt
+            unter anderem von der verwendeten Reepschnur, dem Hauptseil, dem Durchmesserverhältnis,
+            dem Knoten, der Anzahl der Wicklungen und dem Zustand des Materials ab.
+          </p>
+        </div>
+      </details>
+
+      <details class="term-pro-card-v39 reveal">
+        <summary>
+          <span class="term-no-v39">14</span>
+          <span class="term-name-v39">Bruchlast</span>
+          <span class="term-badge-v39">z. B. 25 kN</span>
+          <span class="term-plus-v39">+</span>
+        </summary>
+        <div class="term-body-v39">
+          <p>
+            Die Bruchlast beschreibt die Kraft, bei der ein Bauteil in einer definierten Prüfung
+            versagt. Sie ist <strong>nicht</strong> dasselbe wie eine zulässige Arbeitslast und darf
+            nicht als Freigabe verstanden werden, ein entsprechendes „Gewicht“ daran aufzuhängen.
+          </p>
+          <p>
+            Ein Karabiner mit einer Kennzeichnung von beispielsweise 25 kN in Längsrichtung besitzt
+            unter den festgelegten Prüfbedingungen eine entsprechend hohe Festigkeit in genau dieser
+            Belastungsrichtung. Querbelastung, offener Schnapper, Kanten, Alterung oder falsche
+            Anwendung können die Situation grundlegend verändern.
+          </p>
+          <div class="kn-values-v39">
+            <div><strong>1 kN</strong><span>≈ 100 kg Gewichtskraft</span></div>
+            <div><strong>10 kN</strong><span>≈ 1.000 kg Gewichtskraft</span></div>
+            <div><strong>25 kN</strong><span>≈ 2.500 kg Gewichtskraft</span></div>
+          </div>
+          <p class="term-small-v39">
+            Die Umrechnung ist bewusst nur eine grobe Vorstellung der Kraft. Sie ist keine zulässige Nutzlast.
+          </p>
+        </div>
+      </details>
+
     </div>
 
-    <div class="terms-grid-v37">
-      <details class="term-card-v37 reveal">
-        <summary><span>01</span><strong>Redundanz</strong><i>+</i></summary>
-        <div class="term-answer-v37">Redundanz bedeutet, dass sicherheitsrelevante Systeme nicht nur einmal vorhanden sind. Fällt ein System aus, soll ein unabhängiges zweites System weiterhin Sicherheit bieten.</div>
-      </details>
-
-      <details class="term-card-v37 reveal">
-        <summary><span>02</span><strong>Anschlagpunkt</strong><i>+</i></summary>
-        <div class="term-answer-v37">Ein Anschlagpunkt ist eine geeignete Stelle oder Einrichtung, an der das Seilsystem beziehungsweise die persönliche Schutzausrüstung gegen Absturz befestigt wird.</div>
-      </details>
-
-      <details class="term-card-v37 reveal">
-        <summary><span>03</span><strong>Arbeitsseil</strong><i>+</i></summary>
-        <div class="term-answer-v37">Das Arbeitsseil wird für den eigentlichen Zugang und die Positionierung am Arbeitsplatz genutzt – zum Beispiel beim Auf- oder Abseilen.</div>
-      </details>
-
-      <details class="term-card-v37 reveal">
-        <summary><span>04</span><strong>Sicherungsseil</strong><i>+</i></summary>
-        <div class="term-answer-v37">Das Sicherungsseil gehört zum unabhängigen Sicherungssystem. Es dient dazu, die Person abzusichern, falls das Arbeitssystem versagt.</div>
-      </details>
-
-      <details class="term-card-v37 reveal">
-        <summary><span>05</span><strong>Abseilgerät</strong><i>+</i></summary>
-        <div class="term-answer-v37">Ein Abseilgerät ermöglicht eine kontrollierte Bewegung am Seil und wird unter anderem zum Abseilen und Positionieren eingesetzt.</div>
-      </details>
-
-      <details class="term-card-v37 reveal">
-        <summary><span>06</span><strong>Auffanggerät</strong><i>+</i></summary>
-        <div class="term-answer-v37">Ein mitlaufendes Auffanggerät bewegt sich am Sicherungsseil mit und kann bei einem Sturz beziehungsweise einer schnellen unkontrollierten Bewegung blockieren.</div>
-      </details>
-
-      <details class="term-card-v37 reveal">
-        <summary><span>07</span><strong>Positionierung</strong><i>+</i></summary>
-        <div class="term-answer-v37">Positionierung bedeutet, sich so am Arbeitsplatz zu sichern und auszurichten, dass die vorgesehene Tätigkeit kontrolliert ausgeführt werden kann.</div>
-      </details>
-
-      <details class="term-card-v37 reveal">
-        <summary><span>08</span><strong>Seilzugang</strong><i>+</i></summary>
-        <div class="term-answer-v37">Beim seilunterstützten Zugang werden Arbeitsplätze mithilfe von Seilen erreicht, wenn andere Zugangsarten ungeeignet oder aufwendig sind.</div>
-      </details>
-
-      <details class="term-card-v37 reveal">
-        <summary><span>09</span><strong>Sekurant</strong><i>+</i></summary>
-        <div class="term-answer-v37">Als Sekurant wird häufig eine dauerhaft am Bauwerk installierte Anschlageinrichtung bezeichnet, an der geeignete Sicherungssysteme angeschlagen werden können.</div>
-      </details>
-
-      <details class="term-card-v37 reveal">
-        <summary><span>10</span><strong>PSAgA</strong><i>+</i></summary>
-        <div class="term-answer-v37">PSAgA steht für „Persönliche Schutzausrüstung gegen Absturz“. Dazu gehören je nach Anwendung verschiedene Ausrüstungsteile und Systeme, die Personen vor Absturz schützen.</div>
-      </details>
-
-      <details class="term-card-v37 reveal">
-        <summary><span>11</span><strong>Steigklemme</strong><i>+</i></summary>
-        <div class="term-answer-v37">Eine Steigklemme greift das Seil in Belastungsrichtung und lässt sich in die andere Richtung verschieben. Sie wird unter anderem beim Aufstieg am Seil eingesetzt.</div>
-      </details>
-
-      <details class="term-card-v37 reveal">
-        <summary><span>12</span><strong>Prusik</strong><i>+</i></summary>
-        <div class="term-answer-v37">Der Prusik ist ein Klemmknoten. Je nach System und Anwendung kann er beispielsweise für Sicherungs-, Positionierungs- oder Hilfstechniken eingesetzt werden.</div>
-      </details>
-    </div>
-
-    <div class="terms-note-v37 reveal">
-      <strong>WICHTIG</strong>
-      <p>Die Erklärungen dienen nur als einfache Übersicht. Die sichere Anwendung von Seilzugangs- und Absturzsicherungssystemen erfordert eine entsprechende Ausbildung und Unterweisung.</p>
-    </div>
+    <aside class="terms-pro-note-v39 reveal">
+      <div class="terms-note-icon-v39">!</div>
+      <div>
+        <strong>WICHTIG ZU DEN kN-ANGABEN</strong>
+        <p>
+          Die genannten Zahlen sind keine pauschalen Werte für jede Ausrüstung. Wo konkrete Zahlen stehen,
+          sind sie als Produktbeispiele gekennzeichnet. Beim Petzl OK werden beispielsweise 25 kN längs,
+          8 kN quer und 7 kN bei geöffnetem Schnapper angegeben. Beim Petzl AXIS 11 mm werden unter anderem
+          19 kN mit Achterknoten und 22 kN mit vernähter Endverbindung angegeben. Für die tatsächliche
+          Verwendung gelten immer Kennzeichnung, Gebrauchsanleitung, Norm, Systemfreigabe und die
+          Beurteilung durch entsprechend ausgebildete Personen.
+        </p>
+      </div>
+    </aside>
   </div>
 </section>
+
 
 
 <section id="faq" class="faq-section-v29 reveal">
