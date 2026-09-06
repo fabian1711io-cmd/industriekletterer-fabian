@@ -8458,6 +8458,132 @@ a[href="#minigame"],[data-rope-target="minigame"]{display:none!important}
 @media(prefers-reduced-motion:reduce){.dare-v53 *{transition:none!important}}
 </style>
 
+
+<style id="wuerdest-du-dich-trauen-v54-smoother">
+#dareSceneV53{
+  overflow:hidden;
+  transform:translateZ(0);
+  will-change:transform,filter;
+}
+#dareSceneV53 .dare-building-v53,
+#dareSceneV53 .dare-ground-v53,
+#dareSceneV53 .dare-person-v53,
+#dareSceneV53 .dare-rope-v53,
+#dareSceneV53 .dare-sky-v53,
+#dareSceneV53 .dare-height-v53{
+  will-change:transform,opacity,filter;
+  transition:
+    transform 1.05s cubic-bezier(.16,1,.3,1),
+    opacity .75s ease,
+    filter .9s ease,
+    top 1.05s cubic-bezier(.16,1,.3,1),
+    height 1.05s cubic-bezier(.16,1,.3,1);
+}
+#dareSceneV53.is-changing{
+  transform:scale(1.012);
+}
+#dareSceneV53.is-changing .dare-sky-v53{
+  transform:scale(1.035);
+}
+#dareSceneV53 .dare-person-v53{
+  animation:dareFloatV54 3.8s ease-in-out infinite;
+}
+#dareSceneV53 .dare-rope-v53{
+  transform-origin:top center;
+  animation:dareRopeSwayV54 4.8s ease-in-out infinite;
+}
+#dareSceneV53 .dare-height-v53{
+  transition:
+    transform .55s cubic-bezier(.2,.8,.2,1),
+    opacity .4s ease;
+}
+#dareSceneV53.is-changing .dare-height-v53{
+  transform:translateY(-5px) scale(1.04);
+}
+#dareSceneV53[data-level="30"] .dare-person-v53{top:49%}
+#dareSceneV53[data-level="50"] .dare-person-v53{top:45%}
+#dareSceneV53[data-level="100"] .dare-person-v53{top:39%}
+#dareSceneV53[data-level="150"] .dare-person-v53{top:34%}
+#dareSceneV53[data-level="30"] .dare-rope-v53{height:58%}
+#dareSceneV53[data-level="50"] .dare-rope-v53{height:54%}
+#dareSceneV53[data-level="100"] .dare-rope-v53{height:48%}
+#dareSceneV53[data-level="150"] .dare-rope-v53{height:43%}
+#dareSceneV53[data-level="30"] .dare-ground-v53{
+  transform:translateY(16px) scale(.90);
+}
+#dareSceneV53[data-level="50"] .dare-ground-v53{
+  transform:translateY(34px) scale(.73);
+}
+#dareSceneV53[data-level="100"] .dare-ground-v53{
+  transform:translateY(62px) scale(.50);
+  filter:blur(.4px);
+}
+#dareSceneV53[data-level="150"] .dare-ground-v53{
+  transform:translateY(82px) scale(.34);
+  filter:blur(.8px);
+}
+#dareSceneV53[data-level="30"] .dare-building-v53{
+  transform:scaleX(.96) translateX(-2px);
+}
+#dareSceneV53[data-level="50"] .dare-building-v53{
+  transform:scaleX(.89) translateX(-4px);
+}
+#dareSceneV53[data-level="100"] .dare-building-v53{
+  transform:scaleX(.78) translateX(-7px);
+}
+#dareSceneV53[data-level="150"] .dare-building-v53{
+  transform:scaleX(.67) translateX(-10px);
+}
+#dareSceneV53[data-level="30"] .dare-sky-v53{transform:scale(1.015)}
+#dareSceneV53[data-level="50"] .dare-sky-v53{transform:scale(1.035)}
+#dareSceneV53[data-level="100"] .dare-sky-v53{transform:scale(1.065)}
+#dareSceneV53[data-level="150"] .dare-sky-v53{transform:scale(1.09)}
+.dare-result-v53{
+  transition:
+    opacity .35s ease,
+    transform .45s cubic-bezier(.16,1,.3,1),
+    color .35s ease;
+}
+.dare-result-v53.fade-out{
+  opacity:.15;
+  transform:translateY(6px);
+}
+.dare-result-v53.fade-in{
+  opacity:1;
+  transform:translateY(0);
+}
+.dare-buttons-v53 button{
+  will-change:transform;
+  transition:
+    transform .28s cubic-bezier(.16,1,.3,1),
+    background .25s ease,
+    color .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
+.dare-buttons-v53 button.active{
+  box-shadow:0 0 0 4px rgba(255,121,0,.12),0 8px 24px rgba(255,121,0,.18);
+}
+@keyframes dareFloatV54{
+  0%,100%{transform:translate3d(0,0,0) rotate(-1deg)}
+  50%{transform:translate3d(1px,-5px,0) rotate(1deg)}
+}
+@keyframes dareRopeSwayV54{
+  0%,100%{transform:rotate(-.35deg)}
+  50%{transform:rotate(.35deg)}
+}
+@media(max-width:700px){
+  #dareSceneV53 .dare-person-v53{animation-duration:4.4s}
+  #dareSceneV53 .dare-rope-v53{animation-duration:5.2s}
+}
+@media(prefers-reduced-motion:reduce){
+  #dareSceneV53 .dare-person-v53,
+  #dareSceneV53 .dare-rope-v53{
+    animation:none!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -11434,13 +11560,15 @@ document.addEventListener('click',function(e){
 </script>
 
 
-<script id="wuerdest-du-dich-trauen-js-v53">
+
+<script id="wuerdest-du-dich-trauen-js-v54">
 document.addEventListener("DOMContentLoaded",function(){
   const scene=document.getElementById("dareSceneV53");
   const number=document.getElementById("dareHeightV53");
   const result=document.getElementById("dareResultV53");
   const buttons=[...document.querySelectorAll(".dare-buttons-v53 button")];
   if(!scene||!number||!result||!buttons.length)return;
+
   const texts={
     10:"10 Meter – ein guter Anfang.",
     30:"30 Meter – jetzt wird es ernst.",
@@ -11448,20 +11576,63 @@ document.addEventListener("DOMContentLoaded",function(){
     100:"100 Meter – Respekt. Das ist echte Höhe.",
     150:"150 METER – DU WÜRDEST ES WAGEN."
   };
-  function setHeight(h,btn){
-    scene.dataset.level=h;
-    number.textContent=h;
-    result.textContent=texts[h];
-    buttons.forEach(b=>b.classList.toggle("active",b===btn));
-    result.classList.remove("flash");
-    void result.offsetWidth;
-    result.classList.add("flash");
-    setTimeout(()=>result.classList.remove("flash"),350);
+
+  let currentHeight=10;
+  let rafId=null;
+  let changeTimer=null;
+
+  function animateNumber(from,to,duration=800){
+    if(rafId) cancelAnimationFrame(rafId);
+    const start=performance.now();
+    const ease=t=>1-Math.pow(1-t,4);
+    function tick(now){
+      const p=Math.min(1,(now-start)/duration);
+      const value=Math.round(from+(to-from)*ease(p));
+      number.textContent=value;
+      if(p<1) rafId=requestAnimationFrame(tick);
+      else number.textContent=to;
+    }
+    rafId=requestAnimationFrame(tick);
   }
-  buttons.forEach(b=>b.addEventListener("click",()=>setHeight(b.dataset.height,b)));
-  setHeight("10",buttons[0]);
+
+  function setHeight(h,btn){
+    const target=Number(h);
+    if(target===currentHeight && scene.dataset.level===String(target)) return;
+
+    buttons.forEach(b=>b.classList.toggle("active",b===btn));
+    scene.classList.add("is-changing");
+
+    result.classList.remove("fade-in");
+    result.classList.add("fade-out");
+
+    const old=currentHeight;
+    currentHeight=target;
+
+    requestAnimationFrame(()=>{
+      scene.dataset.level=String(target);
+      animateNumber(old,target,850);
+    });
+
+    clearTimeout(changeTimer);
+    changeTimer=setTimeout(()=>{
+      result.textContent=texts[target];
+      result.classList.remove("fade-out");
+      result.classList.add("fade-in");
+      scene.classList.remove("is-changing");
+    },420);
+  }
+
+  buttons.forEach(b=>{
+    b.addEventListener("click",()=>setHeight(b.dataset.height,b));
+  });
+
+  scene.dataset.level="10";
+  number.textContent="10";
+  buttons[0].classList.add("active");
+  result.classList.add("fade-in");
 });
 </script>
+
 
 </body>
 </html>
