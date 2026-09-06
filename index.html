@@ -6874,6 +6874,71 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
 }
 </style>
 
+
+<style id="equipment-warning-textonly-v9">
+.equipment-warning{
+  grid-template-columns:1fr !important;
+  text-align:center;
+  padding:24px 26px !important;
+}
+.equipment-warning-icon{display:none !important}
+.equipment-warning-copy strong{
+  font-size:clamp(26px,4vw,40px) !important;
+  letter-spacing:.08em !important;
+}
+.equipment-warning-copy p{
+  max-width:900px;
+  margin:0 auto !important;
+  font-size:clamp(15px,1.9vw,19px) !important;
+}
+</style>
+
+
+<style id="rope-content-gap-4mm-v10">
+:root{--rope-safe-gap:15px}
+
+/* Mehr Abstand zwischen dem rechten Seil und allen Seiteninhalten */
+@media (min-width:701px){
+  section > .container,
+  section > .wrap,
+  section > .section-inner,
+  .equipment-poster-wrap,
+  .belt-parts-wrap,
+  main > section > div:not(.moving-climber):not(.rope-side):not(.rope-wrap){
+    max-width:calc(100% - 54px) !important;
+  }
+
+  .equipment-poster-wrap{
+    width:min(calc(100% - 54px),1040px) !important;
+    margin-left:auto !important;
+    margin-right:54px !important;
+  }
+
+  /* Bilder/Galerien dürfen nie bis an das Seil laufen */
+  .project-grid,
+  .gallery-grid,
+  .social-grid,
+  .day-timeline,
+  .fisat-grid,
+  .qualification-grid{
+    margin-right:var(--rope-safe-gap) !important;
+  }
+}
+
+/* Auf dem Handy ebenfalls etwas Luft zum Seil */
+@media (max-width:700px){
+  .equipment-poster-wrap,
+  .belt-parts-wrap{
+    width:calc(100% - 22px) !important;
+    margin-left:6px !important;
+    margin-right:16px !important;
+  }
+  section img:not(.equipment-poster-image){
+    max-width:calc(100% - var(--rope-safe-gap)) !important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -7329,7 +7394,6 @@ body.scroll-climber-entered:not(.scroll-climber-handoff) .moving-climber{
 
 
 <div class="equipment-warning reveal" role="note" aria-label="Wichtiger Sicherheitshinweis">
-  <div class="equipment-warning-icon">⚠</div>
   <div class="equipment-warning-copy">
     <strong>WICHTIG</strong>
     <p>Die gezeigte Ausrüstung ist nur ein Beispiel. Arbeiten in der Höhe erfordern die entsprechende Ausbildung und die Einhaltung der geltenden Sicherheitsvorschriften.</p>
