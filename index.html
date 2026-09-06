@@ -7514,6 +7514,111 @@ section:not(.hero) > .section-inner{
 }
 </style>
 
+
+<style id="equipment-hotspot-click-fix-v21">
+.equipment-reference-board{
+  position:relative !important;
+}
+.equipment-reference-board > img{
+  position:relative !important;
+  z-index:1 !important;
+  pointer-events:none !important;
+}
+.equipment-poster-hotspot{
+  position:absolute !important;
+  z-index:50 !important;
+  display:block !important;
+  width:7.2% !important;
+  aspect-ratio:1/1 !important;
+  transform:translate(-50%,-50%) !important;
+  border:0 !important;
+  border-radius:50% !important;
+  background:rgba(255,121,0,.001) !important;
+  cursor:pointer !important;
+  pointer-events:auto !important;
+  touch-action:manipulation !important;
+  -webkit-tap-highlight-color:transparent !important;
+}
+.equipment-poster-hotspot:active{
+  background:rgba(255,121,0,.18) !important;
+}
+@media(max-width:700px){
+  .equipment-poster-hotspot{
+    width:9.5% !important;
+  }
+}
+</style>
+
+
+<style id="equipment-popup-style-v21">
+.equipment-popup-v21{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.equipment-popup-v21.open{display:flex}
+.equipment-popup-backdrop-v21{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
+}
+.equipment-popup-card-v21{
+  position:relative;
+  z-index:2;
+  width:min(92vw,480px);
+  background:#0d0d0d;
+  border:1px solid rgba(255,121,0,.55);
+  border-radius:18px;
+  padding:26px 24px 24px;
+  box-shadow:0 20px 70px rgba(0,0,0,.65),0 0 30px rgba(255,121,0,.12);
+  color:#fff;
+}
+.equipment-popup-num-v21{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:42px;
+  height:42px;
+  padding:0 12px;
+  border-radius:999px;
+  background:#ff7900;
+  color:#050505;
+  font-weight:900;
+  margin-bottom:14px;
+}
+.equipment-popup-card-v21 h3{
+  margin:0 40px 10px 0;
+  font-size:clamp(24px,4vw,34px);
+  line-height:1.05;
+}
+.equipment-popup-card-v21 p{
+  margin:0;
+  color:#d7d7d7;
+  line-height:1.55;
+  font-size:16px;
+}
+.equipment-popup-close-v21{
+  position:absolute;
+  right:14px;
+  top:12px;
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:#1b1b1b;
+  color:#fff;
+  font-size:26px;
+  line-height:1;
+  cursor:pointer;
+}
+</style>
+
 </head>
 <body>
 
@@ -10028,39 +10133,62 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 
 
-<script id="equipment-reference-poster-js-v20">
-(()=>{
-  const modal=document.getElementById('beltInfoModal');
-  if(!modal)return;
-  const num=document.getElementById('beltInfoNum');
-  const title=document.getElementById('beltInfoTitle');
-  const text=document.getElementById('beltInfoText');
 
-  const openModal=(btn)=>{
-    num.textContent=btn.dataset.num||'';
-    title.textContent=btn.dataset.title||'Ausrüstung';
-    text.textContent=btn.dataset.desc||'';
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden','false');
+
+
+
+<div id="equipmentPopupV21" class="equipment-popup-v21" aria-hidden="true">
+  <div class="equipment-popup-backdrop-v21"></div>
+  <div class="equipment-popup-card-v21" role="dialog" aria-modal="true" aria-labelledby="equipmentPopupTitleV21">
+    <button class="equipment-popup-close-v21" type="button" aria-label="Schließen">×</button>
+    <div class="equipment-popup-num-v21" id="equipmentPopupNumV21"></div>
+    <h3 id="equipmentPopupTitleV21"></h3>
+    <p id="equipmentPopupTextV21"></p>
+  </div>
+</div>
+
+
+<script id="equipment-hotspot-click-js-v21">
+document.addEventListener('DOMContentLoaded',()=>{
+  const popup=document.getElementById('equipmentPopupV21');
+  const num=document.getElementById('equipmentPopupNumV21');
+  const title=document.getElementById('equipmentPopupTitleV21');
+  const text=document.getElementById('equipmentPopupTextV21');
+  if(!popup || !num || !title || !text) return;
+
+  const openPopup=(btn)=>{
+    num.textContent=btn.dataset.num || '';
+    title.textContent=btn.dataset.title || 'Ausrüstung';
+    text.textContent=btn.dataset.desc || '';
+    popup.classList.add('open');
+    popup.setAttribute('aria-hidden','false');
     document.body.style.overflow='hidden';
   };
 
-  const close=()=>{
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden','true');
+  const closePopup=()=>{
+    popup.classList.remove('open');
+    popup.setAttribute('aria-hidden','true');
     document.body.style.overflow='';
   };
 
-  document.querySelectorAll('.equipment-poster-hotspot').forEach(btn=>{
-    btn.addEventListener('click',()=>openModal(btn));
+  document.addEventListener('click',(e)=>{
+    const btn=e.target.closest('.equipment-poster-hotspot');
+    if(btn){
+      e.preventDefault();
+      e.stopPropagation();
+      openPopup(btn);
+      return;
+    }
+    if(e.target.closest('.equipment-popup-close-v21') || e.target.classList.contains('equipment-popup-backdrop-v21')){
+      closePopup();
+    }
+  },true);
+
+  document.addEventListener('keydown',(e)=>{
+    if(e.key==='Escape' && popup.classList.contains('open')) closePopup();
   });
-
-  modal.querySelector('.belt-info-close')?.addEventListener('click',close);
-  modal.querySelector('.belt-info-backdrop')?.addEventListener('click',close);
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
-})();
+});
 </script>
-
 
 </body>
 </html>
