@@ -8342,6 +8342,68 @@ html{
 }
 </style>
 
+
+<style id="equipment-warning-compact-v51">
+.equipment-warning-v24{
+  position:relative!important;
+  box-sizing:border-box!important;
+  width:min(760px,calc(100% - 40px))!important;
+  margin:18px auto 34px!important;
+  padding:14px 16px!important;
+  gap:12px!important;
+  min-height:0!important;
+  border:4px solid transparent!important;
+  border-radius:10px!important;
+  background:
+    linear-gradient(#f4c400,#f4c400) padding-box,
+    repeating-linear-gradient(
+      135deg,
+      #111 0 14px,
+      #111 14px 24px,
+      #f4c400 24px 38px,
+      #f4c400 38px 48px
+    ) border-box!important;
+  box-shadow:0 10px 28px rgba(0,0,0,.28)!important;
+}
+.equipment-warning-v24 .warning-triangle-v24{
+  flex:0 0 42px!important;
+  width:42px!important;
+  height:42px!important;
+  min-width:42px!important;
+}
+.equipment-warning-v24 .warning-copy-v24 strong{
+  font-size:16px!important;
+  letter-spacing:.08em!important;
+}
+.equipment-warning-v24 .warning-copy-v24 p{
+  margin:4px 0 0!important;
+  font-size:12px!important;
+  line-height:1.45!important;
+}
+@media(max-width:700px){
+  .equipment-warning-v24{
+    width:min(88%,420px)!important;
+    margin:14px auto 28px!important;
+    padding:11px 12px!important;
+    gap:10px!important;
+    border-width:3px!important;
+    border-radius:9px!important;
+  }
+  .equipment-warning-v24 .warning-triangle-v24{
+    flex-basis:36px!important;
+    width:36px!important;
+    height:36px!important;
+    min-width:36px!important;
+  }
+  .equipment-warning-v24 .warning-copy-v24 strong{
+    font-size:14px!important;
+  }
+  .equipment-warning-v24 .warning-copy-v24 p{
+    font-size:11px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -8604,6 +8666,14 @@ html{
     </div>
   </div>
 </section>
+<div class="equipment-warning-v24" role="alert">
+  <div class="warning-triangle-v24" aria-hidden="true"><span>!</span></div>
+  <div class="warning-copy-v24">
+    <strong>ACHTUNG</strong>
+    <p>Die gezeigte Ausrüstung darf nur von entsprechend ausgebildeten und unterwiesenen Personen verwendet werden. Anwendung und Einsatz müssen nach den geltenden Sicherheitsvorschriften und den Vorgaben des jeweiligen Herstellers erfolgen.</p>
+  </div>
+</div>
+
 
 
 
@@ -9284,13 +9354,8 @@ html{
 
 
 
-<div class="equipment-warning-v24" role="alert">
-  <div class="warning-triangle-v24" aria-hidden="true"><span>!</span></div>
-  <div class="warning-copy-v24">
-    <strong>ACHTUNG</strong>
-    <p>Die gezeigte Ausrüstung darf nur von entsprechend ausgebildeten und unterwiesenen Personen verwendet werden. Anwendung und Einsatz müssen nach den geltenden Sicherheitsvorschriften und den Vorgaben des jeweiligen Herstellers erfolgen.</p>
-  </div>
-</div>
+
+
 <section id="minigame" class="climb-game-section">
   <div class="climb-game-wrap">
     <div class="climb-game-head reveal">
