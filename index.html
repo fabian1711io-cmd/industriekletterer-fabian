@@ -8660,6 +8660,7 @@ a[href="#minigame"],[data-rope-target="minigame"]{display:none!important}
     <button type="button" data-lang-v57="pl">🇵🇱 Polski</button>
     <button type="button" data-lang-v57="it">🇮🇹 Italiano</button>
     <button type="button" data-lang-v57="tr">🇹🇷 Türkçe</button>
+    <button type="button" data-lang-v57="hi">🇮🇳 हिन्दी (Hindi)</button>
   </div>
 </div>
 <!-- /Sprachwahl v57 -->
@@ -11720,7 +11721,7 @@ document.addEventListener('click',function(e){
  if(!root)return;
  const trigger=root.querySelector('.language-button-v57');
  const menu=root.querySelector('.language-menu-v57');
- const labels={de:'DE',en:'EN',nl:'NL',ru:'RU',fr:'FR',es:'ES',pl:'PL',it:'IT',tr:'TR'};
+ const labels={de:'DE',en:'EN',nl:'NL',ru:'RU',fr:'FR',es:'ES',pl:'PL',it:'IT',tr:'TR',hi:'HI'};
  trigger.addEventListener('click',function(e){
    e.stopPropagation();
    const open=menu.hasAttribute('hidden');
