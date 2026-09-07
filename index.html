@@ -8502,8 +8502,58 @@ a[href="#minigame"],[data-rope-target="minigame"]{display:none!important}
 }
 </style>
 
+
+<style id="language-switcher-v57-style">
+.language-switcher-v57{
+ position:fixed;top:14px;right:16px;z-index:99990;font-family:inherit
+}
+.language-button-v57{
+ height:42px;padding:0 13px;border:1px solid rgba(255,255,255,.18);
+ border-radius:999px;background:rgba(10,10,10,.82);backdrop-filter:blur(12px);
+ color:#fff;font-weight:900;display:flex;align-items:center;gap:7px;
+ box-shadow:0 8px 25px rgba(0,0,0,.3);cursor:pointer
+}
+.language-button-v57:hover{border-color:#ff7900}
+.language-arrow-v57{color:#ff7900;font-size:16px}
+.language-menu-v57{
+ position:absolute;right:0;top:50px;width:190px;padding:7px;
+ background:rgba(13,13,13,.97);border:1px solid #303030;border-radius:13px;
+ box-shadow:0 18px 45px rgba(0,0,0,.5)
+}
+.language-menu-v57 button{
+ width:100%;border:0;background:transparent;color:#eee;text-align:left;
+ padding:10px 11px;border-radius:8px;font:inherit;font-size:13px;cursor:pointer
+}
+.language-menu-v57 button:hover{background:#202020;color:#ff7900}
+@media(max-width:700px){
+ .language-switcher-v57{top:10px;right:10px}
+ .language-button-v57{height:38px;padding:0 11px}
+ .language-menu-v57{top:45px;width:175px;max-height:70vh;overflow:auto}
+}
+</style>
+
 </head>
 <body>
+
+<!-- Sprachwahl v57 -->
+<div class="language-switcher-v57" aria-label="Sprache auswählen">
+  <button class="language-button-v57" type="button" aria-expanded="false" aria-controls="language-menu-v57">
+    <span aria-hidden="true">🌐</span><span>DE</span><span class="language-arrow-v57">⌄</span>
+  </button>
+  <div class="language-menu-v57" id="language-menu-v57" hidden>
+    <button type="button" data-lang-v57="de">🇩🇪 Deutsch</button>
+    <button type="button" data-lang-v57="en">🇬🇧 English</button>
+    <button type="button" data-lang-v57="nl">🇳🇱 Nederlands</button>
+    <button type="button" data-lang-v57="ru">🇷🇺 Русский</button>
+    <button type="button" data-lang-v57="fr">🇫🇷 Français</button>
+    <button type="button" data-lang-v57="es">🇪🇸 Español</button>
+    <button type="button" data-lang-v57="pl">🇵🇱 Polski</button>
+    <button type="button" data-lang-v57="it">🇮🇹 Italiano</button>
+    <button type="button" data-lang-v57="tr">🇹🇷 Türkçe</button>
+  </div>
+</div>
+<!-- /Sprachwahl v57 -->
+
 
 
 <!-- INTRO-START -->
@@ -11552,6 +11602,43 @@ document.addEventListener('click',function(e){
 </script>
 
 
+
+
+<script id="language-switcher-v57-js">
+(function(){
+ const root=document.querySelector('.language-switcher-v57');
+ if(!root)return;
+ const trigger=root.querySelector('.language-button-v57');
+ const menu=root.querySelector('.language-menu-v57');
+ const labels={de:'DE',en:'EN',nl:'NL',ru:'RU',fr:'FR',es:'ES',pl:'PL',it:'IT',tr:'TR'};
+ trigger.addEventListener('click',function(e){
+   e.stopPropagation();
+   const open=menu.hasAttribute('hidden');
+   if(open) menu.removeAttribute('hidden'); else menu.setAttribute('hidden','');
+   trigger.setAttribute('aria-expanded',open?'true':'false');
+ });
+ document.addEventListener('click',function(){
+   menu.setAttribute('hidden','');
+   trigger.setAttribute('aria-expanded','false');
+ });
+ menu.addEventListener('click',function(e){
+   const b=e.target.closest('[data-lang-v57]');
+   if(!b)return;
+   e.stopPropagation();
+   const lang=b.getAttribute('data-lang-v57');
+   if(lang==='de'){
+     location.href='https://fabian1711io-cmd.github.io/industriekletterer-fabian/';
+     return;
+   }
+   const page='https://fabian1711io-cmd.github.io/industriekletterer-fabian/';
+   const translate='https://translate.google.com/translate?sl=de&tl='+encodeURIComponent(lang)+'&u='+encodeURIComponent(page);
+   window.open(translate,'_blank','noopener');
+   trigger.querySelectorAll('span')[1].textContent=labels[lang]||lang.toUpperCase();
+   menu.setAttribute('hidden','');
+   trigger.setAttribute('aria-expanded','false');
+ });
+})();
+</script>
 
 </body>
 </html>
