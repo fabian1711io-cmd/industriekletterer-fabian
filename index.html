@@ -8620,6 +8620,28 @@ a[href="#minigame"],[data-rope-target="minigame"]{display:none!important}
 }
 </style>
 
+
+<style id="language-switcher-after-intro-v61">
+/* Etwas tiefer + erst nach dem Intro weich einblenden */
+.language-switcher-v57{
+  top:98px!important;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(-10px);
+  transition:opacity .65s ease, transform .65s ease, visibility .65s ease;
+}
+.language-switcher-v57.language-visible-v61{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+@media(max-width:700px){
+  .language-switcher-v57{
+    top:88px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -11725,6 +11747,27 @@ document.addEventListener('click',function(e){
    menu.setAttribute('hidden','');
    trigger.setAttribute('aria-expanded','false');
  });
+})();
+</script>
+
+
+<script id="language-switcher-after-intro-v61-js">
+(function(){
+  const lang=document.querySelector('.language-switcher-v57');
+  if(!lang)return;
+
+  function showLanguage(){
+    lang.classList.add('language-visible-v61');
+  }
+
+  // Intro zuerst wirken lassen, danach Sprachwahl einblenden.
+  if(document.readyState === 'complete'){
+    setTimeout(showLanguage, 2200);
+  } else {
+    window.addEventListener('load', function(){
+      setTimeout(showLanguage, 2200);
+    }, {once:true});
+  }
 })();
 </script>
 
