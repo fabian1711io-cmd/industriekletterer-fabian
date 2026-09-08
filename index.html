@@ -8802,6 +8802,30 @@ a[href="#minigame"],[data-rope-target="minigame"]{display:none!important}
 @media(max-width:800px){#shop .shop-products,#shop .shop-system{grid-template-columns:1fr}}
 </style>
 
+
+<style id="jumpbar-shop-fix-v64">
+/* Fix für Schnellzugriff-Buttons */
+.shop-jump-full-v64{
+  grid-column:1 / -1 !important;
+  width:100% !important;
+  justify-self:stretch !important;
+}
+
+/* Verhindert sichtbare Leer-/Textreste in der Button-Leiste */
+.hero-jumpbar-v1,
+.hero-jumpbar,
+.quick-links,
+.quick-nav{
+  white-space:normal;
+}
+
+@media(max-width:620px){
+  .shop-jump-full-v64{
+    grid-column:1 / -1 !important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -9012,7 +9036,8 @@ a[href="#minigame"],[data-rope-target="minigame"]{display:none!important}
   <a href="#einsatzkarte"><span>●</span>Deutschlandkarte</a>
   <a href="#projects"><span>●</span>Projekte</a>
   <a href="#gurt-ausruestung"><span>●</span>Am Gurt</a>
-<a href="#kesselarbeiten">Kesselarbeiten</a>\n<a href="#shop">Shop · Coming Soon</a>
+<a href="#kesselarbeiten">Kesselarbeiten</a>
+<a href="#shop" class="shop-jump-full-v64">Shop · Coming Soon</a>
 <a href="#arbeitstag"><span>●</span>Arbeitstag</a>
   <a href="#was-ich-mache"><span>●</span>Arbeitsalltag</a>
   <a href="#fisat-levels"><span>●</span>FISAT Level</a>
