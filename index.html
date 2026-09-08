@@ -8778,6 +8778,30 @@ a[href="#minigame"],[data-rope-target="minigame"]{display:none!important}
 }
 </style>
 
+
+<style id="shop-coming-soon-v63-style">
+#shop{padding:80px 0;background:linear-gradient(180deg,#0b0b0b,#121212 50%,#0b0b0b);border-top:1px solid #222;border-bottom:1px solid #222}
+#shop .shop-wrap{width:min(1180px,calc(100% - 40px));margin:auto}
+#shop .shop-head{text-align:center;max-width:820px;margin:0 auto 40px}
+#shop .shop-kicker{color:#ff7900;font-size:12px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
+#shop h2{margin:10px 0;color:#fff;font-size:clamp(40px,6vw,72px)}
+#shop .shop-coming{display:inline-block;background:#ff7900;color:#090909;padding:9px 14px;border-radius:999px;font-weight:900;letter-spacing:.1em;font-size:12px}
+#shop .shop-lead{color:#bbb;line-height:1.7}
+#shop .shop-products{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:34px 0}
+#shop .shop-card,#shop .shop-panel{background:#151515;border:1px solid #262626;border-radius:16px;padding:22px}
+#shop .shop-card h3,#shop .shop-panel h3{color:#fff;margin:0 0 10px}
+#shop .shop-card p,#shop .shop-panel p{color:#aaa;line-height:1.6}
+#shop .shop-badge{display:inline-block;margin-top:16px;color:#ff9a3d;border:1px solid rgba(255,121,0,.35);padding:7px 10px;border-radius:8px;font-size:11px;font-weight:800}
+#shop .shop-system{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+#shop .shop-check{display:flex;gap:10px;color:#bbb;margin:12px 0;line-height:1.5}
+#shop .shop-check i{font-style:normal;background:#ff7900;color:#111;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-weight:900;flex:0 0 24px}
+#shop .shop-payments{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+#shop .shop-payments span{background:#0e0e0e;border:1px solid #2a2a2a;color:#eee;padding:9px 11px;border-radius:9px;font-size:12px}
+#shop .shop-disabled{width:100%;margin-top:18px;padding:14px;border:0;border-radius:10px;background:#2a2a2a;color:#888;font-weight:900}
+#shop .shop-note{margin-top:18px;padding:14px 16px;border-left:3px solid #ff7900;background:rgba(255,121,0,.06);color:#aaa;font-size:12px;line-height:1.6}
+@media(max-width:800px){#shop .shop-products,#shop .shop-system{grid-template-columns:1fr}}
+</style>
+
 </head>
 <body>
 
@@ -8988,7 +9012,7 @@ a[href="#minigame"],[data-rope-target="minigame"]{display:none!important}
   <a href="#einsatzkarte"><span>●</span>Deutschlandkarte</a>
   <a href="#projects"><span>●</span>Projekte</a>
   <a href="#gurt-ausruestung"><span>●</span>Am Gurt</a>
-<a href="#kesselarbeiten">Kesselarbeiten</a>
+<a href="#kesselarbeiten">Kesselarbeiten</a>\n<a href="#shop">Shop · Coming Soon</a>
 <a href="#arbeitstag"><span>●</span>Arbeitstag</a>
   <a href="#was-ich-mache"><span>●</span>Arbeitsalltag</a>
   <a href="#fisat-levels"><span>●</span>FISAT Level</a>
@@ -10333,6 +10357,43 @@ a[href="#minigame"],[data-rope-target="minigame"]{display:none!important}
 
 
 
+
+
+<section id="shop" class="reveal">
+  <div class="shop-wrap">
+    <div class="shop-head">
+      <div class="shop-kicker">NEU AUF DER WEBSITE</div>
+      <h2>SHOP</h2>
+      <div class="shop-coming">COMING SOON</div>
+      <p class="shop-lead">Hier entsteht mein eigener Shop. Geplant sind ausgewählte Produkte rund um meinen Content und meinen Arbeitsalltag. Verkauf und Bezahlfunktion werden erst zum offiziellen Start aktiviert.</p>
+    </div>
+
+    <div class="shop-products">
+      <article class="shop-card"><h3>👕 Shirts & Hoodies</h3><p>Platz für Produktbilder, Größen, Varianten, Beschreibung und Preise.</p><span class="shop-badge">IN VORBEREITUNG</span></article>
+      <article class="shop-card"><h3>🏷️ Sticker & Merch</h3><p>Eigene Designs und kleinere Merch-Artikel können hier später direkt angeboten werden.</p><span class="shop-badge">IN VORBEREITUNG</span></article>
+      <article class="shop-card"><h3>🧗 Weitere Produkte</h3><p>Der Bereich kann später um weitere Produkte oder Kooperationen erweitert werden.</p><span class="shop-badge">COMING SOON</span></article>
+    </div>
+
+    <div class="shop-system">
+      <article class="shop-panel">
+        <h3>Was vorbereitet ist</h3>
+        <div class="shop-check"><i>✓</i><div><b>Produkte & Varianten</b><br>Struktur für Bilder, Preise, Größen und Auswahlmöglichkeiten.</div></div>
+        <div class="shop-check"><i>✓</i><div><b>Warenkorb</b><br>Kann beim echten Shop-Start ergänzt werden.</div></div>
+        <div class="shop-check"><i>✓</i><div><b>Versand</b><br>Versandkosten und Lieferinformationen können hinterlegt werden.</div></div>
+        <div class="shop-check"><i>✓</i><div><b>Rechtliche Shop-Infos</b><br>Vor dem Verkauf müssen die nötigen Angaben für Datenschutz, Widerruf, Preise und Versand vollständig geprüft werden.</div></div>
+      </article>
+
+      <article class="shop-panel">
+        <h3>Geplante Bezahlung</h3>
+        <p>Die Zahlung wird später sicher über einen externen Zahlungsanbieter abgewickelt und nicht direkt in der HTML-Datei verarbeitet.</p>
+        <div class="shop-payments"><span>PayPal</span><span>Kredit-/Debitkarte</span><span>Stripe möglich</span></div>
+        <button class="shop-disabled" type="button" disabled>SHOP NOCH NICHT GEÖFFNET</button>
+      </article>
+    </div>
+
+    <div class="shop-note">Aktuell ist dies nur eine Vorschau. Es können noch keine Bestellungen aufgegeben oder Zahlungen durchgeführt werden.</div>
+  </div>
+</section>
 
 <section id="kooperation" class="coop-premium-section">
   <div class="wrap">
